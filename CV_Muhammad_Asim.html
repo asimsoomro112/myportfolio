@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Muhammad Asim — Full Stack Developer</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;600&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <style>
+        :root {
+            --bg: #070B14;
+            --surface: #0D1321;
+            --surface2: #111827;
+            --border: rgba(255, 255, 255, 0.07);
+            --border2: rgba(0, 245, 255, 0.15);
+            --cyan: #00F5FF;
+            --cyan-dim: rgba(0, 245, 255, 0.08);
+            --cyan-mid: rgba(0, 245, 255, 0.15);
+            --amber: #F59E0B;
+            --green: #6EE7A0;
+            --purple: #A78BFA;
+            --text: #E2E8F0;
+            --text-dim: #64748B;
+            --text-mid: #94A3B8;
+            --radius: 20px;
+            --radius-sm: 10px;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.65;
+            font-size: 14px;
+            min-height: 100vh;
+            padding: 40px 20px 60px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Subtle grid background */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(0, 245, 255, 0.025) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 245, 255, 0.025) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(16px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                box-shadow: 0 0 0 0 rgba(110, 231, 160, 0.4);
+            }
+
+            50% {
+                box-shadow: 0 0 0 6px rgba(110, 231, 160, 0);
+            }
+        }
+
+        @keyframes scanline {
+            0% {
+                transform: translateY(-100%);
+            }
+
+            100% {
+                transform: translateY(100vh);
+            }
+        }
+
+        /* ── WRAPPER ── */
+        .cv {
+            max-width: 960px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+            animation: fadeUp 0.6s ease both;
+        }
+
+        /* ── HEADER ── */
+        .header {
+            background: linear-gradient(135deg, #0D1321 0%, #111827 60%, #0f1a2e 100%);
+            border: 1px solid var(--border2);
+            border-radius: var(--radius);
+            padding: 40px;
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 36px;
+            align-items: center;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Glow orbs */
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -80px;
+            right: -80px;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(0, 245, 255, 0.12) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: -60px;
+            left: 100px;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(167, 139, 250, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        /* Profile image */
+        .profile-wrap {
+            position: relative;
+            z-index: 1;
+            flex-shrink: 0;
+        }
+
+        .profile-img {
+            width: 130px;
+            height: 160px;
+            border-radius: 16px;
+            object-fit: cover;
+            object-position: top;
+            border: 2px solid var(--border2);
+            box-shadow: 0 0 30px rgba(0, 245, 255, 0.15), 0 0 60px rgba(0, 245, 255, 0.05);
+            display: block;
+        }
+
+        /* Fallback avatar when no image */
+        .profile-placeholder {
+            width: 130px;
+            height: 160px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, #1a2744, #0f1f3d);
+            border: 2px solid var(--border2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 0 30px rgba(0, 245, 255, 0.1);
+        }
+
+        .profile-placeholder i {
+            font-size: 48px;
+            color: rgba(0, 245, 255, 0.3);
+        }
+
+        .profile-placeholder span {
+            font-size: 10px;
+            color: var(--text-dim);
+            font-family: 'JetBrains Mono', monospace;
+            letter-spacing: 0.1em;
+        }
+
+        .header-info {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Top badges */
+        .badge-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 14px;
+        }
+
+        .badge {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 5px 12px;
+            border-radius: 100px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .badge-avail {
+            background: rgba(110, 231, 160, 0.1);
+            border: 1px solid rgba(110, 231, 160, 0.25);
+            color: var(--green);
+        }
+
+        .badge-avail::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: var(--green);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        .badge-price {
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid rgba(245, 158, 11, 0.2);
+            color: var(--amber);
+        }
+
+        .badge-delivery {
+            background: rgba(0, 245, 255, 0.08);
+            border: 1px solid rgba(0, 245, 255, 0.15);
+            color: var(--cyan);
+        }
+
+        .header-name {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            line-height: 0.95;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+
+        .header-name span {
+            color: var(--cyan);
+        }
+
+        .header-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            font-weight: 400;
+            color: var(--text-mid);
+            letter-spacing: 0.08em;
+            margin-bottom: 20px;
+        }
+
+        .header-title .hl {
+            color: var(--cyan);
+        }
+
+        .contact-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+            padding-top: 18px;
+            border-top: 1px solid var(--border);
+        }
+
+        .c-item {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            color: var(--text-mid);
+            font-size: 13px;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .c-item:hover {
+            color: var(--cyan);
+        }
+
+        .c-item i {
+            color: var(--cyan);
+            font-size: 13px;
+            width: 14px;
+            text-align: center;
+        }
+
+        /* ── GRID LAYOUT ── */
+        .body-grid {
+            display: grid;
+            grid-template-columns: 1fr 280px;
+            gap: 20px;
+        }
+
+        /* ── CARDS ── */
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 32px;
+            margin-bottom: 20px;
+            animation: fadeUp 0.6s ease both;
+            position: relative;
+            overflow: hidden;
+            transition: border-color 0.3s;
+        }
+
+        .card:hover {
+            border-color: rgba(0, 245, 255, 0.15);
+        }
+
+        .card:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Section headers */
+        .sec-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--cyan);
+            margin-bottom: 4px;
+            opacity: 0.7;
+        }
+
+        .sec-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 22px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sec-title i {
+            color: var(--cyan);
+            font-size: 14px;
+        }
+
+        /* ── ABOUT ── */
+        .about-text {
+            color: var(--text-mid);
+            font-size: 14.5px;
+            line-height: 1.8;
+            font-weight: 300;
+        }
+
+        .about-text strong {
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        .hook {
+            margin-top: 18px;
+            background: var(--cyan-dim);
+            border: 1px solid var(--border2);
+            border-left: 3px solid var(--cyan);
+            border-radius: var(--radius-sm);
+            padding: 12px 16px;
+            font-size: 13px;
+            color: var(--cyan);
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+        }
+
+        .hook i {
+            margin-top: 1px;
+            flex-shrink: 0;
+        }
+
+        /* ── PROJECTS ── */
+        .project {
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 20px;
+            margin-bottom: 14px;
+            transition: all 0.25s ease;
+            position: relative;
+        }
+
+        .project::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 100%;
+            background: var(--cyan);
+            border-radius: 3px 0 0 3px;
+            transform: scaleY(0);
+            transform-origin: top;
+            transition: transform 0.3s ease;
+        }
+
+        .project:hover {
+            border-color: rgba(0, 245, 255, 0.2);
+            background: var(--surface2);
+        }
+
+        .project:hover::before {
+            transform: scaleY(1);
+        }
+
+        .project:last-child {
+            margin-bottom: 0;
+        }
+
+        .proj-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+        }
+
+        .proj-name {
+            font-family: 'Syne', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .proj-badge {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 3px 10px;
+            border-radius: 100px;
+            background: var(--cyan-dim);
+            border: 1px solid var(--border2);
+            color: var(--cyan);
+            white-space: nowrap;
+        }
+
+        .proj-badge.award {
+            background: rgba(245, 158, 11, 0.1);
+            border-color: rgba(245, 158, 11, 0.2);
+            color: var(--amber);
+        }
+
+        .proj-badge.live {
+            background: rgba(110, 231, 160, 0.08);
+            border-color: rgba(110, 231, 160, 0.2);
+            color: var(--green);
+        }
+
+        .proj-desc {
+            color: var(--text-mid);
+            font-size: 13px;
+            line-height: 1.7;
+            margin-bottom: 12px;
+        }
+
+        .tech-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 12px;
+        }
+
+        .tech {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10.5px;
+            font-weight: 400;
+            padding: 2px 9px;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border);
+            color: var(--text-mid);
+        }
+
+        .proj-links {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .link-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border-radius: 100px;
+            font-size: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+            border: 1px solid var(--border2);
+            color: var(--cyan);
+            background: var(--cyan-dim);
+        }
+
+        .link-btn:hover {
+            background: var(--cyan);
+            color: var(--bg);
+            border-color: var(--cyan);
+        }
+
+        .link-btn.ghost {
+            border-color: var(--border);
+            color: var(--text-mid);
+            background: transparent;
+        }
+
+        .link-btn.ghost:hover {
+            border-color: var(--text-mid);
+            color: #fff;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .link-btn.disabled {
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        /* ── SIDEBAR CARDS ── */
+        .sidebar .card {
+            padding: 24px;
+        }
+
+        /* Skills */
+        .skill-group {
+            margin-bottom: 20px;
+        }
+
+        .skill-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .skill-group-title {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-mid);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .skill-group-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        .skill-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: var(--text-mid);
+            padding: 6px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            transition: color 0.2s;
+        }
+
+        .skill-item:last-child {
+            border-bottom: none;
+        }
+
+        .skill-item:hover {
+            color: var(--text);
+        }
+
+        .skill-item::before {
+            content: '';
+            width: 4px;
+            height: 4px;
+            background: var(--cyan);
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        /* Education */
+        .edu-block {
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 16px;
+            margin-bottom: 14px;
+            transition: border-color 0.2s;
+        }
+
+        .edu-block:hover {
+            border-color: var(--border2);
+        }
+
+        .edu-block:last-child {
+            margin-bottom: 0;
+        }
+
+        .edu-deg {
+            font-family: 'Syne', sans-serif;
+            font-size: 13.5px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 4px;
+        }
+
+        .edu-school {
+            font-size: 12px;
+            color: var(--text-mid);
+            margin-bottom: 8px;
+        }
+
+        .edu-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--cyan);
+            background: var(--cyan-dim);
+            border: 1px solid var(--border2);
+            padding: 3px 10px;
+            border-radius: 100px;
+        }
+
+        /* Award */
+        .award-block {
+            background: rgba(245, 158, 11, 0.06);
+            border: 1px solid rgba(245, 158, 11, 0.15);
+            border-radius: var(--radius-sm);
+            padding: 14px;
+        }
+
+        .award-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--amber);
+            margin-bottom: 4px;
+        }
+
+        .award-desc {
+            font-size: 12px;
+            color: var(--text-mid);
+            line-height: 1.6;
+        }
+
+        /* Services */
+        .services-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        .service-tile {
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 12px 10px;
+            text-align: center;
+            transition: all 0.2s;
+            cursor: default;
+        }
+
+        .service-tile:hover {
+            border-color: var(--border2);
+            background: var(--cyan-dim);
+        }
+
+        .service-tile i {
+            display: block;
+            color: var(--cyan);
+            font-size: 16px;
+            margin-bottom: 6px;
+        }
+
+        .service-tile span {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-mid);
+            line-height: 1.3;
+            display: block;
+        }
+
+        /* ── CTA ── */
+        .cta-card {
+            background: linear-gradient(135deg, #0D1321 0%, #0f1e38 100%);
+            border: 1px solid var(--border2);
+            border-radius: var(--radius);
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            margin-top: 20px;
+        }
+
+        .cta-card::before {
+            content: '';
+            position: absolute;
+            top: -80px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(0, 245, 255, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .cta-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--cyan);
+            margin-bottom: 10px;
+            opacity: 0.7;
+        }
+
+        .cta-title {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(1.4rem, 3vw, 2rem);
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: -0.03em;
+            line-height: 1.2;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-sub {
+            color: var(--text-dim);
+            font-size: 13px;
+            margin-bottom: 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-sub strong {
+            color: var(--green);
+        }
+
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--cyan);
+            color: var(--bg);
+            font-family: 'Syne', sans-serif;
+            font-size: 14px;
+            font-weight: 800;
+            padding: 13px 32px;
+            border-radius: 100px;
+            text-decoration: none;
+            transition: all 0.25s;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-btn:hover {
+            background: #fff;
+            transform: scale(1.04);
+            box-shadow: 0 8px 30px rgba(0, 245, 255, 0.3);
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            text-align: center;
+            margin-top: 24px;
+            color: var(--text-dim);
+            font-size: 11.5px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 700px) {
+            .header {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .profile-wrap {
+                margin: 0 auto;
+            }
+
+            .badge-row,
+            .contact-row {
+                justify-content: center;
+            }
+
+            .body-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .services-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="cv">
+
+        <!-- ══ HEADER ══ -->
+        <div class="header">
+            <div class="profile-wrap">
+                <img src="passport-size.png" alt="Muhammad Asim" class="profile-img">
+            </div>
+
+            <div class="header-info">
+                <div class="badge-row">
+                    <span class="badge badge-avail">Available for Hire</span>
+                    <span class="badge badge-price"><i class="fa-solid fa-tag" style="font-size:9px;"></i> From
+                        $50</span>
+                    <span class="badge badge-delivery"><i class="fa-solid fa-bolt" style="font-size:9px;"></i> 48hr
+                        Delivery</span>
+                </div>
+
+                <h1 class="header-name">Muhammad <span>Asim</span></h1>
+
+                <p class="header-title">
+                    <span class="hl">~/</span> Full Stack Developer &nbsp;·&nbsp;
+                    <span class="hl">Firebase</span> &nbsp;·&nbsp;
+                    <span class="hl">E-commerce</span> &nbsp;·&nbsp;
+                    <span class="hl">Automation</span>
+                </p>
+
+                <div class="contact-row">
+                    <a class="c-item" href="mailto:soomroasim77@gmail.com">
+                        <i class="fa-solid fa-envelope"></i> soomroasim77@gmail.com
+                    </a>
+                    <a class="c-item" href="tel:+923191278505">
+                        <i class="fa-solid fa-phone"></i> +92 319 1278505
+                    </a>
+                    <span class="c-item">
+                        <i class="fa-solid fa-location-dot"></i> Karachi, Pakistan
+                    </span>
+                    <a class="c-item" href="https://github.com/yourusername" target="_blank">
+                        <i class="fa-brands fa-github"></i> GitHub
+                    </a>
+                    <a class="c-item" href="https://your-portfolio.com" target="_blank">
+                        <i class="fa-solid fa-globe"></i> Portfolio
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- ══ MAIN GRID ══ -->
+        <div class="body-grid">
+
+            <!-- LEFT COLUMN -->
+            <div class="main">
+
+                <!-- About -->
+                <div class="card">
+                    <p class="sec-label">// identity</p>
+                    <h2 class="sec-title"><i class="fa-solid fa-terminal"></i> Professional Summary</h2>
+                    <p class="about-text">
+                        High-performance <strong>Full Stack Developer</strong> building real-world, production-ready
+                        digital systems.
+                        I specialize in <strong>luxury e-commerce storefronts</strong>, <strong>Firebase-powered
+                            backends</strong>,
+                        <strong>admin dashboards</strong>, and <strong>automation tools</strong> — delivered fast,
+                        clean, and
+                        ready to launch. From B2B industrial platforms to cyberpunk lifestyle stores, I engineer
+                        solutions
+                        that look premium and convert clients.
+                    </p>
+                    <div class="hook">
+                        <i class="fa-solid fa-bolt"></i>
+                        <span>I provide <strong>ready-made systems</strong> customized and delivered for your business
+                            within
+                            <strong>24–48 hours</strong> — no waiting, no guesswork.</span>
+                    </div>
+                </div>
+
+                <!-- Projects -->
+                <div class="card">
+                    <p class="sec-label">// portfolio</p>
+                    <h2 class="sec-title"><i class="fa-solid fa-layer-group"></i> Featured Projects</h2>
+
+                    <!-- P1 -->
+                    <div class="project">
+                        <div class="proj-top">
+                            <div class="proj-name">🌾 Saqib Rice Mill — B2B Export Platform</div>
+                            <span class="proj-badge live">Live</span>
+                        </div>
+                        <p class="proj-desc">
+                            Sophisticated industrial portal for a global rice exporter with 37+ years of operations.
+                            Dynamic product filtering, B2B cart logic, and ISO/Halal certification showcase.
+                            Built with an Emerald &amp; Gold premium aesthetic.
+                        </p>
+                        <div class="tech-row">
+                            <span class="tech">Next.js</span><span class="tech">Firebase</span>
+                            <span class="tech">Tailwind</span><span class="tech">B2B Logic</span>
+                        </div>
+                        <div class="proj-links">
+                            <a href="https://saqibricemill.vercel.app" target="_blank" class="link-btn">
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i> Live Demo
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- P2 -->
+                    <div class="project">
+                        <div class="proj-top">
+                            <div class="proj-name">📊 Aura-QX — Institutional Fintech Tool</div>
+                            <span class="proj-badge live">Live</span>
+                        </div>
+                        <p class="proj-desc">
+                            Professional market analysis engine automating Smart Money Concepts (SMC) for traders.
+                            Real-time detection of Order Blocks, Fair Value Gaps, and a custom V3 scanning engine
+                            with institutional-grade data visualization.
+                        </p>
+                        <div class="tech-row">
+                            <span class="tech">SMC Automation</span><span class="tech">Real-time DB</span>
+                            <span class="tech">Algorithm Logic</span><span class="tech">High-Tech UI</span>
+                        </div>
+                        <div class="proj-links">
+                            <a href="https://auralandingp.vercel.app/" target="_blank" class="link-btn">
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i> Live Demo
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- P3 -->
+                    <div class="project">
+                        <div class="proj-top">
+                            <div class="proj-name">🌙 Sammar Fabrics — Noir Luxury Menswear</div>
+                            <span class="proj-badge live">Live</span>
+                        </div>
+                        <p class="proj-desc">
+                            Sophisticated Black &amp; Gold SPA for premium Pakistani unstitched fabrics.
+                            Collection-based navigation, complex inventory management, and smooth single-page
+                            transitions
+                            built for a luxury retail audience.
+                        </p>
+                        <div class="tech-row">
+                            <span class="tech">SPA Architecture</span><span class="tech">Luxury UI</span>
+                            <span class="tech">Inventory Engine</span><span class="tech">Responsive</span>
+                        </div>
+                        <div class="proj-links">
+                            <a href="https://sammarfabrics.netlify.app/" target="_blank" class="link-btn">
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i> Live Demo
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- P4 -->
+                    <div class="project">
+                        <div class="proj-top">
+                            <div class="proj-name">⚡ Smoke Time — Cyberpunk Lifestyle Store</div>
+                            <span class="proj-badge live">Live</span>
+                        </div>
+                        <p class="proj-desc">
+                            Futuristic storefront with neon pink/purple Orbitron typography system.
+                            Persistent shopping cart, product status indicators, and complex category filtering
+                            for a high-energy lifestyle brand.
+                        </p>
+                        <div class="tech-row">
+                            <span class="tech">React</span><span class="tech">Framer Motion</span>
+                            <span class="tech">Cyberpunk UI</span><span class="tech">Cart Logic</span>
+                        </div>
+                        <div class="proj-links">
+                            <a href="https://smoketime-five.vercel.app/" target="_blank" class="link-btn">
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i> Live Demo
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- P5 -->
+                    <div class="project">
+                        <div class="proj-top">
+                            <div class="proj-name">🍽️ Restaurant System &amp; Admin Panel</div>
+                            <span class="proj-badge">Ready-to-Deploy</span>
+                        </div>
+                        <p class="proj-desc">
+                            Complete restaurant management system with Firebase backend — admin panel for real-time
+                            menu management, image uploads, and content control. Customizable for any retail
+                            business and deliverable within 24 hours.
+                        </p>
+                        <div class="tech-row">
+                            <span class="tech">Firebase</span><span class="tech">Admin Dashboard</span>
+                            <span class="tech">Real-time DB</span><span class="tech">Image Upload</span>
+                        </div>
+                        <div class="proj-links">
+                            <a href="https://thefoodbar-s.vercel.app/" target="_blank" class="link-btn">
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i> Live Demo
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- P6 -->
+                    <div class="project">
+                        <div class="proj-top">
+                            <div class="proj-name">🥊 Stickman Fighting Game</div>
+                            <span class="proj-badge award">🏆 2nd Place</span>
+                        </div>
+                        <p class="proj-desc">
+                            Award-winning game ranked 2nd in the Software Engineering Department competition.
+                            Custom physics engine, gameplay mechanics, character animations, and complete UI
+                            — demonstrating end-to-end software delivery under competition pressure.
+                        </p>
+                        <div class="tech-row">
+                            <span class="tech">Physics Engine</span><span class="tech">Game Logic</span>
+                            <span class="tech">Creative UI</span><span class="tech">SE Competition</span>
+                        </div>
+                        <div class="proj-links">
+                            <span class="link-btn disabled ghost"><i class="fa-solid fa-lock"></i> Private Repo</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- RIGHT SIDEBAR -->
+            <div class="sidebar">
+
+                <!-- Skills -->
+                <div class="card">
+                    <p class="sec-label">// toolkit</p>
+                    <h2 class="sec-title"><i class="fa-solid fa-microchip"></i> Skills</h2>
+
+                    <div class="skill-group">
+                        <div class="skill-group-title">Frontend</div>
+                        <div class="skill-item">JavaScript (ES6+)</div>
+                        <div class="skill-item">React &amp; Next.js</div>
+                        <div class="skill-item">Responsive Design</div>
+                        <div class="skill-item">UI/UX Implementation</div>
+                    </div>
+
+                    <div class="skill-group">
+                        <div class="skill-group-title">Backend &amp; Cloud</div>
+                        <div class="skill-item">Firebase Firestore</div>
+                        <div class="skill-item">Firebase Auth</div>
+                        <div class="skill-item">Serverless &amp; APIs</div>
+                        <div class="skill-item">Database Architecture</div>
+                    </div>
+
+                    <div class="skill-group">
+                        <div class="skill-group-title">Specialization</div>
+                        <div class="skill-item">E-commerce Systems</div>
+                        <div class="skill-item">Admin Dashboards</div>
+                        <div class="skill-item">Automation Logic</div>
+                        <div class="skill-item">Android Development</div>
+                    </div>
+                </div>
+
+                <!-- Services -->
+                <div class="card">
+                    <p class="sec-label">// offerings</p>
+                    <h2 class="sec-title"><i class="fa-solid fa-briefcase"></i> Services</h2>
+                    <div class="services-grid">
+                        <div class="service-tile">
+                            <i class="fa-solid fa-globe"></i>
+                            <span>Website Dev</span>
+                        </div>
+                        <div class="service-tile">
+                            <i class="fa-solid fa-gauge-high"></i>
+                            <span>Admin Panels</span>
+                        </div>
+                        <div class="service-tile">
+                            <i class="fa-solid fa-fire"></i>
+                            <span>Firebase</span>
+                        </div>
+                        <div class="service-tile">
+                            <i class="fa-brands fa-android"></i>
+                            <span>Android Apps</span>
+                        </div>
+                        <div class="service-tile">
+                            <i class="fa-solid fa-robot"></i>
+                            <span>Automation</span>
+                        </div>
+                        <div class="service-tile">
+                            <i class="fa-solid fa-bolt"></i>
+                            <span>24hr Delivery</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Education -->
+                <div class="card">
+                    <p class="sec-label">// background</p>
+                    <h2 class="sec-title"><i class="fa-solid fa-graduation-cap"></i> Education</h2>
+
+                    <div class="edu-block">
+                        <div class="edu-deg">BS Software Engineering</div>
+                        <div class="edu-school">Sir Syed University of Engineering &amp; Technology, Karachi</div>
+                        <span class="edu-status">
+                            <i class="fa-solid fa-circle-notch fa-spin" style="font-size:9px;"></i>
+                            6th Semester — In Progress
+                        </span>
+                    </div>
+
+                    <div class="award-block">
+                        <div class="award-title">🏆 University Competition — 2nd Place</div>
+                        <div class="award-desc">
+                            Ranked 2nd in SE Dept. competition for Stickman Fighting Game —
+                            physics engine, gameplay logic, and complete UI.
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ══ CTA ══ -->
+        <div class="cta-card">
+            <p class="cta-label">// let's build something</p>
+            <h2 class="cta-title">Ready for Your Next<br>Premium Project?</h2>
+            <p class="cta-sub">
+                <strong>Starting from $50</strong> &nbsp;·&nbsp; Ready-made solutions &nbsp;·&nbsp; 48hr delivery
+                &nbsp;·&nbsp; Real live demos
+            </p>
+            <a class="cta-btn" href="mailto:soomroasim77@gmail.com">
+                <i class="fa-solid fa-paper-plane"></i> Hire Muhammad Asim
+            </a>
+        </div>
+
+        <footer>
+            &copy; 2026 &nbsp;·&nbsp; Muhammad Asim &nbsp;·&nbsp; Karachi, Pakistan &nbsp;·&nbsp; soomroasim77@gmail.com
+        </footer>
+
+    </div>
+</body>
+
+</html>
