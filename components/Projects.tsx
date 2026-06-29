@@ -129,17 +129,17 @@ export default function Projects() {
           >
             <p className="text-sm font-bold uppercase text-cyan-700">Selected work</p>
             <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-heading font-bold text-slate-950">
-              Project examples with real business use cases.
+              Project examples across AI, web apps, commerce, media, and interactive systems.
             </h2>
             <p className="mt-5 text-base sm:text-lg text-slate-600 leading-relaxed">
-              Each project highlights the business problem, the interface direction, and the practical value of the build.
+              Each project highlights the product idea, the interface direction, the tech involved, and the practical value of the build.
             </p>
           </motion.div>
           <a
             href="#contact"
             className="text-slate-700 hover:text-slate-950 flex items-center gap-2 font-bold transition-colors group"
           >
-            Discuss a similar build <ArrowUpRight className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+            Discuss a project <ArrowUpRight className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
           </a>
         </div>
 

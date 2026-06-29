@@ -5,7 +5,7 @@ import { CheckCircle2 } from 'lucide-react';
 const signals = [
   'Clear scope before design starts',
   'Responsive pages tested on mobile',
-  'Project context, tools, and outcome documented',
+  'Project context, stack, and outcome documented',
   'Direct communication during the build',
 ];
 
@@ -20,12 +20,12 @@ export default function Testimonials() {
           className="rounded-3xl bg-slate-950 p-6 sm:p-8 md:p-10 text-white grid lg:grid-cols-[0.9fr_1.1fr] gap-8 items-center"
         >
           <div>
-            <p className="text-sm font-bold uppercase text-cyan-300">What clients can expect</p>
+            <p className="text-sm font-bold uppercase text-cyan-300">What collaborators can expect</p>
             <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-heading font-bold">
               Clear communication and practical execution.
             </h2>
             <p className="mt-5 text-slate-300 leading-relaxed">
-              I keep projects grounded in the business goal, the user journey, and the parts of the system a client will actually manage after launch.
+              I keep projects grounded in the product goal, the user journey, and the technical parts that need to work reliably after launch.
             </p>
           </div>
 

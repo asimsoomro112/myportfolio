@@ -5,8 +5,8 @@ import { ClipboardCheck, Code2, Rocket, Search } from 'lucide-react';
 const steps = [
   {
     icon: Search,
-    title: 'Clarify the offer',
-    text: 'We define the audience, primary goal, content, and must-have workflow before design starts.',
+    title: 'Clarify the idea',
+    text: 'We define the users, main goal, content, data, and must-have workflow before design starts.',
   },
   {
     icon: ClipboardCheck,
@@ -16,7 +16,7 @@ const steps = [
   {
     icon: Code2,
     title: 'Build and connect',
-    text: 'Frontend, Firebase data, forms, admin flows, and responsive polish come together in one working product.',
+    text: 'Frontend, data flow, APIs, AI integrations, admin flows, and responsive polish come together in one working product.',
   },
   {
     icon: Rocket,
@@ -35,7 +35,7 @@ export default function Journal() {
             A simple build process that keeps the project moving.
           </h2>
           <p className="mt-5 text-base sm:text-lg text-slate-600 leading-relaxed">
-            Good projects move faster when the goal, content, data, and mobile behavior are clear before development gets heavy.
+            Good projects move faster when the goal, content, data, technical flow, and mobile behavior are clear before development gets heavy.
           </p>
         </div>
 

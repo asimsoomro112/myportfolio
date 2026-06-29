@@ -1,31 +1,43 @@
 'use client';
 import { motion } from 'motion/react';
-import { Database, LayoutDashboard, ShoppingBag, Workflow } from 'lucide-react';
+import { BrainCircuit, Database, LayoutDashboard, MonitorPlay, ShoppingBag, Workflow } from 'lucide-react';
 
 const services = [
   {
-    title: 'E-commerce Storefronts',
+    title: 'Websites & Storefronts',
     icon: ShoppingBag,
-    text: 'Product catalogs, carts, responsive product pages, filtering, and polished buyer journeys.',
-    tools: ['Next.js', 'React', 'Checkout-ready UI'],
+    text: 'Responsive websites, landing pages, product catalogs, carts, filtering, and polished frontend experiences.',
+    tools: ['Next.js', 'React', 'Tailwind CSS'],
+  },
+  {
+    title: 'AI Tools & Automation',
+    icon: BrainCircuit,
+    text: 'Gemini API workflows, AI-assisted generation, Python model integration, and computer-vision prototypes.',
+    tools: ['Gemini API', 'Python', 'YOLOv7'],
   },
   {
     title: 'Admin Dashboards',
     icon: LayoutDashboard,
-    text: 'Clean internal panels for managing products, menus, images, orders, and content updates.',
+    text: 'Internal panels for managing products, menus, images, orders, users, content, and app data.',
     tools: ['Firebase', 'CRUD flows', 'Role-ready structure'],
   },
   {
-    title: 'Data-backed Apps',
+    title: 'Data-backed Systems',
     icon: Database,
     text: 'Firestore data models, real-time updates, forms, file/image flows, and lightweight APIs.',
     tools: ['Firestore', 'Auth-ready', 'Serverless'],
   },
   {
-    title: 'Business Automation',
+    title: 'Marketplaces & Workflows',
     icon: Workflow,
-    text: 'Small tools that remove repetitive work and make daily operations easier for teams.',
-    tools: ['Workflows', 'Integrations', 'Reusable systems'],
+    text: 'Multi-role flows for admins, sellers, customers, escrow-style buying, and structured transactions.',
+    tools: ['Marketplace logic', 'Escrow flow', 'Role-based UI'],
+  },
+  {
+    title: 'Media & Interactive Apps',
+    icon: MonitorPlay,
+    text: 'Live TV browsing, IPTV-based interfaces, interactive states, game logic, and custom UI behavior.',
+    tools: ['Vite', 'React', 'Game logic'],
   },
 ];
 
@@ -34,12 +46,12 @@ export default function Skills() {
     <section id="skills" className="py-16 md:py-24 relative z-10 w-full overflow-hidden scroll-mt-24 md:scroll-mt-28">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12">
         <div className="mb-10 md:mb-14 max-w-3xl">
-          <p className="text-sm font-bold uppercase text-cyan-700">Services</p>
+          <p className="text-sm font-bold uppercase text-cyan-700">Capabilities</p>
           <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-heading font-bold text-slate-950">
-            Practical builds for businesses that need to launch, sell, and manage.
+            Practical engineering across websites, AI tools, marketplaces, dashboards, and media apps.
           </h2>
           <p className="mt-5 text-base sm:text-lg text-slate-600 leading-relaxed">
-            The work is focused on useful web products: clear frontend, reliable backend, and mobile layouts that do not break when real content is added.
+            The work is focused on useful software: clear frontend, reliable data flow, responsive layouts, and custom logic that supports the exact project.
           </p>
         </div>
 

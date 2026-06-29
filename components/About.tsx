@@ -1,22 +1,22 @@
 'use client';
 import { motion } from 'motion/react';
-import { CheckCircle2, Clock3, Laptop, Users } from 'lucide-react';
+import { CheckCircle2, Clock3, Laptop, Layers3 } from 'lucide-react';
 
 const strengths = [
   {
     icon: Laptop,
-    title: 'Product-minded build',
-    text: 'I think through the storefront, admin flow, data structure, and mobile experience together.',
+    title: 'Full-stack thinking',
+    text: 'I think through the interface, data model, API or AI workflow, state handling, and mobile experience together.',
   },
   {
     icon: Clock3,
     title: 'Fast practical delivery',
-    text: 'Lean builds, clear priorities, and launch-ready interfaces without unnecessary complexity.',
+    text: 'Lean builds, clear priorities, and working interfaces without unnecessary complexity.',
   },
   {
-    icon: Users,
-    title: 'Client-friendly handoff',
-    text: 'I keep the final product easy to manage, update, and explain to non-technical teams.',
+    icon: Layers3,
+    title: 'Range across domains',
+    text: 'I can move between AI tools, marketplaces, stores, dashboards, streaming apps, and interactive logic.',
   },
 ];
 
@@ -34,19 +34,19 @@ export default function About() {
             <div>
               <p className="text-sm font-bold uppercase text-cyan-700">About</p>
               <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-heading font-bold text-slate-950">
-                I build websites that feel premium and work like tools.
+                I build software interfaces that feel polished and work reliably.
               </h2>
             </div>
             <p className="text-base sm:text-lg text-slate-600 leading-relaxed">
-              My best work sits between design and engineering: e-commerce storefronts, admin dashboards, product catalogs, booking or ordering systems, and Firebase-backed business apps.
+              My work sits between design and engineering: AI tools, computer-vision prototypes, marketplaces, e-commerce stores, dashboards, product catalogs, live media apps, and Firebase-backed systems.
             </p>
             <p className="text-base sm:text-lg text-slate-600 leading-relaxed">
-              The goal is not just a good-looking page. It is a website that loads fast, makes the offer clear, works smoothly on mobile, and gives the business owner control after launch.
+              The goal is not just a good-looking page. It is a responsive product that loads fast, explains itself clearly, handles real data, and gives users a smooth experience.
             </p>
 
             <div className="grid grid-cols-2 gap-3 pt-2">
               <div className="rounded-2xl border border-slate-200 bg-white p-4">
-                <div className="text-3xl font-heading font-bold text-slate-950">7</div>
+                <div className="text-3xl font-heading font-bold text-slate-950">11</div>
                 <div className="text-sm text-slate-500">portfolio projects</div>
               </div>
               <div className="rounded-2xl border border-slate-200 bg-white p-4">
@@ -85,7 +85,7 @@ export default function About() {
             >
               <CheckCircle2 className="w-6 h-6 text-emerald-700 flex-shrink-0 mt-1" />
               <p className="text-slate-700 leading-relaxed">
-                Every build is scoped around the business goal first, then designed and engineered to make that goal easy for users to complete.
+                Every build is scoped around the actual product goal first, then designed and engineered so users can complete the main action without friction.
               </p>
             </motion.div>
           </div>

@@ -23,7 +23,7 @@ export default function Contact() {
                 Let&apos;s build something useful.
               </h2>
               <p className="mt-5 text-base sm:text-lg text-slate-600 max-w-xl leading-relaxed">
-                Send a short brief about your business, the pages or features you need, and your preferred timeline. I can help with new builds, redesigns, and Firebase-backed admin systems.
+                Send a short brief about the website, AI tool, dashboard, marketplace, streaming app, or custom interface you want to build. I can help with new builds, redesigns, and Firebase-backed systems.
               </p>
             </div>
 
