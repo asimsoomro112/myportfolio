@@ -7,19 +7,19 @@
 }
 
 @utility glass {
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(255, 255, 255, 0.74);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
 }
 
 @utility glass-panel {
-  background: rgba(10, 15, 28, 0.6);
+  background: rgba(255, 255, 255, 0.82);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 24px 70px rgba(15, 23, 42, 0.10);
 }
 
 @utility neon-text-cyan {
@@ -31,12 +31,23 @@
 }
 
 @utility bg-gradient-brand {
-  background-image: linear-gradient(to right, #A855F7, #6366F1, #00F5FF);
+  background-image: linear-gradient(to right, #2563EB, #0891B2, #10B981);
+}
+
+html {
+  overflow-x: hidden;
+  scroll-behavior: smooth;
 }
 
 body {
-  background-color: #0A0F1C;
-  color: #F8FAFC;
+  background-color: #F6F8FB;
+  color: #0F172A;
+  overflow-x: hidden;
+}
+
+img,
+video {
+  max-width: 100%;
 }
 
 /* Custom scrollbar */
@@ -44,12 +55,12 @@ body {
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #0A0F1C;
+  background: #F6F8FB;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(15, 23, 42, 0.18);
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(15, 23, 42, 0.30);
 }

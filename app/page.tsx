@@ -11,7 +11,7 @@ import BackgroundGlow from '@/components/BackgroundGlow';
 
 export default function Home() {
   return (
-    <main className="relative min-h-screen bg-[#0A0F1C] text-slate-50 selection:bg-cyan-500/30">
+    <main className="relative min-h-screen bg-[#F6F8FB] text-slate-950 selection:bg-cyan-200">
       <BackgroundGlow />
 
       <div className="relative z-10 font-sans">

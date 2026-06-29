@@ -1,20 +1,37 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# Muhammad Asim Portfolio
 
-# Run and deploy your AI Studio app
+Professional portfolio for Muhammad Asim, a Software Engineer building storefronts, dashboards, AI tools, and business web apps.
 
-This contains everything you need to run your app locally.
+## Tech Stack
 
-View your app in AI Studio: https://ai.studio/apps/15b57ef8-03e7-4069-a502-41776e0cfffc
+- Next.js
+- React
+- TypeScript
+- Tailwind CSS
+- Motion
 
-## Run Locally
+## Local Development
 
-**Prerequisites:**  Node.js
+```bash
+npm install
+npm run dev
+```
 
+Open `http://localhost:3000`.
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+## Production Build
+
+```bash
+npm run build
+```
+
+## Vercel Deployment
+
+This project is ready for Vercel's default Next.js deployment flow.
+
+- Framework preset: `Next.js`
+- Build command: `npm run build`
+- Install command: `npm install`
+- Output directory: `.next`
+
+No required environment variables are needed for the current portfolio build.

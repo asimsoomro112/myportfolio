@@ -1,41 +1,63 @@
 'use client';
 import { motion } from 'motion/react';
-import { Calendar } from 'lucide-react';
+import { ClipboardCheck, Code2, Rocket, Search } from 'lucide-react';
+
+const steps = [
+  {
+    icon: Search,
+    title: 'Clarify the offer',
+    text: 'We define the audience, primary goal, content, and must-have workflow before design starts.',
+  },
+  {
+    icon: ClipboardCheck,
+    title: 'Plan the interface',
+    text: 'I map pages, sections, states, and mobile behavior so the build stays focused.',
+  },
+  {
+    icon: Code2,
+    title: 'Build and connect',
+    text: 'Frontend, Firebase data, forms, admin flows, and responsive polish come together in one working product.',
+  },
+  {
+    icon: Rocket,
+    title: 'Launch and hand off',
+    text: 'Final testing, performance checks, deployment support, and a simple handoff for future updates.',
+  },
+];
 
 export default function Journal() {
   return (
-    <section id="journal" className="py-16 md:py-24 relative z-10 bg-white/[0.02] border-y border-white/5">
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <div className="mb-10 md:mb-16 text-center flex flex-col items-center">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-bold text-white mb-4">Thoughts & Experiments</h2>
-          <div className="w-20 h-1 bg-gradient-brand rounded-full mb-8" />
+    <section id="process" className="py-16 md:py-24 relative z-10 bg-white/65 border-y border-slate-200 scroll-mt-24 md:scroll-mt-28">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12">
+        <div className="mb-10 md:mb-14 max-w-3xl">
+          <p className="text-sm font-bold uppercase text-cyan-700">Process</p>
+          <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-heading font-bold text-slate-950">
+            A simple build process that keeps the project moving.
+          </h2>
+          <p className="mt-5 text-base sm:text-lg text-slate-600 leading-relaxed">
+            Good projects move faster when the goal, content, data, and mobile behavior are clear before development gets heavy.
+          </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-6">
-          {[1,2,3].map((item, i) => (
-             <motion.article
-               key={i}
-               initial={{ opacity: 0, scale: 0.95 }}
-               whileInView={{ opacity: 1, scale: 1 }}
-               viewport={{ once: true }}
-               transition={{ delay: i * 0.1 }}
-               className="glass-panel p-6 rounded-3xl group cursor-pointer hover:border-purple-500/30 transition-colors flex flex-col h-full"
-             >
-               <div className="flex items-center gap-2 text-xs text-purple-400 font-mono mb-4">
-                 <Calendar className="w-3 h-3" />
-                 <span>Oct {10 + i}, 2026</span>
-               </div>
-               <h3 className="text-xl font-heading font-medium text-white mb-3 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-brand transition-all">
-                  {['Building with Antigravity: The New AI Frontier', 'Glassmorphism 2.0: Beyond the Blur', 'Performance Tuning Next.js App Router'][i]}
-               </h3>
-               <p className="text-sm text-slate-400 line-clamp-3 mb-6 flex-1">
-                  Exploring the architectural decisions and design patterns that defined this latest generation of web experiences. We dive deep into the specific constraints and breakthroughs...
-               </p>
-               <div className="flex items-center justify-between text-sm mt-auto font-medium">
-                  <span className="text-slate-300 group-hover:text-white transition-colors">Read Article</span>
-                  <span className="text-cyan-400 group-hover:translate-x-2 transition-transform opacity-0 group-hover:opacity-100">→</span>
-               </div>
-             </motion.article>
+        <div className="grid md:grid-cols-4 gap-4">
+          {steps.map((step, i) => (
+            <motion.article
+              key={step.title}
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.08 }}
+              className="rounded-3xl border border-slate-200 bg-white p-5 sm:p-6"
+            >
+              <div className="flex items-center justify-between mb-6">
+                <div className="w-11 h-11 rounded-2xl bg-slate-950 text-white flex items-center justify-center">
+                  <step.icon className="w-5 h-5" />
+                </div>
+                <span className="text-sm font-bold text-slate-400">0{i + 1}</span>
+              </div>
+              <h3 className="text-xl font-heading font-bold text-slate-950">{step.title}</h3>
+              <p className="mt-3 text-sm text-slate-600 leading-relaxed">{step.text}</p>
+            </motion.article>
           ))}
         </div>
       </div>

@@ -13,14 +13,14 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: 'Aasim | Digital Experiences',
-  description: 'Crafting Digital Experiences from Karachi',
+  title: 'Muhammad Asim | Software Engineer',
+  description: 'Software Engineer building e-commerce storefronts, dashboards, AI tools, and business web apps from Karachi.',
 };
 
 export default function RootLayout({children}: {children: React.ReactNode}) {
   return (
     <html lang="en" className={`dark ${inter.variable} ${spaceGrotesk.variable}`}>
-      <body className="bg-slate-950 text-slate-50 font-sans antialiased overflow-x-hidden selection:bg-cyan-500/30" suppressHydrationWarning>
+      <body className="bg-[#F6F8FB] text-slate-950 font-sans antialiased overflow-x-hidden selection:bg-cyan-200" suppressHydrationWarning>
         {children}
       </body>
     </html>

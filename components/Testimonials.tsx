@@ -1,37 +1,43 @@
 'use client';
 import { motion } from 'motion/react';
-import { Quote } from 'lucide-react';
-import Image from 'next/image';
+import { CheckCircle2 } from 'lucide-react';
+
+const signals = [
+  'Clear scope before design starts',
+  'Responsive pages tested on mobile',
+  'Project context, tools, and outcome documented',
+  'Direct communication during the build',
+];
 
 export default function Testimonials() {
   return (
     <section className="py-16 md:py-24 relative z-10 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6 md:px-12 text-center">
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-bold text-white mb-10 md:mb-16">What Collaborators Say</h2>
-        
-        <div className="relative max-w-4xl mx-auto">
-          <div className="absolute -inset-4 bg-gradient-brand opacity-20 blur-[100px] rounded-full z-0" />
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="glass-panel p-8 sm:p-10 md:p-14 rounded-[2rem] sm:rounded-[3rem] relative z-10"
-          >
-            <Quote className="w-10 h-10 md:w-12 md:h-12 text-cyan-400/30 absolute top-6 left-6 md:top-8 md:left-8" />
-            <p className="text-lg sm:text-xl md:text-3xl font-light text-white leading-relaxed mb-8 md:mb-10 relative z-10 pt-4 md:pt-0">
-              &quot;Aasim doesn&apos;t just write code; he engineers emotion. The application he built completely transformed our user engagement metrics. His mastery over modern UI paradigms is unmatched.&quot;
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="rounded-3xl bg-slate-950 p-6 sm:p-8 md:p-10 text-white grid lg:grid-cols-[0.9fr_1.1fr] gap-8 items-center"
+        >
+          <div>
+            <p className="text-sm font-bold uppercase text-cyan-300">What clients can expect</p>
+            <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-heading font-bold">
+              Clear communication and practical execution.
+            </h2>
+            <p className="mt-5 text-slate-300 leading-relaxed">
+              I keep projects grounded in the business goal, the user journey, and the parts of the system a client will actually manage after launch.
             </p>
-            <div className="flex items-center justify-center gap-4">
-              <div className="w-12 h-12 rounded-full overflow-hidden relative border border-white/20">
-                <Image src="https://picsum.photos/seed/face1/100/100" alt="Avatar" fill className="object-cover" referrerPolicy="no-referrer" />
+          </div>
+
+          <div className="grid sm:grid-cols-2 gap-3">
+            {signals.map((signal) => (
+              <div key={signal} className="rounded-2xl border border-white/10 bg-white/5 p-4 flex gap-3">
+                <CheckCircle2 className="w-5 h-5 text-emerald-300 flex-shrink-0 mt-0.5" />
+                <p className="text-sm text-slate-200 leading-relaxed">{signal}</p>
               </div>
-              <div className="text-left">
-                <div className="font-bold text-white">Sarah Jenkins</div>
-                <div className="text-sm text-slate-400">Product Lead @ TechNova</div>
-              </div>
-            </div>
-          </motion.div>
-        </div>
+            ))}
+          </div>
+        </motion.div>
       </div>
     </section>
   );

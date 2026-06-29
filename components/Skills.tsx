@@ -1,79 +1,75 @@
 'use client';
 import { motion } from 'motion/react';
-import { Layout, Database, Wand2, TerminalSquare } from 'lucide-react';
+import { Database, LayoutDashboard, ShoppingBag, Workflow } from 'lucide-react';
 
-const skills = [
+const services = [
   {
-    category: "Full Stack Mastery",
-    icon: Layout,
-    color: "text-cyan-400",
-    bgColor: "bg-cyan-500/10",
-    borderColor: "border-cyan-500/20",
-    items: ["Next.js & React Ecosystem", "JavaScript (ES6+) & Logic", "API Integration & Middleware", "Full Stack Architecture"]
+    title: 'E-commerce Storefronts',
+    icon: ShoppingBag,
+    text: 'Product catalogs, carts, responsive product pages, filtering, and polished buyer journeys.',
+    tools: ['Next.js', 'React', 'Checkout-ready UI'],
   },
   {
-    category: "Cloud Ecosystem",
+    title: 'Admin Dashboards',
+    icon: LayoutDashboard,
+    text: 'Clean internal panels for managing products, menus, images, orders, and content updates.',
+    tools: ['Firebase', 'CRUD flows', 'Role-ready structure'],
+  },
+  {
+    title: 'Data-backed Apps',
     icon: Database,
-    color: "text-amber-400",
-    bgColor: "bg-amber-500/10",
-    borderColor: "border-amber-500/20",
-    items: ["Firebase Firestore & Auth", "Database Management", "Real-time Data Systems", "Serverless Workflows"]
+    text: 'Firestore data models, real-time updates, forms, file/image flows, and lightweight APIs.',
+    tools: ['Firestore', 'Auth-ready', 'Serverless'],
   },
   {
-    category: "E-commerce Expert",
-    icon: Wand2,
-    color: "text-purple-400",
-    bgColor: "bg-purple-500/10",
-    borderColor: "border-purple-500/20",
-    items: ["Luxury Storefront Logic", "B2B Industrial Platforms", "Inventory Systems", "Ready-to-Deploy Solutions"]
+    title: 'Business Automation',
+    icon: Workflow,
+    text: 'Small tools that remove repetitive work and make daily operations easier for teams.',
+    tools: ['Workflows', 'Integrations', 'Reusable systems'],
   },
-  {
-    category: "Systems & Ops",
-    icon: TerminalSquare,
-    color: "text-green-400",
-    bgColor: "bg-green-500/10",
-    borderColor: "border-green-500/20",
-    items: ["Business Automation Tools", "Android Development", "Modern UI/UX Design", "Performance Optimization"]
-  }
 ];
 
 export default function Skills() {
   return (
-    <section id="skills" className="py-16 md:py-24 relative z-10 w-full overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <div className="mb-10 md:mb-16">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-bold text-white mb-4">Technical Mastery</h2>
-          <div className="w-20 h-1 bg-gradient-brand rounded-full mb-8" />
-          <p className="text-slate-400 max-w-2xl text-lg">
-            A specialized toolkit focused on delivering premium E-commerce solutions and automated industrial systems.
+    <section id="skills" className="py-16 md:py-24 relative z-10 w-full overflow-hidden scroll-mt-24 md:scroll-mt-28">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12">
+        <div className="mb-10 md:mb-14 max-w-3xl">
+          <p className="text-sm font-bold uppercase text-cyan-700">Services</p>
+          <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-heading font-bold text-slate-950">
+            Practical builds for businesses that need to launch, sell, and manage.
+          </h2>
+          <p className="mt-5 text-base sm:text-lg text-slate-600 leading-relaxed">
+            The work is focused on useful web products: clear frontend, reliable backend, and mobile layouts that do not break when real content is added.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-6">
-          {skills.map((skill, index) => (
+        <div className="grid md:grid-cols-2 gap-4 md:gap-6">
+          {services.map((service, index) => (
             <motion.div
-              key={index}
+              key={service.title}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ delay: index * 0.1 }}
-              className={`glass-panel p-6 md:p-8 rounded-3xl border transition-all duration-500 hover:scale-[1.02] ${skill.borderColor} group`}
+              viewport={{ once: true, margin: '-50px' }}
+              transition={{ delay: index * 0.08 }}
+              className="glass-panel p-5 sm:p-6 md:p-8 rounded-3xl transition-all duration-300 hover:-translate-y-1"
             >
-              <div className="flex items-center gap-4 mb-6">
-                <div className={`p-4 rounded-2xl ${skill.bgColor} flex items-center justify-center transition-colors group-hover:bg-opacity-20`}>
-                  <skill.icon className={`w-8 h-8 ${skill.color}`} />
+              <div className="flex items-start gap-4">
+                <div className="p-3 rounded-2xl bg-slate-950 text-white flex items-center justify-center flex-shrink-0">
+                  <service.icon className="w-6 h-6" />
                 </div>
-                <h3 className="text-2xl font-heading font-medium text-white">{skill.category}</h3>
+                <div className="min-w-0">
+                  <h3 className="text-xl sm:text-2xl font-heading font-bold text-slate-950">{service.title}</h3>
+                  <p className="mt-3 text-sm sm:text-base text-slate-600 leading-relaxed">{service.text}</p>
+                </div>
               </div>
-              
-              <ul className="space-y-3">
-                {skill.items.map((item, i) => (
-                  <li key={i} className="flex items-center gap-3 text-slate-300">
-                     <div className="w-1.5 h-1.5 rounded-full bg-white/20 group-hover:bg-white/50 transition-colors" />
-                     {item}
-                  </li>
+
+              <div className="mt-6 flex flex-wrap gap-2">
+                {service.tools.map((tool) => (
+                  <span key={tool} className="rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-semibold text-slate-600">
+                    {tool}
+                  </span>
                 ))}
-              </ul>
+              </div>
             </motion.div>
           ))}
         </div>
