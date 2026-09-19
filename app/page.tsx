@@ -10,6 +10,7 @@ import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
 import SplashScreen from '@/components/SplashScreen';
 import BackgroundGlow from '@/components/BackgroundGlow';
+import BottomNav from '@/components/BottomNav';
 
 export default function Home() {
   return (
@@ -19,6 +20,7 @@ export default function Home() {
 
       <div className="relative z-10 font-sans">
         <Navbar />
+        <BottomNav />
         <Hero />
         <About />
         <Experience />

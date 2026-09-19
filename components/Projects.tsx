@@ -203,26 +203,17 @@ export default function Projects() {
               onClick={() => setSelectedProject(project)}
             >
               <div
-                className="relative w-full overflow-hidden bg-slate-100 flex overflow-x-auto snap-x snap-mandatory scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+                className="relative w-full overflow-hidden bg-slate-100"
                 style={{ aspectRatio: project.aspectRatio }}
               >
-                {(project.images && project.images.length > 0 ? project.images : [project.image]).map((img: string, idx: number) => (
-                  <div key={idx} className="relative w-full h-full flex-shrink-0 snap-center">
-                    <Image
-                      src={img}
-                      alt={`${project.title} screenshot ${idx + 1}`}
-                      fill
-                      sizes={project.featured ? '(min-width: 768px) 1120px, calc(100vw - 2rem)' : '(min-width: 768px) 50vw, calc(100vw - 2rem)'}
-                      className="object-contain transition-transform duration-700 group-hover:scale-[1.015]"
-                      referrerPolicy="no-referrer"
-                    />
-                  </div>
-                ))}
-                {(project.images && project.images.length > 1) && (
-                  <div className="absolute bottom-3 right-3 bg-black/50 backdrop-blur-md text-white text-[10px] font-bold px-2 py-1 rounded-full z-10 pointer-events-none">
-                    Swipe →
-                  </div>
-                )}
+                <Image
+                  src={project.image}
+                  alt={project.title}
+                  fill
+                  sizes={project.featured ? '(min-width: 768px) 1120px, calc(100vw - 2rem)' : '(min-width: 768px) 50vw, calc(100vw - 2rem)'}
+                  className="object-cover sm:object-contain transition-transform duration-700 group-hover:scale-[1.015]"
+                  referrerPolicy="no-referrer"
+                />
               </div>
 
               <div className="p-5 sm:p-6 md:p-7">
@@ -276,20 +267,60 @@ export default function Projects() {
                 <X className="w-5 h-5" />
               </button>
 
-              <div className="relative w-full h-48 sm:h-64 bg-slate-100 flex items-center justify-center overflow-hidden">
-                <Image
-                  src={selectedProject.image}
-                  alt={selectedProject.title}
-                  fill
-                  className="object-cover opacity-30 blur-xl scale-110"
-                />
-                <Image
-                  src={selectedProject.image}
-                  alt={selectedProject.title}
-                  fill
-                  className="object-contain"
-                />
-              </div>
+              {(() => {
+                const galleryImages = selectedProject.images && selectedProject.images.length > 0 
+                  ? selectedProject.images 
+                  : [selectedProject.image];
+                  
+                return (
+                  <div className="relative w-full h-64 sm:h-80 md:h-[450px] bg-slate-950 group overflow-hidden">
+                    {/* Background Blur for atmosphere */}
+                    <Image
+                      src={selectedProject.image}
+                      alt={selectedProject.title}
+                      fill
+                      className="object-cover opacity-30 blur-3xl scale-110 saturate-150"
+                    />
+                    
+                    {galleryImages.length > 1 ? (
+                      <div className="relative w-full h-full flex overflow-x-auto snap-x snap-mandatory scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] z-10">
+                        {galleryImages.map((img, idx) => (
+                          <div key={idx} className="relative w-full h-full flex-shrink-0 snap-center flex items-center justify-center p-4 sm:p-8">
+                            <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/10 bg-slate-900/50">
+                              <Image
+                                src={img}
+                                alt={`${selectedProject.title} screenshot ${idx + 1}`}
+                                fill
+                                className="object-cover sm:object-contain"
+                              />
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <div className="relative w-full h-full z-10 flex items-center justify-center p-4 sm:p-8">
+                        <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/10 bg-slate-900/50">
+                          <Image
+                            src={selectedProject.image}
+                            alt={selectedProject.title}
+                            fill
+                            className="object-cover sm:object-contain"
+                          />
+                        </div>
+                      </div>
+                    )}
+                    
+                    {galleryImages.length > 1 && (
+                      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex gap-2 bg-black/50 backdrop-blur-md px-4 py-2 rounded-full border border-white/10 pointer-events-none">
+                        <span className="text-[10px] font-bold text-white uppercase tracking-wider mr-2">Swipe</span>
+                        {galleryImages.map((_, i) => (
+                          <div key={i} className="w-1.5 h-1.5 rounded-full bg-white/70" />
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                );
+              })()}
 
               <div className="p-6 sm:p-10 max-h-[75vh] overflow-y-auto">
                 <div className="flex flex-wrap gap-2 mb-4">
