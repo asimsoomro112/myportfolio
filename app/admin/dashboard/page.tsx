@@ -5,7 +5,8 @@ import { useRouter } from 'next/navigation';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc } from 'firebase/firestore';
 import { auth, db } from '@/lib/firebase';
-import { Loader2, Plus, Edit2, Trash2, LogOut, X } from 'lucide-react';
+import { Loader2, Plus, Edit2, Trash2, LogOut, X, LayoutDashboard, Briefcase, MessageSquare } from 'lucide-react';
+import { motion } from 'motion/react';
 
 type Project = {
   id?: string;
@@ -138,7 +139,7 @@ export default function Dashboard() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [experiences, setExperiences] = useState<Experience[]>([]);
   const [messages, setMessages] = useState<any[]>([]);
-  const [activeTab, setActiveTab] = useState<'projects' | 'experience' | 'messages'>('projects');
+  const [activeTab, setActiveTab] = useState<'projects' | 'add-project' | 'experience' | 'messages'>('projects');
   
   // Form states
   const [formData, setFormData] = useState<Project>({
@@ -251,6 +252,7 @@ export default function Dashboard() {
       images: project.images || (project.image ? [project.image] : [])
     });
     setTagsInput(project.tags ? project.tags.join(', ') : '');
+    setActiveTab('add-project');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -329,6 +331,7 @@ export default function Dashboard() {
       setTagsInput('');
       setImageFiles([]);
       fetchProjects();
+      setActiveTab('projects');
     } catch (error) {
       console.error('Error saving project:', error);
       alert('Error saving project. Make sure Firestore rules are set to allow writes for authenticated users.');
@@ -423,13 +426,19 @@ export default function Dashboard() {
         </div>
       </div>
 
-      {/* Tabs bar: scrollable on mobile */}
-      <div className="flex gap-2 sm:gap-4 mb-6 sm:mb-8 border-b border-slate-200 overflow-x-auto whitespace-nowrap pb-1 no-scrollbar text-xs sm:text-sm font-semibold">
+      {/* Tabs bar: scrollable on desktop, hidden on mobile */}
+      <div className="hidden sm:flex gap-2 sm:gap-4 mb-6 sm:mb-8 border-b border-slate-200 overflow-x-auto whitespace-nowrap pb-1 no-scrollbar text-xs sm:text-sm font-semibold">
         <button 
           onClick={() => setActiveTab('projects')}
           className={`pb-2.5 px-2.5 sm:px-3 border-b-2 transition-colors ${activeTab === 'projects' ? 'border-cyan-600 text-cyan-700' : 'border-transparent text-slate-500 hover:text-slate-700'}`}
         >
           Manage Projects
+        </button>
+        <button 
+          onClick={() => { setActiveTab('add-project'); setIsEditing(false); setFormData({ title: '', type: '', description: '', outcome: '', image: '', images: [], liveLink: '', aspectRatio: '16 / 9', tags: [], featured: false, problem: '', solution: '', result: '' }); setTagsInput(''); setImageFiles([]); }}
+          className={`pb-2.5 px-2.5 sm:px-3 border-b-2 transition-colors ${activeTab === 'add-project' ? 'border-cyan-600 text-cyan-700' : 'border-transparent text-slate-500 hover:text-slate-700'}`}
+        >
+          Add Project
         </button>
         <button 
           onClick={() => setActiveTab('experience')}
@@ -447,40 +456,41 @@ export default function Dashboard() {
 
       {/* Projects Tab */}
       {activeTab === 'projects' && (
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_400px] gap-6 sm:gap-8 items-start">
-          <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 sm:p-6">
-            <h2 className="text-lg sm:text-xl font-bold mb-4 flex items-center justify-between">
-              Project List
-              {loadingData && <Loader2 className="w-5 h-5 animate-spin text-cyan-600" />}
-            </h2>
-            <div className="space-y-3 sm:space-y-4">
-              {projects.length === 0 && !loadingData && (
-                <p className="text-slate-500 text-sm">No projects found in Firebase. Add one to see it here.</p>
-              )}
-              {projects.map(p => (
-                <div key={p.id} className="flex flex-col sm:flex-row sm:items-center justify-between p-3.5 sm:p-4 border border-slate-100 rounded-xl bg-slate-50 gap-3">
-                  <div>
-                    <h3 className="font-bold text-slate-900 text-sm sm:text-base flex items-center flex-wrap gap-2">
-                      {p.title} 
-                      {p.featured && <span className="text-[10px] sm:text-xs bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full font-semibold">Featured</span>}
-                    </h3>
-                    <p className="text-xs sm:text-sm text-slate-500 mt-0.5">{p.type}</p>
-                  </div>
-                  <div className="flex items-center gap-2 self-end sm:self-center">
-                    <button onClick={() => handleEdit(p)} className="p-2 bg-white border border-slate-200 rounded-lg text-slate-600 hover:text-cyan-600 transition-colors shadow-sm" aria-label="Edit project">
-                      <Edit2 className="w-4 h-4" />
-                    </button>
-                    <button onClick={() => handleDelete(p.id!)} className="p-2 bg-white border border-slate-200 rounded-lg text-slate-600 hover:text-red-600 transition-colors shadow-sm" aria-label="Delete project">
-                      <Trash2 className="w-4 h-4" />
-                    </button>
-                  </div>
+        <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 sm:p-6">
+          <h2 className="text-lg sm:text-xl font-bold mb-4 flex items-center justify-between">
+            Project List
+            {loadingData && <Loader2 className="w-5 h-5 animate-spin text-cyan-600" />}
+          </h2>
+          <div className="space-y-3 sm:space-y-4">
+            {projects.length === 0 && !loadingData && (
+              <p className="text-slate-500 text-sm">No projects found in Firebase. Add one to see it here.</p>
+            )}
+            {projects.map(p => (
+              <div key={p.id} className="flex flex-col sm:flex-row sm:items-center justify-between p-3.5 sm:p-4 border border-slate-100 rounded-xl bg-slate-50 gap-3">
+                <div>
+                  <h3 className="font-bold text-slate-900 text-sm sm:text-base flex items-center flex-wrap gap-2">
+                    {p.title} 
+                    {p.featured && <span className="text-[10px] sm:text-xs bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full font-semibold">Featured</span>}
+                  </h3>
+                  <p className="text-xs sm:text-sm text-slate-500 mt-0.5">{p.type}</p>
                 </div>
-              ))}
-            </div>
+                <div className="flex items-center gap-2 self-end sm:self-center">
+                  <button onClick={() => handleEdit(p)} className="p-2 bg-white border border-slate-200 rounded-lg text-slate-600 hover:text-cyan-600 transition-colors shadow-sm" aria-label="Edit project">
+                    <Edit2 className="w-4 h-4" />
+                  </button>
+                  <button onClick={() => handleDelete(p.id!)} className="p-2 bg-white border border-slate-200 rounded-lg text-slate-600 hover:text-red-600 transition-colors shadow-sm" aria-label="Delete project">
+                    <Trash2 className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
+            ))}
           </div>
+        </div>
+      )}
 
-          {/* Form Card */}
-          <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 sm:p-6 lg:sticky lg:top-24">
+      {/* Add/Edit Project Tab */}
+      {activeTab === 'add-project' && (
+        <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 sm:p-6 max-w-3xl">
             <h2 className="text-lg sm:text-xl font-bold mb-4">{isEditing ? 'Edit Project' : 'Add New Project'}</h2>
             <form onSubmit={handleSubmit} className="space-y-3.5 sm:space-y-4">
               <div>
@@ -578,7 +588,6 @@ export default function Dashboard() {
               </div>
             </form>
           </div>
-        </div>
       )}
 
       {/* Experience Tab */}
@@ -687,6 +696,72 @@ export default function Dashboard() {
           </div>
         </div>
       )}
+      {/* Mobile Bottom Navigation */}
+      <motion.div 
+        initial={{ y: 100 }}
+        animate={{ y: 0 }}
+        transition={{ delay: 0.1, duration: 0.5, type: 'spring', damping: 20 }}
+        className="sm:hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-50 w-max px-4 pointer-events-auto"
+      >
+        <div className="flex items-center justify-center gap-2 rounded-full border border-white/70 bg-white/70 px-4 py-2 shadow-lg backdrop-blur-xl supports-[backdrop-filter]:bg-white/50">
+          <button
+            onClick={() => { setActiveTab('projects'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+            className={`relative flex items-center justify-center w-12 h-12 rounded-full transition-all duration-300 ${
+              activeTab === 'projects' 
+                ? 'bg-cyan-600 shadow-md text-white' 
+                : 'text-slate-600 hover:text-slate-950 hover:bg-white/60'
+            }`}
+            aria-label="Projects"
+          >
+            <LayoutDashboard className="w-5 h-5 transition-transform" />
+          </button>
+          <button
+            onClick={() => { 
+              setActiveTab('add-project'); 
+              setIsEditing(false); 
+              setFormData({ title: '', type: '', description: '', outcome: '', image: '', images: [], liveLink: '', aspectRatio: '16 / 9', tags: [], featured: false, problem: '', solution: '', result: '' }); 
+              setTagsInput(''); 
+              setImageFiles([]); 
+              window.scrollTo({ top: 0, behavior: 'smooth' }); 
+            }}
+            className={`relative flex items-center justify-center w-12 h-12 rounded-full transition-all duration-300 ${
+              activeTab === 'add-project' 
+                ? 'bg-cyan-600 shadow-md text-white' 
+                : 'text-slate-600 hover:text-slate-950 hover:bg-white/60'
+            }`}
+            aria-label="Add Project"
+          >
+            <Plus className="w-5 h-5 transition-transform" />
+          </button>
+          <button
+            onClick={() => { setActiveTab('experience'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+            className={`relative flex items-center justify-center w-12 h-12 rounded-full transition-all duration-300 ${
+              activeTab === 'experience' 
+                ? 'bg-cyan-600 shadow-md text-white' 
+                : 'text-slate-600 hover:text-slate-950 hover:bg-white/60'
+            }`}
+            aria-label="Experience"
+          >
+            <Briefcase className="w-5 h-5 transition-transform" />
+          </button>
+          <button
+            onClick={() => { setActiveTab('messages'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+            className={`relative flex items-center justify-center w-12 h-12 rounded-full transition-all duration-300 ${
+              activeTab === 'messages' 
+                ? 'bg-cyan-600 shadow-md text-white' 
+                : 'text-slate-600 hover:text-slate-950 hover:bg-white/60'
+            }`}
+            aria-label="Messages"
+          >
+            <div className="relative">
+              <MessageSquare className="w-5 h-5 transition-transform" />
+              {messages.filter(m => !m.read).length > 0 && (
+                <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-red-500 rounded-full border-2 border-white"></span>
+              )}
+            </div>
+          </button>
+        </div>
+      </motion.div>
     </div>
   );
 }

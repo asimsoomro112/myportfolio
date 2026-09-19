@@ -18,12 +18,15 @@ export const metadata: Metadata = {
   description: 'Software Engineer building full-stack applications, AI-assisted workflows, automation systems, and data-driven products.',
 };
 
+import AIChatWidget from '@/components/AIChatWidget';
+
 export default function RootLayout({children}: {children: React.ReactNode}) {
   return (
     <html lang="en" className={`dark ${inter.variable} ${spaceGrotesk.variable}`}>
       <body className="bg-[#F6F8FB] text-slate-950 font-sans antialiased overflow-x-hidden selection:bg-cyan-200" suppressHydrationWarning>
         <CustomCursor />
         {children}
+        <AIChatWidget />
       </body>
     </html>
   );
