@@ -24,7 +24,11 @@ export default function AdminDashboard() {
   const [loadingAuth, setLoadingAuth] = useState(true);
   const [projects, setProjects] = useState<Project[]>([]);
   const [loadingData, setLoadingData] = useState(true);
-  const [activeTab, setActiveTab] = useState<'projects' | 'experience'>('projects');
+  const [activeTab, setActiveTab] = useState<'projects' | 'experience' | 'messages'>('projects');
+  
+  // Messages State
+  const [messages, setMessages] = useState<any[]>([]);
+  const [loadingMessages, setLoadingMessages] = useState(false);
   
   // Form State
   const [isEditing, setIsEditing] = useState(false);
@@ -47,6 +51,7 @@ export default function AdminDashboard() {
       } else {
         setUser(currentUser);
         fetchProjects();
+        fetchMessages();
       }
       setLoadingAuth(false);
     });
@@ -69,6 +74,24 @@ export default function AdminDashboard() {
     }
   };
 
+  const fetchMessages = async () => {
+    setLoadingMessages(true);
+    try {
+      const querySnapshot = await getDocs(collection(db, "messages"));
+      const data: any[] = [];
+      querySnapshot.forEach((doc) => {
+        data.push({ id: doc.id, ...doc.data() });
+      });
+      // Sort by latest first
+      data.sort((a, b) => (b.createdAt?.toMillis() || 0) - (a.createdAt?.toMillis() || 0));
+      setMessages(data);
+    } catch (error) {
+      console.error("Error fetching messages:", error);
+    } finally {
+      setLoadingMessages(false);
+    }
+  };
+
   const handleLogout = () => {
     signOut(auth);
   };
@@ -85,6 +108,18 @@ export default function AdminDashboard() {
       await deleteDoc(doc(db, "projects", id));
       fetchProjects();
     }
+  };
+
+  const handleDeleteMessage = async (id: string) => {
+    if (confirm('Delete this message?')) {
+      await deleteDoc(doc(db, "messages", id));
+      fetchMessages();
+    }
+  };
+
+  const handleMarkRead = async (id: string, currentReadStatus: boolean) => {
+    await updateDoc(doc(db, "messages", id), { read: !currentReadStatus });
+    fetchMessages();
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -169,6 +204,12 @@ export default function AdminDashboard() {
           className={`pb-3 font-semibold px-2 border-b-2 transition-colors ${activeTab === 'experience' ? 'border-cyan-600 text-cyan-700' : 'border-transparent text-slate-500 hover:text-slate-700'}`}
         >
           Manage Experience
+        </button>
+        <button 
+          onClick={() => setActiveTab('messages')}
+          className={`pb-3 font-semibold px-2 border-b-2 transition-colors ${activeTab === 'messages' ? 'border-cyan-600 text-cyan-700' : 'border-transparent text-slate-500 hover:text-slate-700'}`}
+        >
+          Inbox Messages
         </button>
       </div>
 
@@ -272,6 +313,45 @@ export default function AdminDashboard() {
         <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-8 text-center min-h-[300px] flex flex-col items-center justify-center">
           <p className="text-slate-500 mb-4">Experience management interface would go here.</p>
           <p className="text-sm text-slate-400">Once Firebase is configured, we can set up the same CRUD flow for experiences and build a frontend component for it.</p>
+        </div>
+      )}
+
+      {activeTab === 'messages' && (
+        <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+          <h2 className="text-xl font-bold mb-4 flex items-center justify-between">
+            Inbox Messages
+            {loadingMessages && <Loader2 className="w-5 h-5 animate-spin text-cyan-600" />}
+          </h2>
+          <div className="space-y-4">
+            {messages.length === 0 && !loadingMessages && (
+              <p className="text-slate-500">No messages yet. When someone fills the contact form, it will appear here.</p>
+            )}
+            {messages.map(msg => (
+              <div key={msg.id} className={`p-4 border rounded-xl ${msg.read ? 'bg-slate-50 border-slate-200' : 'bg-white border-cyan-200 shadow-sm'}`}>
+                <div className="flex justify-between items-start mb-2">
+                  <div>
+                    <h3 className="font-bold text-slate-900 flex items-center gap-2">
+                      {msg.name}
+                      {!msg.read && <span className="bg-cyan-100 text-cyan-700 text-xs px-2 py-0.5 rounded-full">New</span>}
+                    </h3>
+                    <a href={`mailto:${msg.email}`} className="text-sm text-cyan-600 hover:underline">{msg.email}</a>
+                  </div>
+                  <div className="text-xs text-slate-400">
+                    {msg.createdAt?.toDate ? new Date(msg.createdAt.toDate()).toLocaleDateString() : 'Just now'}
+                  </div>
+                </div>
+                <p className="text-slate-700 text-sm mt-3 whitespace-pre-wrap p-3 bg-slate-50 rounded-lg border border-slate-100">{msg.message}</p>
+                <div className="flex justify-end gap-2 mt-4">
+                  <button onClick={() => handleMarkRead(msg.id, msg.read)} className="text-xs font-semibold px-3 py-1.5 rounded-lg border border-slate-200 hover:bg-slate-100 text-slate-600 transition-colors">
+                    {msg.read ? 'Mark as Unread' : 'Mark as Read'}
+                  </button>
+                  <button onClick={() => handleDeleteMessage(msg.id)} className="text-xs font-semibold px-3 py-1.5 rounded-lg border border-red-100 bg-red-50 hover:bg-red-100 text-red-600 transition-colors">
+                    Delete
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       )}
     </div>
