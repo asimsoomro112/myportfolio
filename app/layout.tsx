@@ -1,5 +1,6 @@
 import type {Metadata} from 'next';
 import { Inter, Space_Grotesk } from 'next/font/google';
+import CustomCursor from '@/components/CustomCursor';
 import './globals.css';
 
 const inter = Inter({
@@ -21,6 +22,7 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
   return (
     <html lang="en" className={`dark ${inter.variable} ${spaceGrotesk.variable}`}>
       <body className="bg-[#F6F8FB] text-slate-950 font-sans antialiased overflow-x-hidden selection:bg-cyan-200" suppressHydrationWarning>
+        <CustomCursor />
         {children}
       </body>
     </html>

@@ -1,6 +1,7 @@
 'use client';
-import { motion } from 'motion/react';
-import { ArrowUpRight } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
+import { ArrowUpRight, X } from 'lucide-react';
+import ReactMarkdown from 'react-markdown';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
@@ -18,6 +19,9 @@ type ProjectData = {
   aspectRatio: string;
   tags: string[];
   featured: boolean;
+  problem?: string;
+  solution?: string;
+  result?: string;
 };
 
 const defaultProjects: ProjectData[] = [
@@ -136,6 +140,7 @@ const defaultProjects: ProjectData[] = [
 export default function Projects() {
   const [projects, setProjects] = useState<ProjectData[]>(defaultProjects);
   const [loading, setLoading] = useState(true);
+  const [selectedProject, setSelectedProject] = useState<ProjectData | null>(null);
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -191,9 +196,11 @@ export default function Projects() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-80px' }}
               transition={{ duration: 0.55, delay: i * 0.06 }}
-              className={`group rounded-3xl border border-slate-200 bg-white shadow-xl shadow-slate-950/[0.04] overflow-hidden ${
+              className={`group rounded-3xl border border-slate-200 bg-white shadow-xl shadow-slate-950/[0.04] overflow-hidden cursor-pointer ${
                 project.featured ? 'md:col-span-2' : ''
               }`}
+              data-cursor="project"
+              onClick={() => setSelectedProject(project)}
             >
               <div
                 className="relative w-full overflow-hidden bg-slate-100 flex overflow-x-auto snap-x snap-mandatory scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
@@ -245,6 +252,111 @@ export default function Projects() {
           ))}
         </div>
       </div>
+
+      <AnimatePresence>
+        {selectedProject && (
+          <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 sm:p-6 pt-24 pb-24 md:p-12 overflow-y-auto">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setSelectedProject(null)}
+              className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm"
+            />
+            <motion.div
+              initial={{ opacity: 0, y: 40, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 20, scale: 0.95 }}
+              className="relative w-full max-w-4xl bg-white rounded-3xl shadow-2xl overflow-hidden z-[201] my-auto"
+            >
+              <button
+                onClick={() => setSelectedProject(null)}
+                className="absolute top-4 right-4 sm:top-6 sm:right-6 w-10 h-10 bg-slate-100 hover:bg-slate-200 rounded-full flex items-center justify-center text-slate-700 transition-colors z-20"
+              >
+                <X className="w-5 h-5" />
+              </button>
+
+              <div className="relative w-full h-48 sm:h-64 bg-slate-100 flex items-center justify-center overflow-hidden">
+                <Image
+                  src={selectedProject.image}
+                  alt={selectedProject.title}
+                  fill
+                  className="object-cover opacity-30 blur-xl scale-110"
+                />
+                <Image
+                  src={selectedProject.image}
+                  alt={selectedProject.title}
+                  fill
+                  className="object-contain"
+                />
+              </div>
+
+              <div className="p-6 sm:p-10 max-h-[60vh] overflow-y-auto">
+                <div className="flex flex-wrap gap-2 mb-4">
+                  <span className="rounded-full bg-cyan-50 px-3 py-1 text-xs font-bold text-cyan-700">{selectedProject.type}</span>
+                </div>
+                <h2 className="text-3xl sm:text-4xl font-heading font-bold text-slate-950 mb-2">
+                  {selectedProject.title}
+                </h2>
+                <p className="text-lg text-slate-600 mb-8">{selectedProject.description}</p>
+
+                {selectedProject.problem || selectedProject.solution ? (
+                  <div className="space-y-8">
+                    {selectedProject.problem && (
+                      <div>
+                        <h3 className="text-xl font-bold text-slate-900 mb-3 flex items-center gap-2">
+                          <div className="w-2 h-2 rounded-full bg-red-400" /> The Problem
+                        </h3>
+                        <div className="prose prose-slate max-w-none text-slate-600">
+                          <ReactMarkdown>{selectedProject.problem}</ReactMarkdown>
+                        </div>
+                      </div>
+                    )}
+                    {selectedProject.solution && (
+                      <div>
+                        <h3 className="text-xl font-bold text-slate-900 mb-3 flex items-center gap-2">
+                          <div className="w-2 h-2 rounded-full bg-cyan-400" /> The Solution
+                        </h3>
+                        <div className="prose prose-slate max-w-none text-slate-600">
+                          <ReactMarkdown>{selectedProject.solution}</ReactMarkdown>
+                        </div>
+                      </div>
+                    )}
+                    {selectedProject.result && (
+                      <div className="bg-emerald-50 border border-emerald-100 rounded-2xl p-6">
+                        <h3 className="text-xl font-bold text-emerald-900 mb-3 flex items-center gap-2">
+                          <div className="w-2 h-2 rounded-full bg-emerald-500" /> The Result
+                        </h3>
+                        <div className="prose prose-emerald max-w-none text-emerald-800">
+                          <ReactMarkdown>{selectedProject.result}</ReactMarkdown>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <div className="bg-slate-50 border border-slate-100 rounded-2xl p-6">
+                    <h3 className="text-xl font-bold text-slate-900 mb-3">Project Outcome</h3>
+                    <p className="text-slate-700">{selectedProject.outcome}</p>
+                  </div>
+                )}
+
+                {selectedProject.liveLink && (
+                  <div className="mt-10">
+                    <a
+                      href={selectedProject.liveLink}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex px-8 py-4 bg-slate-950 text-white rounded-2xl font-bold hover:bg-slate-800 transition-colors items-center gap-2"
+                    >
+                      Visit Live Project <ArrowUpRight className="w-5 h-5" />
+                    </a>
+                  </div>
+                )}
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }

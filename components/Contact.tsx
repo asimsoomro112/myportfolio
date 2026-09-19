@@ -4,6 +4,7 @@ import { motion } from 'motion/react';
 import { CheckCircle2, Mail, MapPin, Phone, Send, Loader2 } from 'lucide-react';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
+import MagneticButton from './MagneticButton';
 
 export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
@@ -131,9 +132,11 @@ export default function Contact() {
                     placeholder="Tell me what you want to build, redesign, or automate..."
                   />
                 </div>
-                <button type="submit" disabled={submitting} className="w-full bg-slate-950 text-white font-bold py-4 rounded-2xl flex items-center justify-center gap-2 hover:bg-slate-800 disabled:opacity-50 transition-colors">
-                  {submitting ? <Loader2 className="w-5 h-5 animate-spin" /> : <>Send Message <Send className="w-4 h-4" /></>}
-                </button>
+                <MagneticButton className="w-full">
+                  <button type="submit" disabled={submitting} className="w-full bg-slate-950 text-white font-bold py-4 rounded-2xl flex items-center justify-center gap-2 hover:bg-slate-800 disabled:opacity-50 transition-colors">
+                    {submitting ? <Loader2 className="w-5 h-5 animate-spin" /> : <>Send Message <Send className="w-4 h-4" /></>}
+                  </button>
+                </MagneticButton>
               </form>
             )}
           </motion.div>

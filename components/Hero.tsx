@@ -3,6 +3,7 @@ import { motion, useMotionValue, useSpring, useTransform } from 'motion/react';
 import { ArrowRight, BrainCircuit, ChevronDown, Code2, Gamepad2, Globe2, MapPin, MonitorPlay, ShieldCheck, ShoppingBag, Sparkles } from 'lucide-react';
 import Image from 'next/image';
 import { useRef } from 'react';
+import MagneticButton from './MagneticButton';
 
 const proofPoints = [
   'React / Next.js',
@@ -154,33 +155,41 @@ export default function Hero() {
               transition={{ duration: 0.5, delay: 0.36 }}
               className="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto"
             >
-              <a
-                href="#work"
-                className="w-full sm:w-auto px-7 py-4 bg-slate-950 text-white rounded-full font-bold hover:bg-slate-800 transition-all flex items-center justify-center gap-2 shadow-xl shadow-slate-950/15"
-              >
-                View Projects <ArrowRight className="w-5 h-5" />
-              </a>
-              <a
-                href="https://github.com/asimsoomro112"
-                target="_blank"
-                rel="noreferrer"
-                className="w-full sm:w-auto px-7 py-4 glass rounded-full font-bold text-slate-800 hover:bg-white transition-all flex items-center justify-center gap-2"
-              >
-                View GitHub
-              </a>
-              <a
-                href="/Muhammad_Asim_CV.html"
-                target="_blank"
-                className="w-full sm:w-auto px-7 py-4 glass rounded-full font-bold text-slate-800 hover:bg-white transition-all flex items-center justify-center gap-2"
-              >
-                View CV
-              </a>
-              <a
-                href="#contact"
-                className="w-full sm:w-auto px-7 py-4 glass rounded-full font-bold text-slate-800 hover:bg-white transition-all flex items-center justify-center gap-2"
-              >
-                Contact Me
-              </a>
+              <MagneticButton>
+                <a
+                  href="#work"
+                  className="w-full sm:w-auto px-7 py-4 bg-slate-950 text-white rounded-full font-bold hover:bg-slate-800 transition-all flex items-center justify-center gap-2 shadow-xl shadow-slate-950/15"
+                >
+                  View Projects <ArrowRight className="w-5 h-5" />
+                </a>
+              </MagneticButton>
+              <MagneticButton>
+                <a
+                  href="https://github.com/asimsoomro112"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="w-full sm:w-auto px-7 py-4 glass rounded-full font-bold text-slate-800 hover:bg-white transition-all flex items-center justify-center gap-2"
+                >
+                  View GitHub
+                </a>
+              </MagneticButton>
+              <MagneticButton>
+                <a
+                  href="/Muhammad_Asim_CV.html"
+                  target="_blank"
+                  className="w-full sm:w-auto px-7 py-4 glass rounded-full font-bold text-slate-800 hover:bg-white transition-all flex items-center justify-center gap-2"
+                >
+                  View CV
+                </a>
+              </MagneticButton>
+              <MagneticButton>
+                <a
+                  href="#contact"
+                  className="w-full sm:w-auto px-7 py-4 glass rounded-full font-bold text-slate-800 hover:bg-white transition-all flex items-center justify-center gap-2"
+                >
+                  Contact Me
+                </a>
+              </MagneticButton>
             </motion.div>
 
             <motion.div

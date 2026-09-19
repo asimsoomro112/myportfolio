@@ -19,6 +19,9 @@ type Project = {
   featured: boolean;
   liveLink?: string;
   images?: string[];
+  problem?: string;
+  solution?: string;
+  result?: string;
 };
 
 type Experience = {
@@ -183,7 +186,7 @@ export default function AdminDashboard() {
   const [isEditing, setIsEditing] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [formData, setFormData] = useState<Project>({
-    title: '', type: '', description: '', outcome: '', image: '', images: [], liveLink: '', aspectRatio: '16 / 9', tags: [], featured: false
+    title: '', type: '', description: '', outcome: '', image: '', images: [], liveLink: '', aspectRatio: '16 / 9', tags: [], featured: false, problem: '', solution: '', result: ''
   });
   const [tagsInput, setTagsInput] = useState('');
   
@@ -275,7 +278,7 @@ export default function AdminDashboard() {
     setEditingId(project.id!);
     // Migrate old 'image' to 'images' array for editing if 'images' doesn't exist
     const projectImages = project.images || (project.image ? [project.image] : []);
-    setFormData({ ...project, images: projectImages, liveLink: project.liveLink || '' });
+    setFormData({ ...project, images: projectImages, liveLink: project.liveLink || '', problem: project.problem || '', solution: project.solution || '', result: project.result || '' });
     setTagsInput(project.tags.join(', '));
     setImageFiles([]);
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -343,7 +346,7 @@ export default function AdminDashboard() {
       }
       setIsEditing(false);
       setEditingId(null);
-      setFormData({ title: '', type: '', description: '', outcome: '', image: '', images: [], liveLink: '', aspectRatio: '16 / 9', tags: [], featured: false });
+      setFormData({ title: '', type: '', description: '', outcome: '', image: '', images: [], liveLink: '', aspectRatio: '16 / 9', tags: [], featured: false, problem: '', solution: '', result: '' });
       setTagsInput('');
       setImageFiles([]);
       fetchProjects();
@@ -505,6 +508,24 @@ export default function AdminDashboard() {
                 <label className="block text-xs font-bold text-slate-700 mb-1">Outcome</label>
                 <input type="text" required value={formData.outcome} onChange={e => setFormData({...formData, outcome: e.target.value})} className="w-full px-3 py-2 rounded-lg border border-slate-200 focus:border-cyan-500 outline-none" />
               </div>
+
+              <div className="pt-4 border-t border-slate-200">
+                <h3 className="font-bold text-slate-900 mb-2">Case Study Details (Markdown Supported)</h3>
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 mb-1">The Problem</label>
+                    <textarea rows={4} value={formData.problem} onChange={e => setFormData({...formData, problem: e.target.value})} className="w-full px-3 py-2 rounded-lg border border-slate-200 focus:border-cyan-500 outline-none text-sm font-mono"></textarea>
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 mb-1">The Solution</label>
+                    <textarea rows={4} value={formData.solution} onChange={e => setFormData({...formData, solution: e.target.value})} className="w-full px-3 py-2 rounded-lg border border-slate-200 focus:border-cyan-500 outline-none text-sm font-mono"></textarea>
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 mb-1">The Result</label>
+                    <textarea rows={4} value={formData.result} onChange={e => setFormData({...formData, result: e.target.value})} className="w-full px-3 py-2 rounded-lg border border-slate-200 focus:border-cyan-500 outline-none text-sm font-mono"></textarea>
+                  </div>
+                </div>
+              </div>
               <div>
                 <label className="block text-xs font-bold text-slate-700 mb-1">Live Project URL (Optional)</label>
                 <input type="url" value={formData.liveLink || ''} onChange={e => setFormData({...formData, liveLink: e.target.value})} className="w-full px-3 py-2 rounded-lg border border-slate-200 focus:border-cyan-500 outline-none" placeholder="https://" />
@@ -565,7 +586,7 @@ export default function AdminDashboard() {
                   {uploading ? <Loader2 className="w-4 h-4 animate-spin" /> : (isEditing ? 'Update Project' : <><Plus className="w-4 h-4" /> Add Project</>)}
                 </button>
                 {isEditing && (
-                  <button type="button" disabled={uploading} onClick={() => { setIsEditing(false); setEditingId(null); setFormData({ title: '', type: '', description: '', outcome: '', image: '', images: [], liveLink: '', aspectRatio: '16 / 9', tags: [], featured: false }); setTagsInput(''); setImageFiles([]); }} className="px-4 py-2 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold rounded-lg transition-colors">
+                  <button type="button" disabled={uploading} onClick={() => { setIsEditing(false); setEditingId(null); setFormData({ title: '', type: '', description: '', outcome: '', image: '', images: [], liveLink: '', aspectRatio: '16 / 9', tags: [], featured: false, problem: '', solution: '', result: '' }); setTagsInput(''); setImageFiles([]); }} className="px-4 py-2 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold rounded-lg transition-colors">
                     Cancel
                   </button>
                 )}
