@@ -30,8 +30,8 @@ export default function BottomNav() {
   const navItems = [
     { id: 'hero', icon: Home, label: 'Home' },
     { id: 'about', icon: User, label: 'About' },
-    { id: 'work', icon: Briefcase, label: 'Work' },
     { id: 'skills', icon: Code2, label: 'Skills' },
+    { id: 'work', icon: Briefcase, label: 'Work' },
     { id: 'contact', icon: Mail, label: 'Contact' },
   ];
 
