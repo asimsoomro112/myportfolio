@@ -40,7 +40,7 @@ export default function SplashScreen() {
                 borderRadius: ["30% 70% 70% 30% / 30% 30% 70% 70%", "70% 30% 30% 70% / 70% 70% 30% 30%", "30% 70% 70% 30% / 30% 30% 70% 70%"],
               }}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute w-[40vw] h-[40vw] max-w-[400px] max-h-[400px] bg-cyan-400/30 blur-3xl rounded-full mix-blend-multiply"
+              className="absolute w-[60vw] h-[60vw] max-w-[400px] max-h-[400px] bg-cyan-400/30 blur-3xl rounded-full mix-blend-multiply"
             />
             <motion.div
               animate={{
@@ -49,7 +49,7 @@ export default function SplashScreen() {
                 borderRadius: ["70% 30% 30% 70% / 70% 70% 30% 30%", "30% 70% 70% 30% / 30% 30% 70% 70%", "70% 30% 30% 70% / 70% 70% 30% 30%"],
               }}
               transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute w-[30vw] h-[30vw] max-w-[300px] max-h-[300px] bg-emerald-400/30 blur-3xl rounded-full mix-blend-multiply translate-x-1/4"
+              className="absolute w-[50vw] h-[50vw] max-w-[300px] max-h-[300px] bg-emerald-400/30 blur-3xl rounded-full mix-blend-multiply translate-x-1/4"
             />
           </div>
 

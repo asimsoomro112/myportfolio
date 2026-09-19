@@ -255,7 +255,7 @@ export default function Projects() {
 
       <AnimatePresence>
         {selectedProject && (
-          <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 sm:p-6 pt-24 pb-24 md:p-12 overflow-y-auto">
+          <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 sm:p-6 md:p-12 overflow-y-auto">
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -291,7 +291,7 @@ export default function Projects() {
                 />
               </div>
 
-              <div className="p-6 sm:p-10 max-h-[60vh] overflow-y-auto">
+              <div className="p-6 sm:p-10 max-h-[75vh] overflow-y-auto">
                 <div className="flex flex-wrap gap-2 mb-4">
                   <span className="rounded-full bg-cyan-50 px-3 py-1 text-xs font-bold text-cyan-700">{selectedProject.type}</span>
                 </div>
