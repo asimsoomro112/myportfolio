@@ -6,7 +6,21 @@ import { useState, useEffect } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 
-const defaultProjects = [
+type ProjectData = {
+  id?: string;
+  title: string;
+  type: string;
+  description: string;
+  outcome: string;
+  image: string;
+  images?: string[];
+  liveLink?: string;
+  aspectRatio: string;
+  tags: string[];
+  featured: boolean;
+};
+
+const defaultProjects: ProjectData[] = [
   {
     title: 'Blueprint AI',
     type: 'AI-Assisted Interface Generator',
@@ -120,7 +134,7 @@ const defaultProjects = [
 ];
 
 export default function Projects() {
-  const [projects, setProjects] = useState(defaultProjects);
+  const [projects, setProjects] = useState<ProjectData[]>(defaultProjects);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -182,17 +196,26 @@ export default function Projects() {
               }`}
             >
               <div
-                className="relative w-full overflow-hidden bg-slate-100"
+                className="relative w-full overflow-hidden bg-slate-100 flex overflow-x-auto snap-x snap-mandatory scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
                 style={{ aspectRatio: project.aspectRatio }}
               >
-                <Image
-                  src={project.image}
-                  alt={`${project.title} screenshot`}
-                  fill
-                  sizes={project.featured ? '(min-width: 768px) 1120px, calc(100vw - 2rem)' : '(min-width: 768px) 50vw, calc(100vw - 2rem)'}
-                  className="object-contain transition-transform duration-700 group-hover:scale-[1.015]"
-                  referrerPolicy="no-referrer"
-                />
+                {(project.images && project.images.length > 0 ? project.images : [project.image]).map((img: string, idx: number) => (
+                  <div key={idx} className="relative w-full h-full flex-shrink-0 snap-center">
+                    <Image
+                      src={img}
+                      alt={`${project.title} screenshot ${idx + 1}`}
+                      fill
+                      sizes={project.featured ? '(min-width: 768px) 1120px, calc(100vw - 2rem)' : '(min-width: 768px) 50vw, calc(100vw - 2rem)'}
+                      className="object-contain transition-transform duration-700 group-hover:scale-[1.015]"
+                      referrerPolicy="no-referrer"
+                    />
+                  </div>
+                ))}
+                {(project.images && project.images.length > 1) && (
+                  <div className="absolute bottom-3 right-3 bg-black/50 backdrop-blur-md text-white text-[10px] font-bold px-2 py-1 rounded-full z-10 pointer-events-none">
+                    Swipe →
+                  </div>
+                )}
               </div>
 
               <div className="p-5 sm:p-6 md:p-7">
@@ -212,6 +235,11 @@ export default function Projects() {
                 <div className="mt-5 rounded-2xl border border-emerald-100 bg-emerald-50 px-4 py-3 text-sm font-semibold text-slate-700">
                   {project.outcome}
                 </div>
+                {project.liveLink && (
+                  <a href={project.liveLink} target="_blank" rel="noreferrer" className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-slate-900 hover:text-cyan-600 transition-colors">
+                    View Live Project <ArrowUpRight className="w-4 h-4" />
+                  </a>
+                )}
               </div>
             </motion.article>
           ))}

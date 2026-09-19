@@ -11,18 +11,25 @@ export default function AdminLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 selection:bg-cyan-200 antialiased font-sans flex flex-col">
-      <header className="bg-slate-950 text-white py-4 px-6 sm:px-8 sticky top-0 z-50 shadow-md">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <div className="font-heading font-bold text-lg tracking-wide">
-            Portfolio <span className="text-cyan-400">Admin</span>
+    <div className="min-h-screen relative flex flex-col">
+      <header className="fixed top-0 inset-x-0 z-50 px-4 pt-4 sm:pt-6 pb-2">
+        <div className="max-w-7xl mx-auto glass-panel rounded-2xl px-6 py-4 flex items-center justify-between shadow-sm">
+          <div className="font-heading font-bold text-xl text-slate-950 flex items-center gap-2">
+            Portfolio <span className="px-2 py-1 rounded-lg bg-cyan-100 text-cyan-800 text-sm">Admin</span>
           </div>
-          <a href="/" className="text-sm font-semibold text-slate-300 hover:text-white transition-colors">
+          <a href="/" className="text-sm font-bold text-slate-600 hover:text-cyan-700 transition-colors bg-white px-4 py-2 rounded-xl shadow-sm border border-slate-100">
             Back to Site
           </a>
         </div>
       </header>
-      <main className="flex-1 max-w-7xl mx-auto w-full p-4 sm:p-6 md:p-8">
+      
+      {/* Background elements */}
+      <div className="fixed inset-0 z-[-1] pointer-events-none overflow-hidden">
+        <div className="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] rounded-full bg-cyan-200/20 blur-[100px]" />
+        <div className="absolute bottom-[-10%] left-[-10%] w-[600px] h-[600px] rounded-full bg-emerald-200/20 blur-[120px]" />
+      </div>
+
+      <main className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 md:px-12 pt-32 pb-12">
         {children}
       </main>
     </div>

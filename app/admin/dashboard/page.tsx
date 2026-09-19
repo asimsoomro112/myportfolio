@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc } from 'firebase/firestore';
 import { auth, db } from '@/lib/firebase';
-import { Loader2, Plus, Edit2, Trash2, LogOut } from 'lucide-react';
+import { Loader2, Plus, Edit2, Trash2, LogOut, X } from 'lucide-react';
 
 type Project = {
   id?: string;
@@ -17,6 +17,8 @@ type Project = {
   aspectRatio: string;
   tags: string[];
   featured: boolean;
+  liveLink?: string;
+  images?: string[];
 };
 
 export default function AdminDashboard() {
@@ -34,12 +36,12 @@ export default function AdminDashboard() {
   const [isEditing, setIsEditing] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [formData, setFormData] = useState<Project>({
-    title: '', type: '', description: '', outcome: '', image: '', aspectRatio: '16 / 9', tags: [], featured: false
+    title: '', type: '', description: '', outcome: '', image: '', images: [], liveLink: '', aspectRatio: '16 / 9', tags: [], featured: false
   });
   const [tagsInput, setTagsInput] = useState('');
   
   // Image Upload State
-  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [imageFiles, setImageFiles] = useState<File[]>([]);
   const [uploading, setUploading] = useState(false);
 
   const router = useRouter();
@@ -99,8 +101,12 @@ export default function AdminDashboard() {
   const handleEdit = (project: Project) => {
     setIsEditing(true);
     setEditingId(project.id!);
-    setFormData(project);
+    // Migrate old 'image' to 'images' array for editing if 'images' doesn't exist
+    const projectImages = project.images || (project.image ? [project.image] : []);
+    setFormData({ ...project, images: projectImages, liveLink: project.liveLink || '' });
     setTagsInput(project.tags.join(', '));
+    setImageFiles([]);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleDelete = async (id: string) => {
@@ -126,32 +132,34 @@ export default function AdminDashboard() {
     e.preventDefault();
     setUploading(true);
 
-    let finalImageUrl = formData.image;
+    let newImageUrls: string[] = [];
 
-    // Upload image if a new file is selected
-    if (imageFile) {
-      const uploadData = new FormData();
-      uploadData.append('file', imageFile);
+    if (imageFiles.length > 0) {
       try {
-        const res = await fetch('/api/upload', {
-          method: 'POST',
-          body: uploadData,
+        const uploadPromises = imageFiles.map(async (file) => {
+          const uploadData = new FormData();
+          uploadData.append('file', file);
+          const res = await fetch('/api/upload', {
+            method: 'POST',
+            body: uploadData,
+          });
+          const data = await res.json();
+          return data.url;
         });
-        const data = await res.json();
-        if (data.url) {
-          finalImageUrl = data.url;
-        } else {
-          alert('Image upload failed. Proceeding without new image.');
-        }
+        const results = await Promise.all(uploadPromises);
+        newImageUrls = results.filter(url => url);
       } catch (error) {
         console.error("Upload error:", error);
-        alert('Image upload failed.');
+        alert('Some images failed to upload.');
       }
     }
 
+    const finalImages = [...(formData.images || []), ...newImageUrls];
+
     const projectData = {
       ...formData,
-      image: finalImageUrl,
+      image: finalImages.length > 0 ? finalImages[0] : '', // Keep main image for backward compatibility
+      images: finalImages,
       tags: tagsInput.split(',').map(t => t.trim()).filter(t => t !== '')
     };
 
@@ -163,9 +171,9 @@ export default function AdminDashboard() {
       }
       setIsEditing(false);
       setEditingId(null);
-      setFormData({ title: '', type: '', description: '', outcome: '', image: '', aspectRatio: '16 / 9', tags: [], featured: false });
+      setFormData({ title: '', type: '', description: '', outcome: '', image: '', images: [], liveLink: '', aspectRatio: '16 / 9', tags: [], featured: false });
       setTagsInput('');
-      setImageFile(null);
+      setImageFiles([]);
       fetchProjects();
     } catch (error) {
       console.error("Error saving project:", error);
@@ -263,23 +271,46 @@ export default function AdminDashboard() {
                 <input type="text" required value={formData.outcome} onChange={e => setFormData({...formData, outcome: e.target.value})} className="w-full px-3 py-2 rounded-lg border border-slate-200 focus:border-cyan-500 outline-none" />
               </div>
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">Project Image</label>
-                {formData.image && !imageFile && (
-                  <div className="mb-2">
-                    <img src={formData.image} alt="Preview" className="h-20 rounded-md object-cover border border-slate-200" />
+                <label className="block text-xs font-bold text-slate-700 mb-1">Live Project URL (Optional)</label>
+                <input type="url" value={formData.liveLink || ''} onChange={e => setFormData({...formData, liveLink: e.target.value})} className="w-full px-3 py-2 rounded-lg border border-slate-200 focus:border-cyan-500 outline-none" placeholder="https://" />
+              </div>
+              
+              <div>
+                <label className="block text-xs font-bold text-slate-700 mb-1">Project Images</label>
+                {(formData.images?.length! > 0 || imageFiles.length > 0) && (
+                  <div className="flex flex-wrap gap-3 mb-3 p-3 bg-slate-50 border border-slate-100 rounded-xl">
+                    {formData.images?.map((img, idx) => (
+                      <div key={`existing-${idx}`} className="relative group">
+                        <img src={img} alt={`Preview ${idx}`} className="h-16 w-24 rounded-lg object-cover border border-slate-200 shadow-sm" />
+                        <button type="button" onClick={() => setFormData({...formData, images: formData.images!.filter((_, i) => i !== idx)})} className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity shadow-sm">
+                          <X className="w-3 h-3" />
+                        </button>
+                      </div>
+                    ))}
+                    {imageFiles.map((file, idx) => (
+                      <div key={`new-${idx}`} className="relative group">
+                        <div className="h-16 w-24 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-[10px] text-slate-500 overflow-hidden text-center p-2 shadow-sm">
+                          <span className="truncate w-full">{file.name}</span>
+                        </div>
+                        <button type="button" onClick={() => setImageFiles(imageFiles.filter((_, i) => i !== idx))} className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity shadow-sm">
+                          <X className="w-3 h-3" />
+                        </button>
+                      </div>
+                    ))}
                   </div>
                 )}
                 <input 
                   type="file" 
                   accept="image/*"
+                  multiple
                   onChange={e => {
-                    if (e.target.files && e.target.files[0]) {
-                      setImageFile(e.target.files[0]);
+                    if (e.target.files) {
+                      setImageFiles([...imageFiles, ...Array.from(e.target.files)]);
                     }
                   }} 
                   className="w-full px-3 py-2 rounded-lg border border-slate-200 text-sm focus:border-cyan-500 outline-none file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-cyan-50 file:text-cyan-700 hover:file:bg-cyan-100" 
                 />
-                <p className="text-xs text-slate-400 mt-1">Leave empty to keep existing image</p>
+                <p className="text-xs text-slate-400 mt-2">You can select multiple images. The first image will be used as the cover.</p>
               </div>
               <div>
                 <label className="block text-xs font-bold text-slate-700 mb-1">Aspect Ratio (e.g. 16 / 9)</label>
@@ -299,7 +330,7 @@ export default function AdminDashboard() {
                   {uploading ? <Loader2 className="w-4 h-4 animate-spin" /> : (isEditing ? 'Update Project' : <><Plus className="w-4 h-4" /> Add Project</>)}
                 </button>
                 {isEditing && (
-                  <button type="button" disabled={uploading} onClick={() => { setIsEditing(false); setEditingId(null); setFormData({ title: '', type: '', description: '', outcome: '', image: '', aspectRatio: '16 / 9', tags: [], featured: false }); setTagsInput(''); setImageFile(null); }} className="px-4 py-2 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold rounded-lg transition-colors">
+                  <button type="button" disabled={uploading} onClick={() => { setIsEditing(false); setEditingId(null); setFormData({ title: '', type: '', description: '', outcome: '', image: '', images: [], liveLink: '', aspectRatio: '16 / 9', tags: [], featured: false }); setTagsInput(''); setImageFiles([]); }} className="px-4 py-2 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold rounded-lg transition-colors">
                     Cancel
                   </button>
                 )}
