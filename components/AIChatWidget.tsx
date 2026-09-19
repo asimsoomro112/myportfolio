@@ -2,7 +2,10 @@
 
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Bot, X, Send, Sparkles } from "lucide-react";
+import { Bot, X, Send, Sparkles, MessageCircle } from "lucide-react";
+import ReactMarkdown from 'react-markdown';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { db } from '@/lib/firebase';
 
 type Message = {
   role: "user" | "assistant";
@@ -12,15 +15,19 @@ type Message = {
 export default function AIChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
-    {
-      role: "assistant",
-      content: "Hi! I'm Asim's AI Assistant. Ask me anything about his skills, experience, or projects!",
-    },
+    { role: "assistant", content: "Hi! I'm Asim's AI assistant. How can I help you today?" }
   ]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
+  const FAQS = [
+    "What are your core skills?",
+    "Tell me about your projects",
+    "Are you available for hire?"
+  ];
+
+  // Auto-scroll to bottom of messages
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
@@ -36,9 +43,8 @@ export default function AIChatWidget() {
     const userMessage = input.trim();
     setInput("");
     
-    // Add user message to UI
-    const newMessages: Message[] = [...messages, { role: "user", content: userMessage }];
-    setMessages(newMessages);
+    // Add user message to state
+    setMessages(prev => [...prev, { role: "user", content: userMessage }]);
     setIsLoading(true);
 
     try {
@@ -47,28 +53,51 @@ export default function AIChatWidget() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           message: userMessage,
-          history: messages.map(m => ({ role: m.role, content: m.content })),
+          history: messages.map(m => ({ role: m.role, content: m.content }))
         }),
       });
 
+      if (!response.ok) throw new Error("Failed to get response");
+      
       const data = await response.json();
       
-      if (response.ok) {
-        setMessages((prev) => [...prev, { role: "assistant", content: data.reply }]);
+      // Check for lead generation tag
+      const match = data.reply.match(/\|\|\|CONTACT_LEAD:(.+?)\|\|\|/);
+      if (match) {
+        const email = match[1];
+        const cleanReply = data.reply.replace(match[0], '').trim();
+        
+        try {
+          await addDoc(collection(db, 'messages'), {
+            name: "AI Chatbot Lead",
+            email: email,
+            message: "Direct inquiry from AI Chatbot. They are interested in hiring/working with you.",
+            createdAt: serverTimestamp(),
+            read: false
+          });
+        } catch (err) {
+          console.error("Firebase lead save error:", err);
+        }
+        
+        setMessages(prev => [...prev, { role: "assistant", content: cleanReply }]);
       } else {
-        setMessages((prev) => [
-          ...prev, 
-          { role: "assistant", content: "Sorry, I'm having trouble connecting to my brain right now. Please try again later!" }
-        ]);
+        setMessages(prev => [...prev, { role: "assistant", content: data.reply }]);
       }
     } catch (error) {
-      setMessages((prev) => [
-        ...prev, 
-        { role: "assistant", content: "Network error occurred. Please try again." }
-      ]);
+      console.error("Chat error:", error);
+      setMessages(prev => [...prev, { role: "assistant", content: "Sorry, I'm having trouble connecting to my brain right now. Please try again later!" }]);
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleQuickAction = (faq: string) => {
+    setInput(faq);
+    // Give state time to update then submit
+    setTimeout(() => {
+      const form = document.getElementById('ai-chat-form') as HTMLFormElement;
+      if (form) form.requestSubmit();
+    }, 50);
   };
 
   return (
@@ -111,10 +140,14 @@ export default function AIChatWidget() {
                     className={`max-w-[85%] px-4 py-3 text-sm shadow-sm ${
                       msg.role === "user"
                         ? "bg-slate-950 text-white rounded-2xl rounded-tr-sm shadow-slate-900/10"
-                        : "bg-white/80 border border-white text-slate-800 rounded-2xl rounded-tl-sm backdrop-blur-md"
+                        : "bg-white/80 border border-white text-slate-800 rounded-2xl rounded-tl-sm backdrop-blur-md prose prose-sm prose-slate max-w-none [&>p]:mb-0 [&>p:not(:last-child)]:mb-2"
                     }`}
                   >
-                    {msg.content}
+                    {msg.role === "user" ? (
+                      msg.content
+                    ) : (
+                      <ReactMarkdown>{msg.content}</ReactMarkdown>
+                    )}
                   </div>
                 </div>
               ))}
@@ -130,8 +163,24 @@ export default function AIChatWidget() {
               <div ref={messagesEndRef} />
             </div>
 
+            {/* FAQ Chips */}
+            {messages.length < 3 && !isLoading && (
+              <div className="px-3 pb-3 flex gap-2 overflow-x-auto scrollbar-none whitespace-nowrap">
+                {FAQS.map((faq, i) => (
+                  <button
+                    key={i}
+                    onClick={() => handleQuickAction(faq)}
+                    className="bg-white/50 hover:bg-white/80 border border-slate-200/50 text-slate-700 text-xs px-3 py-1.5 rounded-full transition-colors flex items-center gap-1.5 shadow-sm backdrop-blur-md"
+                  >
+                    <MessageCircle className="w-3 h-3 text-cyan-600" />
+                    {faq}
+                  </button>
+                ))}
+              </div>
+            )}
+
             {/* Input Area */}
-            <form onSubmit={handleSubmit} className="p-3 bg-white/40 border-t border-white/50 flex gap-2 backdrop-blur-xl supports-[backdrop-filter]:bg-white/40">
+            <form id="ai-chat-form" onSubmit={handleSubmit} className="p-3 bg-white/40 border-t border-white/50 flex gap-2 backdrop-blur-xl supports-[backdrop-filter]:bg-white/40">
               <input
                 type="text"
                 value={input}
