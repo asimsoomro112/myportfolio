@@ -20,7 +20,7 @@ export default function SplashScreen() {
     const welcomeTimer = setTimeout(() => {
       setStage('done');
       document.body.style.overflow = '';
-    }, 6000); // 2.5s loading + 3.5s welcome
+    }, 6200); // Extended slightly so welcome text doesn't disappear too fast
 
     return () => {
       clearTimeout(loadingTimer);
@@ -38,7 +38,7 @@ export default function SplashScreen() {
         if (i >= fullText.length) {
           clearInterval(interval);
         }
-      }, 60); // Speed of typing
+      }, 55);
       return () => clearInterval(interval);
     }
   }, [stage, fullText]);
@@ -51,7 +51,7 @@ export default function SplashScreen() {
           initial={{ opacity: 1 }}
           exit={{ opacity: 0, backdropFilter: 'blur(0px)' }}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="fixed inset-0 z-[999] flex flex-col items-center justify-center bg-white/20 backdrop-blur-3xl"
+          className="fixed inset-0 z-[999] flex flex-col items-center justify-center bg-white/30 backdrop-blur-3xl p-4"
         >
           {/* Liquid Glass Blobs Background */}
           <div className="absolute inset-0 overflow-hidden pointer-events-none flex items-center justify-center">
@@ -62,7 +62,7 @@ export default function SplashScreen() {
                 borderRadius: ["30% 70% 70% 30% / 30% 30% 70% 70%", "70% 30% 30% 70% / 70% 70% 30% 30%", "30% 70% 70% 30% / 30% 30% 70% 70%"],
               }}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute w-[60vw] h-[60vw] max-w-[400px] max-h-[400px] bg-cyan-400/30 blur-3xl rounded-full mix-blend-multiply"
+              className="absolute w-[70vw] h-[70vw] max-w-[400px] max-h-[400px] bg-cyan-400/30 blur-3xl rounded-full mix-blend-multiply"
             />
             <motion.div
               animate={{
@@ -71,7 +71,7 @@ export default function SplashScreen() {
                 borderRadius: ["70% 30% 30% 70% / 70% 70% 30% 30%", "30% 70% 70% 30% / 30% 30% 70% 70%", "70% 30% 30% 70% / 70% 70% 30% 30%"],
               }}
               transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute w-[50vw] h-[50vw] max-w-[300px] max-h-[300px] bg-emerald-400/30 blur-3xl rounded-full mix-blend-multiply translate-x-1/4"
+              className="absolute w-[60vw] h-[60vw] max-w-[300px] max-h-[300px] bg-emerald-400/30 blur-3xl rounded-full mix-blend-multiply translate-x-1/4"
             />
           </div>
 
@@ -85,12 +85,12 @@ export default function SplashScreen() {
                 transition={{ duration: 0.6, ease: "easeOut" }}
                 className="relative z-10 flex flex-col items-center"
               >
-                <div className="relative w-24 h-24 sm:w-32 sm:h-32 mb-6">
+                <div className="relative w-20 h-20 sm:w-28 sm:h-28 md:w-32 md:h-32 mb-5 sm:mb-6">
                   {/* Liquid Glass Card */}
-                  <div className="absolute inset-0 bg-white/20 backdrop-blur-2xl border border-white/50 rounded-3xl shadow-[0_8px_32px_rgba(0,0,0,0.1)] flex items-center justify-center overflow-hidden">
+                  <div className="absolute inset-0 bg-white/30 backdrop-blur-2xl border border-white/60 rounded-2xl sm:rounded-3xl shadow-[0_8px_32px_rgba(0,0,0,0.1)] flex items-center justify-center overflow-hidden">
                     <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent pointer-events-none" />
-                    <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/20 to-transparent -translate-x-full animate-[shimmer_2.5s_infinite]" />
-                    <Logo className="w-14 h-14 sm:w-16 sm:h-16" />
+                    <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/25 to-transparent -translate-x-full animate-[shimmer_2.5s_infinite]" />
+                    <Logo className="w-11 h-11 sm:w-14 sm:h-14 md:w-16 md:h-16 drop-shadow-md" />
                   </div>
                 </div>
 
@@ -101,14 +101,14 @@ export default function SplashScreen() {
                     animate={{ y: 0 }}
                     transition={{ delay: 0.5, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                   >
-                    <p className="text-sm sm:text-base font-bold text-slate-600 uppercase tracking-[0.2em]">
+                    <p className="text-xs sm:text-sm md:text-base font-bold text-slate-600 uppercase tracking-[0.2em]">
                       Loading Experience
                     </p>
                   </motion.div>
                 </div>
                 
                 {/* Progress Bar Container */}
-                <div className="w-48 sm:w-64 h-1 bg-slate-200/50 rounded-full mt-6 overflow-hidden backdrop-blur-sm">
+                <div className="w-40 sm:w-56 md:w-64 h-1 bg-slate-200/60 rounded-full mt-5 sm:mt-6 overflow-hidden backdrop-blur-sm">
                   <motion.div
                     initial={{ x: "-100%" }}
                     animate={{ x: "0%" }}
@@ -126,25 +126,29 @@ export default function SplashScreen() {
                 animate={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
                 exit={{ opacity: 0, scale: 1.05, filter: 'blur(10px)' }}
                 transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-                className="relative z-10 flex flex-col items-center justify-center text-center px-4"
+                className="relative z-10 flex flex-col items-center justify-center text-center px-4 w-full max-w-2xl"
               >
-                <h1 className="text-3xl sm:text-5xl md:text-6xl font-heading font-bold text-slate-900 flex items-center justify-center">
-                  {typedText}
+                <h1 className="text-2xl sm:text-4xl md:text-6xl font-heading font-bold text-slate-900 leading-tight inline-flex items-center justify-center flex-wrap">
+                  <span>{typedText}</span>
                   <motion.span
                     animate={{ opacity: [1, 0, 1] }}
                     transition={{ duration: 0.8, repeat: Infinity, ease: "linear" }}
-                    className="inline-block w-1 h-8 sm:h-12 md:h-14 bg-cyan-500 ml-1 sm:ml-2 rounded-full"
+                    className="inline-block w-0.5 sm:w-1 h-6 sm:h-10 md:h-12 bg-cyan-500 ml-1 rounded-full"
                   />
                 </h1>
                 
-                <motion.div
+                <motion.button
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: typedText === fullText ? 1 : 0, y: typedText === fullText ? 0 : 10 }}
                   transition={{ duration: 0.5, delay: 0.2 }}
-                  className="mt-6 sm:mt-8 px-6 py-2 rounded-full border border-slate-300/50 bg-white/30 backdrop-blur-md shadow-sm text-sm font-semibold text-slate-600 uppercase tracking-widest"
+                  onClick={() => {
+                    setStage('done');
+                    document.body.style.overflow = '';
+                  }}
+                  className="mt-6 sm:mt-8 px-5 sm:px-6 py-2 sm:py-2.5 rounded-full border border-slate-300/60 bg-white/40 backdrop-blur-md shadow-sm text-xs sm:text-sm font-semibold text-slate-700 uppercase tracking-widest active:scale-95 transition-transform"
                 >
                   Enter
-                </motion.div>
+                </motion.button>
               </motion.div>
             )}
           </AnimatePresence>

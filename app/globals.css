@@ -65,3 +65,12 @@ video {
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(15, 23, 42, 0.30);
 }
+
+@media print {
+  html, body {
+    overflow: visible !important;
+    overflow-x: visible !important;
+    overflow-y: visible !important;
+    height: auto !important;
+  }
+}

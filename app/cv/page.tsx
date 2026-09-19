@@ -233,35 +233,86 @@ const cssContent = `
 
 
 @media print {
+    @page {
+        size: A4 portrait;
+        margin: 10mm 12mm 12mm 12mm;
+    }
+
+    html, body {
+        overflow: visible !important;
+        overflow-x: visible !important;
+        height: auto !important;
+        min-height: auto !important;
+        background: #ffffff !important;
+        color: #1e293b !important;
+    }
+
     .cv-page {
-        padding: 0;
-        background: white;
+        padding: 0 !important;
+        margin: 0 !important;
+        background: #ffffff !important;
+        overflow: visible !important;
+        overflow-x: visible !important;
+        min-height: auto !important;
+        height: auto !important;
+        width: 100% !important;
     }
+
     .cv {
-        max-width: 100%;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
     }
+
     .body-grid {
-        grid-template-columns: 1fr;
-        gap: 40px;
+        display: grid !important;
+        grid-template-columns: 1fr 260px !important;
+        gap: 24px !important;
     }
+
+    .sidebar {
+        width: 260px !important;
+    }
+
     .header {
         border-bottom: 2px solid #000;
+        margin-bottom: 20px;
+        padding-bottom: 20px;
     }
+
     .sec-title::after {
-        background: #000;
+        background: #cbd5e1;
     }
+
     .project {
         break-inside: avoid;
-        background: transparent;
-        border: 1px solid #eee;
+        page-break-inside: avoid;
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        margin-bottom: 14px;
+        padding: 12px 14px;
     }
+
+    .skill-group, .edu-block {
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+
+    .sec-title {
+        break-after: avoid;
+        page-break-after: avoid;
+    }
+
     a {
         text-decoration: none;
         color: inherit;
     }
+
     .no-print {
-        display: none;
+        display: none !important;
     }
+
     nav, footer { display: none !important; }
 }
 `;

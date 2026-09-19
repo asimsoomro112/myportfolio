@@ -68,56 +68,26 @@ const defaultProjects: ProjectData[] = [
   {
     title: 'Rice Mill Export Platform',
     type: 'B2B Catalog & Inquiry System',
-    description: 'A production-ready product catalog system supporting structured categories and automated inquiry routing.',
-    outcome: 'Optimized frontend architecture with dynamic routing for a seamless B2B user experience.',
-    image: '/projects/saqibricemill.png',
-    aspectRatio: '1908 / 947',
-    tags: ['Next.js', 'Firebase', 'Data Modeling', 'Frontend Architecture'],
-    featured: true,
-  },
-  {
-    title: 'Aura-QX SMC Tool',
-    type: 'Financial Data Dashboard',
-    description: 'A real-time logic interface that organizes complex trading data concepts into a readable dashboard for decision support.',
-    outcome: 'Focuses on complex state management and high-performance rendering of dynamic data.',
-    image: '/projects/aurasmc.png',
-    aspectRatio: '1349 / 948',
-    tags: ['Dashboard', 'Data Visualization', 'React', 'Realtime Logic'],
+    description: 'A multi-tier product catalog tailored for export inquiries, featuring dynamic quote generation and multi-currency displays.',
+    outcome: 'Streamlines international lead capture and buyer verification workflows.',
+    image: '/projects/ricemill.png',
+    aspectRatio: '1900 / 920',
+    tags: ['Next.js', 'B2B UI', 'Catalog Flow', 'Tailwind CSS'],
     featured: false,
   },
   {
-    title: 'StreamPK Live',
-    type: 'Media Streaming Interface',
-    description: 'A live media platform aggregating public IPTV sources into a fast, country-based browsing interface.',
-    outcome: 'Highlights efficient data fetching and state handling in a Vite React environment.',
-    image: '/projects/StreamPkLive.png',
-    aspectRatio: '1919 / 940',
-    tags: ['Vite', 'React', 'API Integration', 'Data Fetching'],
+    title: 'Live TV & Channel Browser',
+    type: 'Streaming Media Aggregator',
+    description: 'A media aggregation client enabling country-based channel switching, stream embedding, and lightweight state caching.',
+    outcome: 'Delivers instant channel playback and organized category filtering with zero UI lag.',
+    image: '/projects/livetv.png',
+    aspectRatio: '1918 / 948',
+    tags: ['React', 'Media Streaming', 'State Management', 'UI Performance'],
     featured: false,
   },
   {
-    title: 'Sammar Fabrics Store',
-    type: 'E-Commerce Platform',
-    description: 'A structured product catalog with category management and optimized frontend performance.',
-    outcome: 'Delivers a reliable e-commerce interface with clean component architecture.',
-    image: '/projects/sammarfabrics.png',
-    aspectRatio: '1901 / 932',
-    tags: ['E-Commerce', 'Frontend', 'React', 'Responsive UI'],
-    featured: true,
-  },
-  {
-    title: 'Smoke Time Storefront',
-    type: 'Retail E-Commerce',
-    description: 'A product-led storefront featuring inventory thinking and custom cart state management.',
-    outcome: 'Demonstrates scalable component design and shopping cart data flow.',
-    image: '/projects/smoketime.png',
-    aspectRatio: '1743 / 932',
-    tags: ['React', 'Cart Logic', 'State Management'],
-    featured: false,
-  },
-  {
-    title: 'Luxe Apparel',
-    type: 'D2C Storefront',
+    title: 'Luxe Apparel Storefront',
+    type: 'E-Commerce Storefront Prototype',
     description: 'A clean, minimal frontend architecture optimized for product drops and fast load times.',
     outcome: 'Prioritizes UI/UX precision and responsive design systems.',
     image: '/projects/luxeapparel.png',
@@ -163,32 +133,32 @@ export default function Projects() {
   }, []);
 
   return (
-    <section id="work" className="py-16 md:py-24 relative z-10 scroll-mt-24 md:scroll-mt-28">
+    <section id="work" className="py-12 sm:py-16 md:py-24 relative z-10 scroll-mt-24 md:scroll-mt-28">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 md:mb-14 gap-6">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-10 md:mb-14 gap-4 sm:gap-6">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             className="max-w-3xl"
           >
-            <p className="text-sm font-bold uppercase text-cyan-700">Selected work</p>
-            <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-heading font-bold text-slate-950">
+            <p className="text-xs sm:text-sm font-bold uppercase text-cyan-700">Selected work</p>
+            <h2 className="mt-2 sm:mt-3 text-2xl sm:text-4xl md:text-5xl font-heading font-bold text-slate-950 leading-tight">
               Project examples across AI, web apps, commerce, media, and interactive systems.
             </h2>
-            <p className="mt-5 text-base sm:text-lg text-slate-600 leading-relaxed">
+            <p className="mt-3 sm:mt-5 text-sm sm:text-base md:text-lg text-slate-600 leading-relaxed">
               Each project highlights the product idea, the interface direction, the tech involved, and the practical value of the build.
             </p>
           </motion.div>
           <a
             href="#contact"
-            className="text-slate-700 hover:text-slate-950 flex items-center gap-2 font-bold transition-colors group"
+            className="text-slate-700 hover:text-slate-950 flex items-center gap-2 font-bold transition-colors group text-sm sm:text-base shrink-0"
           >
             Discuss a project <ArrowUpRight className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
           </a>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
           {projects.map((project, i) => (
             <motion.article
               key={project.title}
@@ -196,7 +166,7 @@ export default function Projects() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-80px' }}
               transition={{ duration: 0.55, delay: i * 0.06 }}
-              className={`group rounded-3xl border border-slate-200 bg-white shadow-xl shadow-slate-950/[0.04] overflow-hidden cursor-pointer ${
+              className={`group rounded-2xl sm:rounded-3xl border border-slate-200 bg-white shadow-xl shadow-slate-950/[0.04] overflow-hidden cursor-pointer active:scale-[0.99] transition-transform ${
                 project.featured ? 'md:col-span-2' : ''
               }`}
               data-cursor="project"
@@ -210,31 +180,31 @@ export default function Projects() {
                   src={project.image}
                   alt={project.title}
                   fill
-                  sizes={project.featured ? '(min-width: 768px) 1120px, calc(100vw - 2rem)' : '(min-width: 768px) 50vw, calc(100vw - 2rem)'}
+                  sizes={project.featured ? '(min-width: 768px) 1120px, 100vw' : '(min-width: 768px) 50vw, 100vw'}
                   className="object-cover sm:object-contain transition-transform duration-700 group-hover:scale-[1.015]"
                   referrerPolicy="no-referrer"
                 />
               </div>
 
-              <div className="p-5 sm:p-6 md:p-7">
-                <div className="flex flex-wrap items-center gap-2 mb-4">
-                  <span className="rounded-full bg-cyan-50 px-3 py-1 text-xs font-bold text-cyan-700">{project.type}</span>
+              <div className="p-4 sm:p-6 md:p-7">
+                <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 mb-3 sm:mb-4">
+                  <span className="rounded-full bg-cyan-50 px-2.5 sm:px-3 py-1 text-[11px] sm:text-xs font-bold text-cyan-700">{project.type}</span>
                   {project.tags.map((tag) => (
-                    <span key={tag} className="rounded-full border border-slate-200 px-3 py-1 text-xs font-semibold text-slate-500">
+                    <span key={tag} className="rounded-full border border-slate-200 px-2.5 sm:px-3 py-1 text-[11px] sm:text-xs font-semibold text-slate-500">
                       {tag}
                     </span>
                   ))}
                 </div>
 
-                <h3 className="text-2xl md:text-3xl font-heading font-bold text-slate-950">
+                <h3 className="text-xl sm:text-2xl md:text-3xl font-heading font-bold text-slate-950">
                   {project.title}
                 </h3>
-                <p className="mt-3 text-slate-600 leading-relaxed">{project.description}</p>
-                <div className="mt-5 rounded-2xl border border-emerald-100 bg-emerald-50 px-4 py-3 text-sm font-semibold text-slate-700">
+                <p className="mt-2 sm:mt-3 text-xs sm:text-sm md:text-base text-slate-600 leading-relaxed">{project.description}</p>
+                <div className="mt-4 sm:mt-5 rounded-xl sm:rounded-2xl border border-emerald-100 bg-emerald-50 px-3.5 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm font-semibold text-slate-700">
                   {project.outcome}
                 </div>
                 {project.liveLink && (
-                  <a href={project.liveLink} target="_blank" rel="noreferrer" className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-slate-900 hover:text-cyan-600 transition-colors">
+                  <a href={project.liveLink} target="_blank" rel="noreferrer" className="mt-4 sm:mt-5 inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-slate-900 hover:text-cyan-600 transition-colors">
                     View Live Project <ArrowUpRight className="w-4 h-4" />
                   </a>
                 )}
@@ -244,25 +214,28 @@ export default function Projects() {
         </div>
       </div>
 
+      {/* Project Modal: Mobile-optimized with smooth scrolling and high-contrast close button */}
       <AnimatePresence>
         {selectedProject && (
-          <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 sm:p-6 md:p-12 overflow-y-auto">
+          <div className="fixed inset-0 z-[200] flex items-center justify-center p-3 sm:p-6 md:p-12 overflow-y-auto">
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setSelectedProject(null)}
-              className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm"
+              className="fixed inset-0 bg-slate-900/60 backdrop-blur-md"
             />
             <motion.div
-              initial={{ opacity: 0, y: 40, scale: 0.95 }}
+              initial={{ opacity: 0, y: 30, scale: 0.96 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 20, scale: 0.95 }}
-              className="relative w-full max-w-4xl bg-white rounded-3xl shadow-2xl overflow-hidden z-[201] my-auto"
+              exit={{ opacity: 0, y: 20, scale: 0.96 }}
+              className="relative w-full max-w-4xl bg-white rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden z-[201] my-auto max-h-[92vh] flex flex-col"
             >
+              {/* Close button with high z-index and tap area */}
               <button
                 onClick={() => setSelectedProject(null)}
-                className="absolute top-4 right-4 sm:top-6 sm:right-6 w-10 h-10 bg-slate-100 hover:bg-slate-200 rounded-full flex items-center justify-center text-slate-700 transition-colors z-20"
+                className="absolute top-3 right-3 sm:top-5 sm:right-5 w-9 h-9 sm:w-10 sm:h-10 bg-black/60 hover:bg-black/80 text-white rounded-full flex items-center justify-center shadow-lg backdrop-blur-md transition-all active:scale-95 z-30"
+                aria-label="Close project modal"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -273,8 +246,7 @@ export default function Projects() {
                   : [selectedProject.image];
                   
                 return (
-                  <div className="relative w-full h-64 sm:h-80 md:h-[450px] bg-slate-950 group overflow-hidden">
-                    {/* Background Blur for atmosphere */}
+                  <div className="relative w-full h-48 sm:h-72 md:h-[420px] bg-slate-950 group overflow-hidden flex-shrink-0">
                     <Image
                       src={selectedProject.image}
                       alt={selectedProject.title}
@@ -285,8 +257,8 @@ export default function Projects() {
                     {galleryImages.length > 1 ? (
                       <div className="relative w-full h-full flex overflow-x-auto snap-x snap-mandatory scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] z-10">
                         {galleryImages.map((img, idx) => (
-                          <div key={idx} className="relative w-full h-full flex-shrink-0 snap-center flex items-center justify-center p-4 sm:p-8">
-                            <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/10 bg-slate-900/50">
+                          <div key={idx} className="relative w-full h-full flex-shrink-0 snap-center flex items-center justify-center p-3 sm:p-6 md:p-8">
+                            <div className="relative w-full h-full rounded-xl sm:rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/10 bg-slate-900/50">
                               <Image
                                 src={img}
                                 alt={`${selectedProject.title} screenshot ${idx + 1}`}
@@ -298,8 +270,8 @@ export default function Projects() {
                         ))}
                       </div>
                     ) : (
-                      <div className="relative w-full h-full z-10 flex items-center justify-center p-4 sm:p-8">
-                        <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/10 bg-slate-900/50">
+                      <div className="relative w-full h-full z-10 flex items-center justify-center p-3 sm:p-6 md:p-8">
+                        <div className="relative w-full h-full rounded-xl sm:rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/10 bg-slate-900/50">
                           <Image
                             src={selectedProject.image}
                             alt={selectedProject.title}
@@ -311,8 +283,8 @@ export default function Projects() {
                     )}
                     
                     {galleryImages.length > 1 && (
-                      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex gap-2 bg-black/50 backdrop-blur-md px-4 py-2 rounded-full border border-white/10 pointer-events-none">
-                        <span className="text-[10px] font-bold text-white uppercase tracking-wider mr-2">Swipe</span>
+                      <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-20 flex gap-2 bg-black/60 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/15 pointer-events-none">
+                        <span className="text-[10px] font-bold text-white uppercase tracking-wider mr-1">Swipe</span>
                         {galleryImages.map((_, i) => (
                           <div key={i} className="w-1.5 h-1.5 rounded-full bg-white/70" />
                         ))}
@@ -322,64 +294,64 @@ export default function Projects() {
                 );
               })()}
 
-              <div className="p-6 sm:p-10 max-h-[75vh] overflow-y-auto">
-                <div className="flex flex-wrap gap-2 mb-4">
+              <div className="p-4 sm:p-8 md:p-10 overflow-y-auto flex-1">
+                <div className="flex flex-wrap gap-2 mb-3">
                   <span className="rounded-full bg-cyan-50 px-3 py-1 text-xs font-bold text-cyan-700">{selectedProject.type}</span>
                 </div>
-                <h2 className="text-3xl sm:text-4xl font-heading font-bold text-slate-950 mb-2">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-bold text-slate-950 mb-2">
                   {selectedProject.title}
                 </h2>
-                <p className="text-lg text-slate-600 mb-8">{selectedProject.description}</p>
+                <p className="text-sm sm:text-base md:text-lg text-slate-600 mb-6 sm:mb-8 leading-relaxed">{selectedProject.description}</p>
 
                 {selectedProject.problem || selectedProject.solution ? (
-                  <div className="space-y-8">
+                  <div className="space-y-6 sm:space-y-8">
                     {selectedProject.problem && (
                       <div>
-                        <h3 className="text-xl font-bold text-slate-900 mb-3 flex items-center gap-2">
+                        <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-2 sm:mb-3 flex items-center gap-2">
                           <div className="w-2 h-2 rounded-full bg-red-400" /> The Problem
                         </h3>
-                        <div className="prose prose-slate max-w-none text-slate-600">
+                        <div className="prose prose-slate max-w-none text-slate-600 text-sm sm:text-base leading-relaxed">
                           <ReactMarkdown>{selectedProject.problem}</ReactMarkdown>
                         </div>
                       </div>
                     )}
                     {selectedProject.solution && (
                       <div>
-                        <h3 className="text-xl font-bold text-slate-900 mb-3 flex items-center gap-2">
+                        <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-2 sm:mb-3 flex items-center gap-2">
                           <div className="w-2 h-2 rounded-full bg-cyan-400" /> The Solution
                         </h3>
-                        <div className="prose prose-slate max-w-none text-slate-600">
+                        <div className="prose prose-slate max-w-none text-slate-600 text-sm sm:text-base leading-relaxed">
                           <ReactMarkdown>{selectedProject.solution}</ReactMarkdown>
                         </div>
                       </div>
                     )}
                     {selectedProject.result && (
-                      <div className="bg-emerald-50 border border-emerald-100 rounded-2xl p-6">
-                        <h3 className="text-xl font-bold text-emerald-900 mb-3 flex items-center gap-2">
+                      <div className="bg-emerald-50 border border-emerald-100 rounded-xl sm:rounded-2xl p-4 sm:p-6">
+                        <h3 className="text-lg sm:text-xl font-bold text-emerald-900 mb-2 sm:mb-3 flex items-center gap-2">
                           <div className="w-2 h-2 rounded-full bg-emerald-500" /> The Result
                         </h3>
-                        <div className="prose prose-emerald max-w-none text-emerald-800">
+                        <div className="prose prose-emerald max-w-none text-emerald-800 text-sm sm:text-base leading-relaxed">
                           <ReactMarkdown>{selectedProject.result}</ReactMarkdown>
                         </div>
                       </div>
                     )}
                   </div>
                 ) : (
-                  <div className="bg-slate-50 border border-slate-100 rounded-2xl p-6">
-                    <h3 className="text-xl font-bold text-slate-900 mb-3">Project Outcome</h3>
-                    <p className="text-slate-700">{selectedProject.outcome}</p>
+                  <div className="bg-slate-50 border border-slate-100 rounded-xl sm:rounded-2xl p-4 sm:p-6">
+                    <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-2 sm:mb-3">Project Outcome</h3>
+                    <p className="text-slate-700 text-sm sm:text-base leading-relaxed">{selectedProject.outcome}</p>
                   </div>
                 )}
 
                 {selectedProject.liveLink && (
-                  <div className="mt-10">
+                  <div className="mt-6 sm:mt-10 pt-4 border-t border-slate-100">
                     <a
                       href={selectedProject.liveLink}
                       target="_blank"
                       rel="noreferrer"
-                      className="inline-flex px-8 py-4 bg-slate-950 text-white rounded-2xl font-bold hover:bg-slate-800 transition-colors items-center gap-2"
+                      className="w-full sm:w-auto inline-flex justify-center px-6 sm:px-8 py-3.5 sm:py-4 bg-slate-950 text-white rounded-xl sm:rounded-2xl font-bold hover:bg-slate-800 active:scale-98 transition-all items-center gap-2 text-sm sm:text-base"
                     >
-                      Visit Live Project <ArrowUpRight className="w-5 h-5" />
+                      View Live Project <ArrowUpRight className="w-4 h-4" />
                     </a>
                   </div>
                 )}

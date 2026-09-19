@@ -27,19 +27,19 @@ const steps = [
 
 export default function Journal() {
   return (
-    <section id="process" className="py-16 md:py-24 relative z-10 bg-white/65 border-y border-slate-200 scroll-mt-24 md:scroll-mt-28">
+    <section id="process" className="py-12 sm:py-16 md:py-24 relative z-10 bg-white/65 border-y border-slate-200 scroll-mt-24 md:scroll-mt-28">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12">
-        <div className="mb-10 md:mb-14 max-w-3xl">
-          <p className="text-sm font-bold uppercase text-cyan-700">Process</p>
-          <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-heading font-bold text-slate-950">
+        <div className="mb-8 sm:mb-10 md:mb-14 max-w-3xl">
+          <p className="text-xs sm:text-sm font-bold uppercase text-cyan-700">Process</p>
+          <h2 className="mt-2 sm:mt-3 text-2xl sm:text-4xl md:text-5xl font-heading font-bold text-slate-950 leading-tight">
             A simple build process that keeps the project moving.
           </h2>
-          <p className="mt-5 text-base sm:text-lg text-slate-600 leading-relaxed">
+          <p className="mt-3 sm:mt-5 text-sm sm:text-base md:text-lg text-slate-600 leading-relaxed">
             Good projects move faster when the goal, content, data, technical flow, and mobile behavior are clear before development gets heavy.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3.5 sm:gap-4">
           {steps.map((step, i) => (
             <motion.article
               key={step.title}
@@ -47,16 +47,16 @@ export default function Journal() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.08 }}
-              className="rounded-3xl border border-slate-200 bg-white p-5 sm:p-6"
+              className="rounded-2xl sm:rounded-3xl border border-slate-200 bg-white p-4 sm:p-6 shadow-sm"
             >
-              <div className="flex items-center justify-between mb-6">
-                <div className="w-11 h-11 rounded-2xl bg-slate-950 text-white flex items-center justify-center">
+              <div className="flex items-center justify-between mb-4 sm:mb-6">
+                <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl sm:rounded-2xl bg-slate-950 text-white flex items-center justify-center">
                   <step.icon className="w-5 h-5" />
                 </div>
-                <span className="text-sm font-bold text-slate-400">0{i + 1}</span>
+                <span className="text-xs sm:text-sm font-bold text-slate-400">0{i + 1}</span>
               </div>
-              <h3 className="text-xl font-heading font-bold text-slate-950">{step.title}</h3>
-              <p className="mt-3 text-sm text-slate-600 leading-relaxed">{step.text}</p>
+              <h3 className="text-lg sm:text-xl font-heading font-bold text-slate-950">{step.title}</h3>
+              <p className="mt-2 sm:mt-3 text-xs sm:text-sm text-slate-600 leading-relaxed">{step.text}</p>
             </motion.article>
           ))}
         </div>

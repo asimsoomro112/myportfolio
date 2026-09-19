@@ -63,27 +63,28 @@ export default function Hero() {
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       id="hero"
-      className="relative min-h-[100svh] flex items-center pt-28 pb-16 md:pt-28 md:pb-20 overflow-hidden"
+      className="relative min-h-[100svh] flex items-center pt-24 pb-14 sm:pt-28 sm:pb-16 md:pt-28 md:pb-20 overflow-hidden"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 w-full relative z-10">
-        <div className="grid lg:grid-cols-[0.95fr_0.85fr] gap-10 lg:gap-14 items-center">
-          <div className="flex flex-col items-start gap-7">
+        <div className="grid lg:grid-cols-[0.95fr_0.85fr] gap-8 sm:gap-10 lg:gap-14 items-center">
+          <div className="flex flex-col items-start gap-6 sm:gap-7">
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.45 }}
               className="flex flex-wrap gap-2"
             >
-              <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-emerald-200 bg-emerald-50 text-emerald-700 text-xs font-bold uppercase">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 sm:py-1.5 rounded-full border border-emerald-200 bg-emerald-50 text-emerald-700 text-[11px] sm:text-xs font-bold uppercase">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                 Software Engineer
               </span>
-              <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-slate-200 bg-white/80 text-slate-700 text-xs font-bold uppercase">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 sm:py-1.5 rounded-full border border-slate-200 bg-white/80 text-slate-700 text-[11px] sm:text-xs font-bold uppercase">
                 <MapPin className="w-3.5 h-3.5" />
                 Karachi, PK (Open to Remote)
               </span>
             </motion.div>
 
+            {/* Profile Avatar Card */}
             <motion.div
               initial={{ opacity: 0, scale: 0.97, y: 18 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -91,50 +92,51 @@ export default function Hero() {
               style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
               className="relative w-full max-w-[620px]"
             >
-              <div className="glass-panel rounded-3xl p-6 sm:p-8 flex flex-col items-center text-center gap-5 w-full max-w-sm mx-auto sm:mx-0">
-                <div className="relative w-36 h-36 sm:w-48 sm:h-48 flex-shrink-0 overflow-hidden rounded-[2rem] border-[3px] border-white/60 bg-slate-100 shadow-xl shadow-slate-900/5">
+              <div className="glass-panel rounded-3xl p-5 sm:p-8 flex flex-col items-center text-center gap-4 sm:gap-5 w-full max-w-sm mx-auto sm:mx-0">
+                <div className="relative w-32 h-32 sm:w-44 sm:h-44 md:w-48 md:h-48 flex-shrink-0 overflow-hidden rounded-[1.75rem] sm:rounded-[2rem] border-[3px] border-white/80 bg-slate-100 shadow-xl shadow-slate-900/5">
                   <Image
                     src="/passport-size.png"
                     alt="Muhammad Asim"
                     fill
-                    sizes="(min-width: 640px) 192px, 144px"
+                    sizes="(min-width: 640px) 192px, 128px"
                     priority
                     className="object-cover"
                   />
                 </div>
 
                 <div className="min-w-0 w-full flex flex-col items-center">
-                  <h1 className="whitespace-nowrap text-3xl sm:text-4xl font-heading font-bold text-slate-950">
+                  <h1 className="text-2xl sm:text-3xl md:text-4xl font-heading font-bold text-slate-950 tracking-tight">
                     Muhammad Asim
                   </h1>
-                  <p className="mt-1 text-base sm:text-lg font-semibold text-slate-600">Software Engineer</p>
+                  <p className="mt-1 text-sm sm:text-base md:text-lg font-semibold text-slate-600">Software Engineer</p>
 
-                  <div className="mt-5 grid grid-cols-2 gap-3 w-full text-xs">
-                    <div className="rounded-2xl bg-slate-50/80 border border-slate-200/60 p-3 flex flex-col items-center">
-                      <div className="flex items-center gap-1.5 text-slate-500 mb-1">
+                  <div className="mt-4 sm:mt-5 grid grid-cols-2 gap-2.5 sm:gap-3 w-full text-xs">
+                    <div className="rounded-2xl bg-slate-50/80 border border-slate-200/60 p-2.5 sm:p-3 flex flex-col items-center">
+                      <div className="flex items-center gap-1.5 text-slate-500 mb-1 text-[11px] sm:text-xs">
                         <Code2 className="w-3.5 h-3.5" />
                         Focus
                       </div>
-                      <div className="font-bold text-slate-900 leading-tight">Full-stack products</div>
+                      <div className="font-bold text-slate-900 leading-tight text-xs sm:text-sm">Full-stack products</div>
                     </div>
-                    <div className="rounded-2xl bg-cyan-50/80 border border-cyan-100/60 p-3 flex flex-col items-center">
-                      <div className="flex items-center gap-1.5 text-cyan-700 mb-1">
+                    <div className="rounded-2xl bg-cyan-50/80 border border-cyan-100/60 p-2.5 sm:p-3 flex flex-col items-center">
+                      <div className="flex items-center gap-1.5 text-cyan-700 mb-1 text-[11px] sm:text-xs">
                         <Sparkles className="w-3.5 h-3.5" />
                         Delivery
                       </div>
-                      <div className="font-bold text-slate-900 leading-tight">Clean, usable UI</div>
+                      <div className="font-bold text-slate-900 leading-tight text-xs sm:text-sm">Clean, usable UI</div>
                     </div>
                   </div>
                 </div>
               </div>
             </motion.div>
 
-            <div className="space-y-5 max-w-3xl">
+            {/* Main Statement */}
+            <div className="space-y-4 sm:space-y-5 max-w-3xl">
               <motion.p
                 initial={{ opacity: 0, y: 18 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="text-2xl sm:text-3xl md:text-4xl text-slate-900 font-bold leading-tight max-w-3xl"
+                className="text-xl sm:text-3xl md:text-4xl text-slate-900 font-bold leading-snug sm:leading-tight max-w-3xl"
               >
                 I build production-ready web applications, AI-assisted workflows, automation systems, and data-driven products.
               </motion.p>
@@ -143,22 +145,23 @@ export default function Hero() {
                 initial={{ opacity: 0, y: 18 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.28 }}
-                className="text-base sm:text-lg text-slate-600 max-w-2xl leading-relaxed"
+                className="text-sm sm:text-base md:text-lg text-slate-600 max-w-2xl leading-relaxed"
               >
                 Focusing on full-stack development and AI product development. My work covers frontend architecture, backend APIs, data pipelines, and integrating AI models to solve real-world problems.
               </motion.p>
             </div>
 
+            {/* Action Buttons: Responsive grid on mobile, row on desktop */}
             <motion.div
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.36 }}
-              className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3 w-full sm:w-auto"
+              className="grid grid-cols-1 sm:grid-cols-2 lg:flex lg:flex-row flex-wrap items-stretch gap-2.5 sm:gap-3 w-full sm:w-auto"
             >
               <MagneticButton className="w-full sm:w-auto">
                 <a
                   href="#work"
-                  className="w-full sm:w-auto px-6 py-4 rounded-full bg-cyan-500/10 border border-cyan-200/50 backdrop-blur-2xl shadow-[0_8px_32px_rgba(6,182,212,0.1)] font-bold text-cyan-900 hover:bg-cyan-500/20 hover:shadow-[0_8px_32px_rgba(6,182,212,0.2)] hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 text-sm sm:text-base"
+                  className="w-full sm:w-auto px-6 py-3.5 sm:py-4 rounded-full bg-cyan-500/10 border border-cyan-200/50 backdrop-blur-2xl shadow-[0_8px_32px_rgba(6,182,212,0.1)] font-bold text-cyan-900 hover:bg-cyan-500/20 hover:shadow-[0_8px_32px_rgba(6,182,212,0.2)] active:scale-98 transition-all flex items-center justify-center gap-2 text-sm sm:text-base"
                 >
                   View Projects <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
                 </a>
@@ -168,7 +171,7 @@ export default function Hero() {
                   href="https://github.com/asimsoomro112"
                   target="_blank"
                   rel="noreferrer"
-                  className="w-full sm:w-auto px-6 py-4 rounded-full bg-white/40 border border-white/60 backdrop-blur-2xl shadow-[0_8px_32px_rgba(15,23,42,0.04)] font-bold text-slate-800 hover:bg-white/70 hover:shadow-[0_8px_32px_rgba(15,23,42,0.08)] hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 text-sm sm:text-base"
+                  className="w-full sm:w-auto px-6 py-3.5 sm:py-4 rounded-full bg-white/50 border border-white/70 backdrop-blur-2xl shadow-[0_8px_32px_rgba(15,23,42,0.04)] font-bold text-slate-800 hover:bg-white/80 active:scale-98 transition-all flex items-center justify-center gap-2 text-sm sm:text-base"
                 >
                   View GitHub
                 </a>
@@ -176,7 +179,7 @@ export default function Hero() {
               <MagneticButton className="w-full sm:w-auto">
                 <a
                   href="/cv"
-                  className="w-full sm:w-auto px-6 py-4 rounded-full bg-white/40 border border-white/60 backdrop-blur-2xl shadow-[0_8px_32px_rgba(15,23,42,0.04)] font-bold text-slate-800 hover:bg-white/70 hover:shadow-[0_8px_32px_rgba(15,23,42,0.08)] hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 text-sm sm:text-base"
+                  className="w-full sm:w-auto px-6 py-3.5 sm:py-4 rounded-full bg-white/50 border border-white/70 backdrop-blur-2xl shadow-[0_8px_32px_rgba(15,23,42,0.04)] font-bold text-slate-800 hover:bg-white/80 active:scale-98 transition-all flex items-center justify-center gap-2 text-sm sm:text-base"
                 >
                   View CV
                 </a>
@@ -184,27 +187,29 @@ export default function Hero() {
               <MagneticButton className="w-full sm:w-auto">
                 <a
                   href="#contact"
-                  className="w-full sm:w-auto px-6 py-4 rounded-full bg-white/40 border border-white/60 backdrop-blur-2xl shadow-[0_8px_32px_rgba(15,23,42,0.04)] font-bold text-slate-800 hover:bg-white/70 hover:shadow-[0_8px_32px_rgba(15,23,42,0.08)] hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 text-sm sm:text-base"
+                  className="w-full sm:w-auto px-6 py-3.5 sm:py-4 rounded-full bg-white/50 border border-white/70 backdrop-blur-2xl shadow-[0_8px_32px_rgba(15,23,42,0.04)] font-bold text-slate-800 hover:bg-white/80 active:scale-98 transition-all flex items-center justify-center gap-2 text-sm sm:text-base"
                 >
                   Contact Me
                 </a>
               </MagneticButton>
             </motion.div>
 
+            {/* Proof Points */}
             <motion.div
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.44 }}
-              className="hidden sm:flex flex-wrap gap-2 pt-1"
+              className="flex flex-wrap gap-1.5 sm:gap-2 pt-1"
             >
               {proofPoints.map((item) => (
-                <span key={item} className="rounded-full border border-slate-200 bg-white/80 px-3 py-1.5 text-xs font-semibold text-slate-600">
+                <span key={item} className="rounded-full border border-slate-200 bg-white/80 px-2.5 sm:px-3 py-1 sm:py-1.5 text-[11px] sm:text-xs font-semibold text-slate-600 shadow-sm">
                   {item}
                 </span>
               ))}
             </motion.div>
           </div>
 
+          {/* Desktop Right Column - strictly unchanged */}
           <motion.div
             initial={{ opacity: 0, x: 28 }}
             animate={{ opacity: 1, x: 0 }}
