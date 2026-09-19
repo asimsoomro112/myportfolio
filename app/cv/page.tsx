@@ -40,13 +40,14 @@ const cssContent = `
     color: var(--text);
     line-height: 1.6;
     font-size: 14px;
-    padding: 40px;
+    padding: 20px;
     -webkit-font-smoothing: antialiased;
     min-height: 100vh;
+    overflow-x: auto;
 }
 
 .cv {
-    max-width: 900px;
+    width: 900px;
     margin: 0 auto;
 }
 
@@ -229,31 +230,7 @@ const cssContent = `
     color: var(--text-mid);
 }
 
-@media (max-width: 768px) {
-    .cv-page {
-        padding: 20px;
-    }
-    .header {
-        grid-template-columns: 1fr;
-        text-align: center;
-        gap: 15px;
-    }
-    .profile-img {
-        margin: 0 auto;
-        width: 120px;
-        height: 120px;
-    }
-    .header-name {
-        font-size: 2.5rem;
-    }
-    .contact-row {
-        justify-content: center;
-    }
-    .body-grid {
-        grid-template-columns: 1fr;
-        gap: 40px;
-    }
-}
+
 
 @media print {
     .cv-page {
@@ -340,6 +317,12 @@ export default function CVPage() {
     <div className="cv-page">
       <style dangerouslySetInnerHTML={{ __html: cssContent }} />
       <div className="cv">
+        <div className="no-print mb-6">
+           <button onClick={() => window.print()} className="bg-cyan-600 text-white font-bold py-3 px-8 rounded-xl shadow-lg shadow-cyan-600/20 hover:bg-cyan-700 transition-colors">
+              <i className="fa-solid fa-file-pdf mr-2"></i> Save as PDF
+           </button>
+        </div>
+
         <header className="header">
           <img src="/passport-size.png" alt="Muhammad Asim" className="profile-img" />
           <div className="header-info">
@@ -349,7 +332,7 @@ export default function CVPage() {
               <span className="c-item"><i className="fa-solid fa-envelope"></i> soomroasim77@gmail.com</span>
               <span className="c-item"><i className="fa-solid fa-phone"></i> +92 319 1278505</span>
               <span className="c-item"><i className="fa-solid fa-location-dot"></i> Karachi, Pakistan</span>
-              <span className="c-item"><i className="fa-brands fa-github"></i> github.com/muhammadasim</span>
+              <span className="c-item"><i className="fa-brands fa-github"></i> github.com/asimsoomro112</span>
             </div>
           </div>
         </header>
@@ -421,12 +404,6 @@ export default function CVPage() {
           </main>
 
           <aside className="sidebar">
-            <div className="no-print mb-8">
-               <button onClick={() => window.print()} className="w-full bg-cyan-600 text-white font-bold py-3 rounded-xl shadow-lg shadow-cyan-600/20 hover:bg-cyan-700 transition-colors">
-                  <i className="fa-solid fa-print mr-2"></i> Print / Save PDF
-               </button>
-            </div>
-
             <section className="section">
               <h2 className="sec-title"><i className="fa-solid fa-wrench"></i> Skills</h2>
               <div className="skill-group">
