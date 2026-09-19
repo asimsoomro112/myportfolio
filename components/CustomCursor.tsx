@@ -6,7 +6,6 @@ import { ArrowUpRight } from 'lucide-react';
 
 export default function CustomCursor() {
   const [isHovering, setIsHovering] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
 
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
@@ -22,35 +21,21 @@ export default function CustomCursor() {
     const moveCursor = (e: MouseEvent) => {
       cursorX.set(e.clientX);
       cursorY.set(e.clientY);
-      if (!isVisible) setIsVisible(true);
-    };
 
-    const handleMouseOver = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
-      // Look for elements with data-cursor="project" or closest parent
-      if (target.closest('[data-cursor="project"]')) {
+      if (target && target.closest && target.closest('[data-cursor="project"]')) {
         setIsHovering(true);
       } else {
         setIsHovering(false);
       }
     };
 
-    const handleMouseLeave = () => {
-      setIsVisible(false);
-    };
-
     window.addEventListener('mousemove', moveCursor);
-    window.addEventListener('mouseover', handleMouseOver);
-    window.addEventListener('mouseout', handleMouseLeave);
 
     return () => {
       window.removeEventListener('mousemove', moveCursor);
-      window.removeEventListener('mouseover', handleMouseOver);
-      window.removeEventListener('mouseout', handleMouseLeave);
     };
-  }, [cursorX, cursorY, isVisible]);
-
-  if (!isVisible && !isHovering) return null;
+  }, [cursorX, cursorY]);
 
   return (
     <motion.div
