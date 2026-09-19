@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Muhammad Asim — Professional CV</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;600&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <style>
+        :root {
+            --bg: #ffffff;
+            --surface: #f8fafc;
+            --surface2: #f1f5f9;
+            --border: #e2e8f0;
+            --border2: #cbd5e1;
+            --cyan: #0891b2;
+            --cyan-dim: rgba(8, 145, 178, 0.05);
+            --cyan-mid: rgba(8, 145, 178, 0.1);
+            --amber: #d97706;
+            --green: #16a34a;
+            --purple: #7c3aed;
+            --text: #1e293b;
+            --text-dim: #64748b;
+            --text-mid: #475569;
+            --radius: 12px;
+            --radius-sm: 8px;
+        }
+
+        /* Dark mode colors for screen, but we'll force light/clean for print */
+        @media screen {
+            body.dark-theme {
+                --bg: #070B14;
+                --surface: #0D1321;
+                --surface2: #111827;
+                --border: rgba(255, 255, 255, 0.07);
+                --border2: rgba(0, 245, 255, 0.15);
+                --cyan: #00F5FF;
+                --text: #E2E8F0;
+                --text-dim: #64748B;
+                --text-mid: #94A3B8;
+            }
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            font-size: 14px;
+            padding: 40px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .cv {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* ── HEADER ── */
+        .header {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 30px;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 30px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .profile-img {
+            width: 140px;
+            height: 140px;
+            border-radius: var(--radius);
+            object-fit: cover;
+            border: 1px solid var(--border2);
+        }
+
+        .header-name {
+            font-family: 'Syne', sans-serif;
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--text);
+            margin-bottom: 5px;
+        }
+
+        .header-name span {
+            color: var(--cyan);
+        }
+
+        .header-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            color: var(--cyan);
+            font-weight: 600;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .contact-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .c-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-mid);
+            font-size: 13px;
+            text-decoration: none;
+        }
+
+        .c-item i {
+            color: var(--cyan);
+            width: 14px;
+            text-align: center;
+        }
+
+        /* ── LAYOUT ── */
+        .body-grid {
+            display: grid;
+            grid-template-columns: 1fr 280px;
+            gap: 30px;
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .sec-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .sec-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        .sec-title i {
+            color: var(--cyan);
+            font-size: 16px;
+        }
+
+        .about-text {
+            color: var(--text-mid);
+            margin-bottom: 20px;
+        }
+
+        /* ── PROJECTS ── */
+        .project {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: var(--surface);
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+        }
+
+        .proj-name {
+            font-weight: 700;
+            font-size: 16px;
+            margin-bottom: 5px;
+            color: var(--text);
+        }
+
+        .proj-desc {
+            font-size: 13px;
+            color: var(--text-dim);
+            margin-bottom: 10px;
+        }
+
+        .tech-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+
+        .tech {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            padding: 2px 8px;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            color: var(--text-mid);
+            border-radius: 4px;
+        }
+
+        /* ── SKILLS ── */
+        .skill-group {
+            margin-bottom: 20px;
+        }
+
+        .skill-group-title {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            margin-bottom: 10px;
+        }
+
+        .skill-item {
+            font-size: 13px;
+            color: var(--text-mid);
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .skill-item::before {
+            content: '•';
+            color: var(--cyan);
+            font-weight: bold;
+        }
+
+        /* ── EDUCATION ── */
+        .edu-block {
+            margin-bottom: 15px;
+        }
+
+        .edu-deg {
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .edu-school {
+            font-size: 12px;
+            color: var(--text-mid);
+        }
+
+        /* ── PRINT OPTIMIZATION ── */
+        @media print {
+            body {
+                padding: 0;
+                background: white;
+            }
+
+            .cv {
+                max-width: 100%;
+            }
+
+            .header {
+                border-bottom: 2px solid #000;
+            }
+
+            .sec-title::after {
+                background: #000;
+            }
+
+            .project {
+                break-inside: avoid;
+                background: transparent;
+                border: 1px solid #eee;
+            }
+
+            a {
+                text-decoration: none;
+                color: inherit;
+            }
+
+            .no-print {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="cv">
+        <header class="header">
+            <img src="passport-size.png" alt="Muhammad Asim" class="profile-img">
+            <div class="header-info">
+                <h1 class="header-name">Muhammad <span>Asim</span></h1>
+                <p class="header-title">Software Engineer | Full-Stack & AI Product Development</p>
+                <div class="contact-row">
+                    <span class="c-item"><i class="fa-solid fa-envelope"></i> soomroasim77@gmail.com</span>
+                    <span class="c-item"><i class="fa-solid fa-phone"></i> +92 319 1278505</span>
+                    <span class="c-item"><i class="fa-solid fa-location-dot"></i> Karachi, Pakistan</span>
+                    <span class="c-item"><i class="fa-brands fa-github"></i> github.com/muhammadasim</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="body-grid">
+            <main>
+                <section class="section">
+                    <h2 class="sec-title"><i class="fa-solid fa-user"></i> Professional Summary</h2>
+                    <p class="about-text">
+                        Software Engineer focused on building full-stack applications, AI-assisted workflows, automation systems, and data-driven products. Expertise in frontend architecture, database management, and integrating AI (LLMs, Computer Vision) to solve real-world problems. Proven ability to deliver scalable and reliable software interfaces.
+                    </p>
+                </section>
+
+                <section class="section">
+                    <h2 class="sec-title"><i class="fa-solid fa-code"></i> Featured Projects</h2>
+
+                    <div class="project">
+                        <p class="proj-name">🤖 Blueprint AI — AI-Assisted Interface Generator</p>
+                        <p class="proj-desc">Engineered an AI-powered workflow that converts unstructured layout sketches into structured, usable Next.js website concepts using the Gemini API.</p>
+                        <div class="tech-row">
+                            <span class="tech">Gemini API</span><span class="tech">AI Workflow</span><span class="tech">Next.js</span>
+                        </div>
+                    </div>
+
+                    <div class="project">
+                        <p class="proj-name">🧬 OrthoAI — Computer Vision Workflow</p>
+                        <p class="proj-desc">Developed a data-driven Python workflow and computer vision prototype leveraging a YOLOv7 model for fracture detection in medical imagery.</p>
+                        <div class="tech-row">
+                            <span class="tech">Python</span><span class="tech">YOLOv7</span><span class="tech">Computer Vision</span>
+                        </div>
+                    </div>
+
+                    <div class="project">
+                        <p class="proj-name">🔒 Revault — Full-Stack Escrow Platform</p>
+                        <p class="proj-desc">Built a structured marketplace platform featuring separate role-based flows (admin, seller, customer) and escrow-style transaction handling logic.</p>
+                        <div class="tech-row">
+                            <span class="tech">Next.js</span><span class="tech">Role-Based UI</span><span class="tech">State Management</span>
+                        </div>
+                    </div>
+
+                    <div class="project">
+                        <p class="proj-name">📊 Restaurant Admin — Database-Backed Dashboard</p>
+                        <p class="proj-desc">Created a data management interface featuring CRUD operations, image handling, and real-time content updates backed by Firebase.</p>
+                        <div class="tech-row">
+                            <span class="tech">Firebase</span><span class="tech">Database</span><span class="tech">Admin Panel</span>
+                        </div>
+                    </div>
+
+                    <div class="project">
+                        <p class="proj-name">🌾 Rice Mill Export Platform — B2B Catalog</p>
+                        <p class="proj-desc">Engineered a sophisticated industrial portal for global rice export. Implemented dynamic B2B logic, advanced product filtering, and a premium aesthetic.</p>
+                        <div class="tech-row">
+                            <span class="tech">Next.js</span><span class="tech">Firebase</span><span class="tech">Tailwind</span>
+                        </div>
+                    </div>
+
+                    <div class="project">
+                        <p class="proj-name">📈 Aura-QX SMC Tool — Financial Dashboard</p>
+                        <p class="proj-desc">Professional market analysis interface automating Smart Money Concepts for traders with high-tech data visualization.</p>
+                        <div class="tech-row">
+                            <span class="tech">React</span><span class="tech">Realtime Logic</span><span class="tech">Data Visualization</span>
+                        </div>
+                    </div>
+
+                    <div class="project">
+                        <p class="proj-name">📺 StreamPK Live — Media Streaming Interface</p>
+                        <p class="proj-desc">Live media platform aggregating public IPTV sources into a fast, country-based browsing interface.</p>
+                        <div class="tech-row">
+                            <span class="tech">Vite</span><span class="tech">React</span><span class="tech">API Integration</span>
+                        </div>
+                    </div>
+
+                    <div class="project">
+                        <p class="proj-name">🌙 Sammar Fabrics — E-Commerce Platform</p>
+                        <p class="proj-desc">Sophisticated SPA for premium fabrics with structured product catalog, category management, and polished performance.</p>
+                        <div class="tech-row">
+                            <span class="tech">Next.js</span><span class="tech">E-Commerce</span><span class="tech">Responsive UI</span>
+                        </div>
+                    </div>
+
+                    <div class="project">
+                        <p class="proj-name">⚡ Smoke Time — Retail E-Commerce</p>
+                        <p class="proj-desc">Product-led storefront featuring inventory thinking and custom cart state management.</p>
+                        <div class="tech-row">
+                            <span class="tech">React</span><span class="tech">Cart Logic</span><span class="tech">State Management</span>
+                        </div>
+                    </div>
+
+                    <div class="project">
+                        <p class="proj-name">👕 Luxe Apparel — D2C Storefront</p>
+                        <p class="proj-desc">A clean, minimal frontend architecture optimized for product drops and fast load times.</p>
+                        <div class="tech-row">
+                            <span class="tech">Frontend</span><span class="tech">UI Engineering</span><span class="tech">Performance</span>
+                        </div>
+                    </div>
+
+                    <div class="project">
+                        <p class="proj-name">🕹️ Stickman Fighting Game — JS Logic Engine</p>
+                        <p class="proj-desc">Physics mechanics, collision detection, and complex state handling built purely in JavaScript.</p>
+                        <div class="tech-row">
+                            <span class="tech">JavaScript</span><span class="tech">Physics Logic</span><span class="tech">State Handling</span>
+                        </div>
+                    </div>
+                </section>
+            </main>
+
+            <aside class="sidebar">
+                <section class="section">
+                    <h2 class="sec-title"><i class="fa-solid fa-wrench"></i> Skills</h2>
+                    <div class="skill-group">
+                        <p class="skill-group-title">Frontend</p>
+                        <p class="skill-item">Next.js & React</p>
+                        <p class="skill-item">JavaScript (ES6+)</p>
+                        <p class="skill-item">Tailwind CSS</p>
+                        <p class="skill-item">UI/UX Design</p>
+                    </div>
+                    <div class="skill-group">
+                        <p class="skill-group-title">Backend</p>
+                        <p class="skill-item">Firebase & Firestore</p>
+                        <p class="skill-item">Python</p>
+                        <p class="skill-item">REST APIs</p>
+                        <p class="skill-item">Data Validation</p>
+                    </div>
+                    <div class="skill-group">
+                        <p class="skill-group-title">AI & Specialization</p>
+                        <p class="skill-item">Gemini API / LLMs</p>
+                        <p class="skill-item">Computer Vision</p>
+                        <p class="skill-item">AI Workflows</p>
+                        <p class="skill-item">Data Pipelines</p>
+                    </div>
+                </section>
+
+                <section class="section">
+                    <h2 class="sec-title"><i class="fa-solid fa-graduation-cap"></i> Education</h2>
+                    <div class="edu-block">
+                        <p class="edu-deg">BS Software Engineering</p>
+                        <p class="edu-school">Sir Syed University (SSUET)</p>
+                        <p class="edu-school">7th Semester — In Progress</p>
+                    </div>
+                </section>
+
+                <section class="section">
+                    <h2 class="sec-title"><i class="fa-solid fa-award"></i> Awards</h2>
+                    <div class="edu-block">
+                        <p class="edu-deg">University Competition</p>
+                        <p class="edu-school">🏆 2nd Place — SE Dept.</p>
+                        <p class="edu-school">Stickman Fighting Game</p>
+                    </div>
+                </section>
+            </aside>
+        </div>
+    </div>
+</body>
+
+</html>

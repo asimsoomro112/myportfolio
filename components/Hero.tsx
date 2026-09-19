@@ -5,10 +5,10 @@ import Image from 'next/image';
 import { useRef } from 'react';
 
 const proofPoints = [
-  'Next.js / React',
-  'Firebase / Firestore',
+  'React / Next.js',
+  'Python / APIs',
   'AI integrations',
-  'Python workflows',
+  'Database design',
 ];
 
 const projectSpectrum = [
@@ -75,11 +75,11 @@ export default function Hero() {
             >
               <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-emerald-200 bg-emerald-50 text-emerald-700 text-xs font-bold uppercase">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                Available for freelance
+                Software Engineer
               </span>
               <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-slate-200 bg-white/80 text-slate-700 text-xs font-bold uppercase">
                 <MapPin className="w-3.5 h-3.5" />
-                Karachi, PK
+                Karachi, PK (Open to Remote)
               </span>
             </motion.div>
 
@@ -135,7 +135,7 @@ export default function Hero() {
                 transition={{ duration: 0.5, delay: 0.2 }}
                 className="text-2xl sm:text-3xl md:text-4xl text-slate-900 font-bold leading-tight max-w-3xl"
               >
-                I build websites, AI tools, dashboards, marketplaces, streaming apps, and interactive web experiences.
+                I build production-ready web applications, AI-assisted workflows, automation systems, and data-driven products.
               </motion.p>
 
               <motion.p
@@ -144,7 +144,7 @@ export default function Hero() {
                 transition={{ duration: 0.5, delay: 0.28 }}
                 className="text-base sm:text-lg text-slate-600 max-w-2xl leading-relaxed"
               >
-                My work covers polished frontends, Firebase-backed systems, AI workflows, marketplace logic, product catalogs, admin panels, live media interfaces, and gameplay-style interaction logic.
+                Focusing on full-stack development and AI product development. My work covers frontend architecture, backend APIs, data pipelines, and integrating AI models to solve real-world problems.
               </motion.p>
             </div>
 
@@ -158,13 +158,28 @@ export default function Hero() {
                 href="#work"
                 className="w-full sm:w-auto px-7 py-4 bg-slate-950 text-white rounded-full font-bold hover:bg-slate-800 transition-all flex items-center justify-center gap-2 shadow-xl shadow-slate-950/15"
               >
-                View Work <ArrowRight className="w-5 h-5" />
+                View Projects <ArrowRight className="w-5 h-5" />
+              </a>
+              <a
+                href="https://github.com/asimsoomro112"
+                target="_blank"
+                rel="noreferrer"
+                className="w-full sm:w-auto px-7 py-4 glass rounded-full font-bold text-slate-800 hover:bg-white transition-all flex items-center justify-center gap-2"
+              >
+                View GitHub
+              </a>
+              <a
+                href="/Muhammad_Asim_CV.html"
+                target="_blank"
+                className="w-full sm:w-auto px-7 py-4 glass rounded-full font-bold text-slate-800 hover:bg-white transition-all flex items-center justify-center gap-2"
+              >
+                View CV
               </a>
               <a
                 href="#contact"
                 className="w-full sm:w-auto px-7 py-4 glass rounded-full font-bold text-slate-800 hover:bg-white transition-all flex items-center justify-center gap-2"
               >
-                Start a Project
+                Contact Me
               </a>
             </motion.div>
 

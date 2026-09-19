@@ -2,121 +2,147 @@
 import { motion } from 'motion/react';
 import { ArrowUpRight } from 'lucide-react';
 import Image from 'next/image';
+import { useState, useEffect } from 'react';
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from '@/lib/firebase';
 
-const projects = [
+const defaultProjects = [
   {
     title: 'Blueprint AI',
-    type: 'AI sketch-to-website tool',
-    description: 'An AI-powered tool that turns rough layout sketches and blueprint-style ideas into website interface concepts using the Gemini API.',
-    outcome: 'Helps founders and designers move from a rough idea to a usable web prototype faster.',
+    type: 'AI-Assisted Interface Generator',
+    description: 'An AI-powered workflow that converts unstructured layout sketches into structured, usable Next.js website concepts using the Gemini API.',
+    outcome: 'Automates early-stage UI generation, accelerating the transition from idea to prototype.',
     image: '/projects/BlueprintAi.png',
     aspectRatio: '1909 / 942',
-    tags: ['Gemini API', 'AI workflow', 'Web generation', 'Prototype'],
+    tags: ['Gemini API', 'AI Workflow', 'Next.js', 'LLM Integration'],
     featured: true,
   },
   {
     title: 'OrthoAI',
-    type: 'AI fracture detection prototype',
-    description: 'A computer-vision prototype for detecting possible bone fractures in X-ray imagery using a YOLOv7 model and Python-based AI workflow.',
-    outcome: 'Demonstrates applied AI model integration for medical-imaging support; built as a prototype, not a diagnostic replacement.',
+    type: 'Computer Vision & AI Workflow',
+    description: 'A data-driven Python workflow and computer vision prototype leveraging a YOLOv7 model for fracture detection in medical imagery.',
+    outcome: 'Demonstrates applied AI model integration and data processing pipelines for image analysis.',
     image: '/projects/OrthoAi.png',
     aspectRatio: '1432 / 710',
-    tags: ['YOLOv7', 'Python', 'Computer vision', 'AI'],
+    tags: ['Python', 'YOLOv7', 'Computer Vision', 'Data Processing'],
     featured: false,
   },
   {
     title: 'Revault',
-    type: 'Escrow marketplace platform',
-    description: 'A preloved-clothing marketplace with separate flows for admins, sellers, and customers, plus escrow-style transaction handling to support safer buying and selling.',
-    outcome: 'Creates trust between buyers and sellers by structuring the marketplace around managed transactions and role-based controls.',
+    type: 'Full-Stack Escrow Platform',
+    description: 'A structured marketplace platform featuring separate role-based flows (admin, seller, customer) and escrow-style transaction handling logic.',
+    outcome: 'Provides a robust, trust-driven transaction architecture and secure state management.',
     image: '/projects/Revault.png',
     aspectRatio: '1919 / 942',
-    tags: ['Next.js', 'Marketplace', 'Escrow', 'Admin'],
+    tags: ['Next.js', 'Full-Stack Architecture', 'State Management', 'Role-Based UI'],
     featured: true,
   },
   {
-    title: 'StreamPK Live',
-    type: 'Live TV streaming app',
-    description: 'A live TV platform for browsing channels from countries around the world, powered by public IPTV sources and a fast Vite React interface.',
-    outcome: 'Makes global live channels easier to discover through a lightweight country-based viewing experience.',
-    image: '/projects/StreamPkLive.png',
-    aspectRatio: '1919 / 940',
-    tags: ['Vite', 'React', 'IPTV', 'Live TV'],
+    title: 'Restaurant Admin System',
+    type: 'Database-Backed Admin Dashboard',
+    description: 'A data management interface featuring CRUD operations, image handling, and real-time content updates backed by Firebase.',
+    outcome: 'Delivers a reliable data pipeline for business owners to manage inventory and content dynamically.',
+    image: '/projects/restaurant.png',
+    aspectRatio: '1562 / 935',
+    tags: ['Firebase', 'Database', 'Admin Panel', 'RESTful Patterns'],
     featured: false,
   },
   {
     title: 'Rice Mill Export Platform',
-    type: 'B2B export website',
-    description: 'A polished product and company platform for a rice export business, designed to make product quality, categories, and inquiry paths easy to understand.',
-    outcome: 'Premium brand presence with product discovery and cart-ready structure.',
+    type: 'B2B Catalog & Inquiry System',
+    description: 'A production-ready product catalog system supporting structured categories and automated inquiry routing.',
+    outcome: 'Optimized frontend architecture with dynamic routing for a seamless B2B user experience.',
     image: '/projects/saqibricemill.png',
     aspectRatio: '1908 / 947',
-    tags: ['Next.js', 'Firebase', 'Product catalog', 'B2B'],
+    tags: ['Next.js', 'Firebase', 'Data Modeling', 'Frontend Architecture'],
     featured: true,
   },
   {
     title: 'Aura-QX SMC Tool',
-    type: 'Fintech analysis interface',
-    description: 'A market-analysis interface organized around Smart Money Concepts, with emphasis on clear data states and decision support.',
-    outcome: 'Turns complex trading logic into a more readable dashboard experience.',
+    type: 'Financial Data Dashboard',
+    description: 'A real-time logic interface that organizes complex trading data concepts into a readable dashboard for decision support.',
+    outcome: 'Focuses on complex state management and high-performance rendering of dynamic data.',
     image: '/projects/aurasmc.png',
     aspectRatio: '1349 / 948',
-    tags: ['Fintech UI', 'Dashboard', 'Logic', 'Realtime'],
+    tags: ['Dashboard', 'Data Visualization', 'React', 'Realtime Logic'],
     featured: false,
   },
   {
-    title: 'Smoke Time Storefront',
-    type: 'Lifestyle e-commerce',
-    description: 'A product-led storefront with inventory thinking, cart flow, and a distinctive visual identity for a niche retail brand.',
-    outcome: 'A memorable shop experience with practical buyer flow.',
-    image: '/projects/smoketime.png',
-    aspectRatio: '1743 / 932',
-    tags: ['React', 'Cart', 'Inventory', 'Retail'],
+    title: 'StreamPK Live',
+    type: 'Media Streaming Interface',
+    description: 'A live media platform aggregating public IPTV sources into a fast, country-based browsing interface.',
+    outcome: 'Highlights efficient data fetching and state handling in a Vite React environment.',
+    image: '/projects/StreamPkLive.png',
+    aspectRatio: '1919 / 940',
+    tags: ['Vite', 'React', 'API Integration', 'Data Fetching'],
     featured: false,
   },
   {
     title: 'Sammar Fabrics Store',
-    type: 'Luxury fabric shop',
-    description: 'A premium online catalog for unstitched fabrics with product details, structured categories, and a polished fashion-store feel.',
-    outcome: 'Makes high-value fabric products easier to browse and compare.',
+    type: 'E-Commerce Platform',
+    description: 'A structured product catalog with category management and optimized frontend performance.',
+    outcome: 'Delivers a reliable e-commerce interface with clean component architecture.',
     image: '/projects/sammarfabrics.png',
     aspectRatio: '1901 / 932',
-    tags: ['E-commerce', 'Catalog', 'Luxury UI', 'Products'],
+    tags: ['E-Commerce', 'Frontend', 'React', 'Responsive UI'],
     featured: true,
   },
   {
-    title: 'Luxe Apparel',
-    type: 'Minimal D2C storefront',
-    description: 'A clean apparel storefront focused on product drops, fabric details, and a focused shopping experience.',
-    outcome: 'Minimal interface that keeps attention on product quality.',
-    image: '/projects/luxeapparel.png',
-    aspectRatio: '1912 / 908',
-    tags: ['D2C', 'Product pages', 'Responsive UI'],
+    title: 'Smoke Time Storefront',
+    type: 'Retail E-Commerce',
+    description: 'A product-led storefront featuring inventory thinking and custom cart state management.',
+    outcome: 'Demonstrates scalable component design and shopping cart data flow.',
+    image: '/projects/smoketime.png',
+    aspectRatio: '1743 / 932',
+    tags: ['React', 'Cart Logic', 'State Management'],
     featured: false,
   },
   {
-    title: 'Restaurant Admin System',
-    type: 'Business admin panel',
-    description: 'A ready-made restaurant management interface for menu updates, images, and Firebase-backed content changes.',
-    outcome: 'Gives owners a practical way to manage menu content without developer help.',
-    image: '/projects/restaurant.png',
-    aspectRatio: '1562 / 935',
-    tags: ['Firebase', 'Admin panel', 'CRUD', 'Realtime'],
+    title: 'Luxe Apparel',
+    type: 'D2C Storefront',
+    description: 'A clean, minimal frontend architecture optimized for product drops and fast load times.',
+    outcome: 'Prioritizes UI/UX precision and responsive design systems.',
+    image: '/projects/luxeapparel.png',
+    aspectRatio: '1912 / 908',
+    tags: ['Frontend', 'UI Engineering', 'Performance'],
     featured: false,
   },
   {
     title: 'Stickman Fighting Game',
-    type: 'Game logic project',
-    description: 'A physics-based university game project focused on movement, collision logic, game state, and playable mechanics.',
-    outcome: 'Placed 2nd in a university project competition.',
+    type: 'JavaScript Logic Engine',
+    description: 'A university project exploring physics mechanics, collision detection, and complex state handling in JavaScript.',
+    outcome: 'Solidified foundational understanding of JavaScript execution and game loops.',
     image: '/projects/stickman.png',
     aspectRatio: '686 / 378',
-    tags: ['Game logic', 'Physics', 'JavaScript'],
+    tags: ['JavaScript', 'Physics Logic', 'State Handling'],
     featured: false,
-  },
+  }
 ];
 
 export default function Projects() {
+  const [projects, setProjects] = useState(defaultProjects);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, 'projects'));
+        const data: any[] = [];
+        querySnapshot.forEach((doc) => {
+          data.push({ id: doc.id, ...doc.data() });
+        });
+        if (data.length > 0) {
+          setProjects(data);
+        }
+      } catch (error) {
+        console.error('Error fetching projects from Firebase. Falling back to default data.', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchProjects();
+  }, []);
+
   return (
     <section id="work" className="py-16 md:py-24 relative z-10 scroll-mt-24 md:scroll-mt-28">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12">

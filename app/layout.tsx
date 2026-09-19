@@ -13,8 +13,8 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: 'Muhammad Asim | Software Engineer',
-  description: 'Software Engineer building e-commerce storefronts, dashboards, AI tools, and business web apps from Karachi.',
+  title: 'Muhammad Asim Soomro | Software Engineer | Full-Stack & AI',
+  description: 'Software Engineer building full-stack applications, AI-assisted workflows, automation systems, and data-driven products.',
 };
 
 export default function RootLayout({children}: {children: React.ReactNode}) {

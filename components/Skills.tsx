@@ -4,40 +4,28 @@ import { BrainCircuit, Database, LayoutDashboard, MonitorPlay, ShoppingBag, Work
 
 const services = [
   {
-    title: 'Websites & Storefronts',
-    icon: ShoppingBag,
-    text: 'Responsive websites, landing pages, product catalogs, carts, filtering, and polished frontend experiences.',
-    tools: ['Next.js', 'React', 'Tailwind CSS'],
-  },
-  {
-    title: 'AI Tools & Automation',
-    icon: BrainCircuit,
-    text: 'Gemini API workflows, AI-assisted generation, Python model integration, and computer-vision prototypes.',
-    tools: ['Gemini API', 'Python', 'YOLOv7'],
-  },
-  {
-    title: 'Admin Dashboards',
+    title: 'Frontend Architecture',
     icon: LayoutDashboard,
-    text: 'Internal panels for managing products, menus, images, orders, users, content, and app data.',
-    tools: ['Firebase', 'CRUD flows', 'Role-ready structure'],
+    text: 'Building responsive, accessible, and performant user interfaces with modern web standards.',
+    tools: ['React', 'Next.js', 'Tailwind CSS', 'Responsive UI'],
   },
   {
-    title: 'Data-backed Systems',
+    title: 'Backend & Data',
     icon: Database,
-    text: 'Firestore data models, real-time updates, forms, file/image flows, and lightweight APIs.',
-    tools: ['Firestore', 'Auth-ready', 'Serverless'],
+    text: 'Designing database schemas, building REST APIs, and managing serverless data workflows.',
+    tools: ['Python', 'Firebase / Firestore', 'REST APIs', 'Data Validation'],
   },
   {
-    title: 'Marketplaces & Workflows',
+    title: 'AI & Automation',
+    icon: BrainCircuit,
+    text: 'Integrating LLMs, prompt engineering, computer vision models, and building automated data pipelines.',
+    tools: ['Gemini API', 'AI Workflows', 'Computer Vision'],
+  },
+  {
+    title: 'Product Engineering',
     icon: Workflow,
-    text: 'Multi-role flows for admins, sellers, customers, escrow-style buying, and structured transactions.',
-    tools: ['Marketplace logic', 'Escrow flow', 'Role-based UI'],
-  },
-  {
-    title: 'Media & Interactive Apps',
-    icon: MonitorPlay,
-    text: 'Live TV browsing, IPTV-based interfaces, interactive states, game logic, and custom UI behavior.',
-    tools: ['Vite', 'React', 'Game logic'],
+    text: 'Translating business requirements into technical architecture with full-stack ownership.',
+    tools: ['Git / GitHub', 'System Architecture', 'Lifecycle Management'],
   },
 ];
 
@@ -46,16 +34,16 @@ export default function Skills() {
     <section id="skills" className="py-16 md:py-24 relative z-10 w-full overflow-hidden scroll-mt-24 md:scroll-mt-28">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12">
         <div className="mb-10 md:mb-14 max-w-3xl">
-          <p className="text-sm font-bold uppercase text-cyan-700">Capabilities</p>
+          <p className="text-sm font-bold uppercase text-cyan-700">Engineering Capabilities</p>
           <h2 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-heading font-bold text-slate-950">
-            Practical engineering across websites, AI tools, marketplaces, dashboards, and media apps.
+            Practical engineering across frontend, backend, data, and AI systems.
           </h2>
           <p className="mt-5 text-base sm:text-lg text-slate-600 leading-relaxed">
-            The work is focused on useful software: clear frontend, reliable data flow, responsive layouts, and custom logic that supports the exact project.
+            Focused on building robust software: clean component architecture, reliable data flow, secure APIs, and integrating AI to solve actual problems.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-4 md:gap-6">
+        <div className="grid md:grid-cols-2 gap-4 md:gap-6 mb-16">
           {services.map((service, index) => (
             <motion.div
               key={service.title}
@@ -84,6 +72,43 @@ export default function Skills() {
               </div>
             </motion.div>
           ))}
+        </div>
+
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start mt-12">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="glass-panel p-6 sm:p-8 rounded-3xl"
+          >
+            <h3 className="text-2xl font-heading font-bold text-slate-950 mb-6">How I Build</h3>
+            <div className="flex flex-col space-y-4 relative">
+              <div className="absolute left-3.5 top-2 bottom-2 w-0.5 bg-slate-200"></div>
+              {['Idea & Requirements', 'Architecture & Data Modeling', 'Frontend + Backend APIs', 'AI & Automation Integration', 'Validation & Testing', 'Deployment'].map((step, i) => (
+                <div key={step} className="flex items-center gap-4 relative z-10">
+                  <div className="w-7 h-7 rounded-full bg-slate-950 text-white flex items-center justify-center text-xs font-bold shrink-0 shadow-sm border-2 border-white">
+                    {i + 1}
+                  </div>
+                  <span className="font-semibold text-slate-700">{step}</span>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="glass-panel p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-cyan-50/50 to-emerald-50/50"
+          >
+            <div className="w-12 h-12 rounded-2xl bg-cyan-100 text-cyan-700 flex items-center justify-center mb-5">
+              <BrainCircuit className="w-6 h-6" />
+            </div>
+            <h3 className="text-2xl font-heading font-bold text-slate-950 mb-3">AI-Assisted Engineering</h3>
+            <p className="text-slate-600 leading-relaxed">
+              I use modern AI tools and assistants as part of my development workflow to accelerate exploration, scaffolding, debugging, refactoring, and documentation. AI serves as an engineering productivity tool, while I maintain full ownership over architecture, validation, and engineering judgment.
+            </p>
+          </motion.div>
         </div>
       </div>
     </section>
