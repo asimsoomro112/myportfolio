@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
+import Logo from './Logo';
 
 export default function SplashScreen() {
   const [isLoading, setIsLoading] = useState(true);
@@ -65,14 +66,8 @@ export default function SplashScreen() {
               {/* Liquid Glass Card */}
               <div className="absolute inset-0 bg-white/20 backdrop-blur-2xl border border-white/50 rounded-3xl shadow-[0_8px_32px_rgba(0,0,0,0.1)] flex items-center justify-center overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent pointer-events-none" />
-                <motion.span 
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.3, duration: 1 }}
-                  className="text-4xl sm:text-5xl font-heading font-black text-slate-800 tracking-tighter"
-                >
-                  MA
-                </motion.span>
+                <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/20 to-transparent -translate-x-full animate-[shimmer_2.5s_infinite]" />
+                <Logo className="w-14 h-14 sm:w-16 sm:h-16" />
               </div>
             </div>
 

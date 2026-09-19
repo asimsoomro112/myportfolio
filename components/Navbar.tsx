@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Menu, X } from 'lucide-react';
+import Logo from './Logo';
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -28,9 +29,7 @@ export default function Navbar() {
         <div className="max-w-7xl mx-auto px-3 sm:px-6 md:px-12">
           <div className="relative flex items-center justify-between rounded-3xl border border-white/70 bg-white/58 px-3 py-2 shadow-[0_18px_60px_rgba(15,23,42,0.12)] backdrop-blur-2xl supports-[backdrop-filter]:bg-white/48 md:px-4">
           <a href="#hero" className="flex-shrink-0 flex items-center gap-2 font-heading font-bold text-2xl text-slate-950">
-            <span className="w-9 h-9 rounded-xl bg-slate-950 flex items-center justify-center text-white shadow-lg shadow-slate-950/15">
-              M
-            </span>
+            <Logo className="w-9 h-9 drop-shadow-md" />
             <span>Asim<span className="text-cyan-600">.</span></span>
           </a>
 
