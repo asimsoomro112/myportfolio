@@ -21,6 +21,153 @@ type Project = {
   images?: string[];
 };
 
+type Experience = {
+  id?: string;
+  role: string;
+  company: string;
+  duration: string;
+  description: string;
+};
+
+const defaultProjectsData = [
+  {
+    title: 'Blueprint AI',
+    type: 'AI-Assisted Interface Generator',
+    description: 'An AI-powered workflow that converts unstructured layout sketches into structured, usable Next.js website concepts using the Gemini API.',
+    outcome: 'Automates early-stage UI generation, accelerating the transition from idea to prototype.',
+    image: '/projects/BlueprintAi.png',
+    images: ['/projects/BlueprintAi.png'],
+    aspectRatio: '1909 / 942',
+    tags: ['Gemini API', 'AI Workflow', 'Next.js', 'LLM Integration'],
+    featured: true,
+  },
+  {
+    title: 'OrthoAI',
+    type: 'Computer Vision & AI Workflow',
+    description: 'A data-driven Python workflow and computer vision prototype leveraging a YOLOv7 model for fracture detection in medical imagery.',
+    outcome: 'Demonstrates applied AI model integration and data processing pipelines for image analysis.',
+    image: '/projects/OrthoAi.png',
+    images: ['/projects/OrthoAi.png'],
+    aspectRatio: '1432 / 710',
+    tags: ['Python', 'YOLOv7', 'Computer Vision', 'Data Processing'],
+    featured: false,
+  },
+  {
+    title: 'Revault',
+    type: 'Full-Stack Escrow Platform',
+    description: 'A structured marketplace platform featuring separate role-based flows (admin, seller, customer) and escrow-style transaction handling logic.',
+    outcome: 'Provides a robust, trust-driven transaction architecture and secure state management.',
+    image: '/projects/Revault.png',
+    images: ['/projects/Revault.png'],
+    aspectRatio: '1919 / 942',
+    tags: ['Next.js', 'Full-Stack Architecture', 'State Management', 'Role-Based UI'],
+    featured: true,
+  },
+  {
+    title: 'Restaurant Admin System',
+    type: 'Database-Backed Admin Dashboard',
+    description: 'A data management interface featuring CRUD operations, image handling, and real-time content updates backed by Firebase.',
+    outcome: 'Delivers a reliable data pipeline for business owners to manage inventory and content dynamically.',
+    image: '/projects/restaurant.png',
+    images: ['/projects/restaurant.png'],
+    aspectRatio: '1562 / 935',
+    tags: ['Firebase', 'Database', 'Admin Panel', 'RESTful Patterns'],
+    featured: false,
+  },
+  {
+    title: 'Rice Mill Export Platform',
+    type: 'B2B Catalog & Inquiry System',
+    description: 'A production-ready product catalog system supporting structured categories and automated inquiry routing.',
+    outcome: 'Optimized frontend architecture with dynamic routing for a seamless B2B user experience.',
+    image: '/projects/saqibricemill.png',
+    images: ['/projects/saqibricemill.png'],
+    aspectRatio: '1908 / 947',
+    tags: ['Next.js', 'Firebase', 'Data Modeling', 'Frontend Architecture'],
+    featured: true,
+  },
+  {
+    title: 'Aura-QX SMC Tool',
+    type: 'Financial Data Dashboard',
+    description: 'A real-time logic interface that organizes complex trading data concepts into a readable dashboard for decision support.',
+    outcome: 'Focuses on complex state management and high-performance rendering of dynamic data.',
+    image: '/projects/aurasmc.png',
+    images: ['/projects/aurasmc.png'],
+    aspectRatio: '1349 / 948',
+    tags: ['Dashboard', 'Data Visualization', 'React', 'Realtime Logic'],
+    featured: false,
+  },
+  {
+    title: 'StreamPK Live',
+    type: 'Media Streaming Interface',
+    description: 'A live media platform aggregating public IPTV sources into a fast, country-based browsing interface.',
+    outcome: 'Highlights efficient data fetching and state handling in a Vite React environment.',
+    image: '/projects/StreamPkLive.png',
+    images: ['/projects/StreamPkLive.png'],
+    aspectRatio: '1919 / 940',
+    tags: ['Vite', 'React', 'API Integration', 'Data Fetching'],
+    featured: false,
+  },
+  {
+    title: 'Sammar Fabrics Store',
+    type: 'E-Commerce Platform',
+    description: 'A structured product catalog with category management and optimized frontend performance.',
+    outcome: 'Delivers a reliable e-commerce interface with clean component architecture.',
+    image: '/projects/sammarfabrics.png',
+    images: ['/projects/sammarfabrics.png'],
+    aspectRatio: '1901 / 932',
+    tags: ['E-Commerce', 'Frontend', 'React', 'Responsive UI'],
+    featured: true,
+  },
+  {
+    title: 'Smoke Time Storefront',
+    type: 'Retail E-Commerce',
+    description: 'A product-led storefront featuring inventory thinking and custom cart state management.',
+    outcome: 'Demonstrates scalable component design and shopping cart data flow.',
+    image: '/projects/smoketime.png',
+    images: ['/projects/smoketime.png'],
+    aspectRatio: '1743 / 932',
+    tags: ['React', 'Cart Logic', 'State Management'],
+    featured: false,
+  },
+  {
+    title: 'Luxe Apparel',
+    type: 'D2C Storefront',
+    description: 'A clean, minimal frontend architecture optimized for product drops and fast load times.',
+    outcome: 'Prioritizes UI/UX precision and responsive design systems.',
+    image: '/projects/luxeapparel.png',
+    images: ['/projects/luxeapparel.png'],
+    aspectRatio: '1912 / 908',
+    tags: ['Frontend', 'UI Engineering', 'Performance'],
+    featured: false,
+  },
+  {
+    title: 'Stickman Fighting Game',
+    type: 'JavaScript Logic Engine',
+    description: 'A university project exploring physics mechanics, collision detection, and complex state handling in JavaScript.',
+    outcome: 'Solidified foundational understanding of JavaScript execution and game loops.',
+    image: '/projects/stickman.png',
+    images: ['/projects/stickman.png'],
+    aspectRatio: '686 / 378',
+    tags: ['JavaScript', 'Physics Logic', 'State Handling'],
+    featured: false,
+  }
+];
+
+const defaultExperienceData = [
+  {
+    role: "Full-Stack Engineer, AI-Assisted Product Development",
+    company: "Freelance / Personal Projects",
+    duration: "2023 - Present",
+    description: "Architected and built full-stack applications (Next.js, Firebase, React) integrating AI workflows (Gemini API) and computer vision models (YOLOv7). Developed secure escrow platforms, data-driven dashboards, and robust e-commerce solutions with a strong focus on UI/UX, backend integration, and state management."
+  },
+  {
+    role: "Frontend Developer",
+    company: "Various Clients",
+    duration: "2022 - 2023",
+    description: "Delivered responsive, high-performance web applications using React and Next.js. Engineered optimized product catalogs, media streaming interfaces, and B2B inquiry routing systems, prioritizing clean component architecture and fast load times."
+  }
+];
+
 export default function AdminDashboard() {
   const [user, setUser] = useState<any>(null);
   const [loadingAuth, setLoadingAuth] = useState(true);
@@ -44,6 +191,17 @@ export default function AdminDashboard() {
   const [imageFiles, setImageFiles] = useState<File[]>([]);
   const [uploading, setUploading] = useState(false);
 
+  // Experience State
+  const [experiences, setExperiences] = useState<Experience[]>([]);
+  const [isExpEditing, setIsExpEditing] = useState(false);
+  const [expEditingId, setExpEditingId] = useState<string | null>(null);
+  const [expFormData, setExpFormData] = useState<Experience>({
+    role: '', company: '', duration: '', description: ''
+  });
+  
+  // Seeding state
+  const [seeding, setSeeding] = useState(false);
+
   const router = useRouter();
 
   useEffect(() => {
@@ -53,6 +211,7 @@ export default function AdminDashboard() {
       } else {
         setUser(currentUser);
         fetchProjects();
+        fetchExperiences();
         fetchMessages();
       }
       setLoadingAuth(false);
@@ -73,6 +232,19 @@ export default function AdminDashboard() {
       console.error("Error fetching projects:", error);
     } finally {
       setLoadingData(false);
+    }
+  };
+
+  const fetchExperiences = async () => {
+    try {
+      const querySnapshot = await getDocs(collection(db, "experience"));
+      const data: Experience[] = [];
+      querySnapshot.forEach((doc) => {
+        data.push({ id: doc.id, ...doc.data() } as Experience);
+      });
+      setExperiences(data);
+    } catch (error) {
+      console.error("Error fetching experiences:", error);
     }
   };
 
@@ -183,6 +355,59 @@ export default function AdminDashboard() {
     }
   };
 
+  const handleSeedData = async () => {
+    if (!confirm('This will upload all default projects and experiences to your live database. Proceed?')) return;
+    setSeeding(true);
+    try {
+      for (const proj of defaultProjectsData) {
+        await addDoc(collection(db, "projects"), proj);
+      }
+      for (const exp of defaultExperienceData) {
+        await addDoc(collection(db, "experience"), exp);
+      }
+      alert('Default data seeded successfully!');
+      fetchProjects();
+      fetchExperiences();
+    } catch (error) {
+      console.error('Error seeding data:', error);
+      alert('Failed to seed data.');
+    } finally {
+      setSeeding(false);
+    }
+  };
+
+  const handleExpEdit = (exp: Experience) => {
+    setIsExpEditing(true);
+    setExpEditingId(exp.id!);
+    setExpFormData(exp);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleExpDelete = async (id: string) => {
+    if (confirm('Are you sure you want to delete this experience?')) {
+      await deleteDoc(doc(db, "experience", id));
+      fetchExperiences();
+    }
+  };
+
+  const handleExpSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      if (isExpEditing && expEditingId) {
+        await updateDoc(doc(db, "experience", expEditingId), expFormData as any);
+      } else {
+        await addDoc(collection(db, "experience"), expFormData);
+      }
+      setIsExpEditing(false);
+      setExpEditingId(null);
+      setExpFormData({ role: '', company: '', duration: '', description: '' });
+      fetchExperiences();
+    } catch (error) {
+      console.error("Error saving experience:", error);
+      alert('Error saving experience.');
+    }
+  };
+
   if (loadingAuth) {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
@@ -193,11 +418,21 @@ export default function AdminDashboard() {
 
   return (
     <div>
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
-        <h1 className="text-3xl font-heading font-bold text-slate-950">Dashboard</h1>
-        <button onClick={handleLogout} className="flex items-center gap-2 px-4 py-2 bg-slate-200 hover:bg-slate-300 text-slate-800 rounded-lg font-semibold transition-colors">
-          <LogOut className="w-4 h-4" /> Logout
-        </button>
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
+        <div>
+          <h1 className="text-3xl font-bold font-heading text-slate-900">Dashboard</h1>
+          <p className="text-slate-500 font-medium">Welcome back, {user?.email}</p>
+        </div>
+        <div className="flex gap-2">
+          {projects.length === 0 && (
+            <button onClick={handleSeedData} disabled={seeding} className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 px-4 rounded-xl shadow-sm transition-colors flex items-center gap-2">
+              {seeding ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Seed Default Data'}
+            </button>
+          )}
+          <button onClick={handleLogout} className="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-2 px-4 rounded-xl shadow-sm transition-colors flex items-center gap-2">
+            <LogOut className="w-4 h-4" /> Sign Out
+          </button>
+        </div>
       </div>
 
       <div className="flex gap-4 mb-8 border-b border-slate-200">
@@ -341,9 +576,68 @@ export default function AdminDashboard() {
       )}
 
       {activeTab === 'experience' && (
-        <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-8 text-center min-h-[300px] flex flex-col items-center justify-center">
-          <p className="text-slate-500 mb-4">Experience management interface would go here.</p>
-          <p className="text-sm text-slate-400">Once Firebase is configured, we can set up the same CRUD flow for experiences and build a frontend component for it.</p>
+        <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 sm:p-8">
+          <h2 className="text-xl sm:text-2xl font-bold mb-6 text-slate-900">{isExpEditing ? 'Edit Experience' : 'Add New Experience'}</h2>
+          
+          <form onSubmit={handleExpSubmit} className="space-y-5">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div>
+                <label className="block text-xs font-bold text-slate-700 mb-1">Role</label>
+                <input type="text" required value={expFormData.role} onChange={e => setExpFormData({...expFormData, role: e.target.value})} className="w-full px-3 py-2 rounded-lg border border-slate-200 focus:border-cyan-500 outline-none transition-colors" placeholder="e.g. Frontend Engineer" />
+              </div>
+              <div>
+                <label className="block text-xs font-bold text-slate-700 mb-1">Company</label>
+                <input type="text" required value={expFormData.company} onChange={e => setExpFormData({...expFormData, company: e.target.value})} className="w-full px-3 py-2 rounded-lg border border-slate-200 focus:border-cyan-500 outline-none transition-colors" placeholder="e.g. Google" />
+              </div>
+              <div>
+                <label className="block text-xs font-bold text-slate-700 mb-1">Duration</label>
+                <input type="text" required value={expFormData.duration} onChange={e => setExpFormData({...expFormData, duration: e.target.value})} className="w-full px-3 py-2 rounded-lg border border-slate-200 focus:border-cyan-500 outline-none transition-colors" placeholder="e.g. 2021 - Present" />
+              </div>
+            </div>
+            
+            <div>
+              <label className="block text-xs font-bold text-slate-700 mb-1">Description</label>
+              <textarea rows={4} required value={expFormData.description} onChange={e => setExpFormData({...expFormData, description: e.target.value})} className="w-full px-3 py-2 rounded-lg border border-slate-200 focus:border-cyan-500 outline-none transition-colors resize-none" placeholder="What did you do?" />
+            </div>
+
+            <div className="pt-2 flex gap-2">
+              <button type="submit" className="flex-1 bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-2 px-4 rounded-lg transition-colors flex justify-center items-center gap-2">
+                {isExpEditing ? 'Update Experience' : <><Plus className="w-4 h-4" /> Add Experience</>}
+              </button>
+              {isExpEditing && (
+                <button type="button" onClick={() => { setIsExpEditing(false); setExpEditingId(null); setExpFormData({ role: '', company: '', duration: '', description: '' }); }} className="px-4 py-2 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold rounded-lg transition-colors">
+                  Cancel
+                </button>
+              )}
+            </div>
+          </form>
+
+          <hr className="my-10 border-slate-100" />
+          
+          <h2 className="text-xl sm:text-2xl font-bold mb-6 text-slate-900">Current Experiences</h2>
+          <div className="space-y-4">
+            {experiences.map((exp) => (
+              <div key={exp.id} className="p-4 border border-slate-200 rounded-xl bg-slate-50 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div>
+                  <h3 className="font-bold text-slate-900 text-lg">{exp.role}</h3>
+                  <p className="text-sm text-cyan-700 font-semibold">{exp.company} • {exp.duration}</p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <button onClick={() => handleExpEdit(exp)} className="p-2 text-slate-500 hover:text-cyan-600 bg-white border border-slate-200 hover:border-cyan-200 rounded-lg transition-colors">
+                    <Edit2 className="w-4 h-4" />
+                  </button>
+                  <button onClick={() => handleExpDelete(exp.id!)} className="p-2 text-slate-500 hover:text-red-600 bg-white border border-slate-200 hover:border-red-200 rounded-lg transition-colors">
+                    <Trash2 className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
+            ))}
+            {experiences.length === 0 && !loadingData && (
+              <div className="text-center py-8 text-slate-500 bg-slate-50 rounded-xl border border-dashed border-slate-300">
+                <p>No experiences found.</p>
+              </div>
+            )}
+          </div>
         </div>
       )}
 
