@@ -91,38 +91,38 @@ export default function Hero() {
               style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
               className="relative w-full max-w-[620px]"
             >
-              <div className="glass-panel rounded-3xl p-4 sm:p-5 lg:p-6 flex items-center gap-4 sm:gap-6">
-                <div className="relative w-24 h-24 sm:w-32 sm:h-32 lg:w-40 lg:h-40 flex-shrink-0 overflow-hidden rounded-2xl border border-white bg-slate-100 shadow-md shadow-slate-900/5">
+              <div className="glass-panel rounded-3xl p-6 sm:p-8 flex flex-col items-center text-center gap-5 w-full max-w-sm mx-auto sm:mx-0">
+                <div className="relative w-36 h-36 sm:w-48 sm:h-48 flex-shrink-0 overflow-hidden rounded-[2rem] border-[3px] border-white/60 bg-slate-100 shadow-xl shadow-slate-900/5">
                   <Image
                     src="/passport-size.png"
                     alt="Muhammad Asim"
                     fill
-                    sizes="(min-width: 1024px) 160px, (min-width: 640px) 128px, 96px"
+                    sizes="(min-width: 640px) 192px, 144px"
                     priority
                     className="object-cover"
                   />
                 </div>
 
-                <div className="min-w-0 flex-1">
-                  <h1 className="whitespace-nowrap text-xl sm:text-3xl lg:text-4xl font-heading font-bold text-slate-950">
+                <div className="min-w-0 w-full flex flex-col items-center">
+                  <h1 className="whitespace-nowrap text-3xl sm:text-4xl font-heading font-bold text-slate-950">
                     Muhammad Asim
                   </h1>
-                  <p className="mt-0.5 sm:mt-1 text-sm sm:text-lg lg:text-xl font-semibold text-slate-700">Software Engineer</p>
+                  <p className="mt-1 text-base sm:text-lg font-semibold text-slate-600">Software Engineer</p>
 
-                  <div className="mt-3 sm:mt-5 grid grid-cols-2 gap-2 sm:gap-3 text-xs w-full">
-                    <div className="rounded-2xl bg-slate-50 border border-slate-200 p-2.5 sm:p-3">
-                      <div className="flex items-center gap-1.5 text-slate-500">
-                        <Code2 className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+                  <div className="mt-5 grid grid-cols-2 gap-3 w-full text-xs">
+                    <div className="rounded-2xl bg-slate-50/80 border border-slate-200/60 p-3 flex flex-col items-center">
+                      <div className="flex items-center gap-1.5 text-slate-500 mb-1">
+                        <Code2 className="w-3.5 h-3.5" />
                         Focus
                       </div>
-                      <div className="mt-1 font-bold text-slate-900 leading-tight">Full-stack products</div>
+                      <div className="font-bold text-slate-900 leading-tight">Full-stack products</div>
                     </div>
-                    <div className="rounded-2xl bg-cyan-50 border border-cyan-100 p-2.5 sm:p-3">
-                      <div className="flex items-center gap-1.5 text-cyan-700">
-                        <Sparkles className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+                    <div className="rounded-2xl bg-cyan-50/80 border border-cyan-100/60 p-3 flex flex-col items-center">
+                      <div className="flex items-center gap-1.5 text-cyan-700 mb-1">
+                        <Sparkles className="w-3.5 h-3.5" />
                         Delivery
                       </div>
-                      <div className="mt-1 font-bold text-slate-900 leading-tight">Clean, usable UI</div>
+                      <div className="font-bold text-slate-900 leading-tight">Clean, usable UI</div>
                     </div>
                   </div>
                 </div>
