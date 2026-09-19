@@ -263,6 +263,10 @@ const cssContent = `
     .cv {
         max-width: 100%;
     }
+    .body-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
     .header {
         border-bottom: 2px solid #000;
     }
