@@ -175,8 +175,7 @@ export default function Hero() {
               </MagneticButton>
               <MagneticButton className="w-full sm:w-auto">
                 <a
-                  href="/Muhammad_Asim_CV.html"
-                  target="_blank"
+                  href="/cv"
                   className="w-full sm:w-auto px-6 py-4 rounded-full bg-white/40 border border-white/60 backdrop-blur-2xl shadow-[0_8px_32px_rgba(15,23,42,0.04)] font-bold text-slate-800 hover:bg-white/70 hover:shadow-[0_8px_32px_rgba(15,23,42,0.08)] hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 text-sm sm:text-base"
                 >
                   View CV
